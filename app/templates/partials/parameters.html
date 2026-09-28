@@ -1,0 +1,7 @@
+<div id="model-metadata" class="metadata-strip"></div>
+<section id="model-specific-parameters" class="panel"></section>
+<div class="charts-grid">
+  <section class="panel"><div class="section-heading"><h2 id="start-title">初始状态 π</h2><button class="outline small" data-export="start-chart">导出 PNG</button></div><div class="chart" id="start-chart"></div></section>
+  <section class="panel"><div class="section-heading"><h2 id="transition-title">状态转移 A</h2><button class="outline small" data-export="transition-chart">导出 PNG</button></div><div class="chart" id="transition-chart"></div></section>
+</div>
+<section class="panel emission-panel"><div class="section-heading"><h2 id="emission-title">发射概率 B · Top-K</h2><div class="header-controls" id="emission-controls"><label for="emission-state">状态</label><select id="emission-state"><option>B</option><option>M</option><option>E</option><option>S</option></select><label for="topk">Top-K</label><select id="topk"><option>10</option><option selected>20</option><option>50</option></select><button class="outline small" data-export="emission-chart">导出 PNG</button></div></div><div class="chart emission-chart" id="emission-chart"></div><p id="unknown-info" class="muted"></p></section>

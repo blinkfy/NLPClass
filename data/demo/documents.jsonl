@@ -1,0 +1,3 @@
+{"id":"DEMO1","text":"商品和服务","source_type":"synthetic","primary_label":"economy","secondary_labels":[],"source_title":"合成测试句","source_url":"demo://toy/1","is_demo":true}
+{"id":"DEMO2","text":"自然语言处理课程","source_type":"synthetic","primary_label":"education","secondary_labels":[],"source_title":"合成测试句","source_url":"demo://toy/2","is_demo":true}
+

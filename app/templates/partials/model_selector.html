@@ -1,0 +1,6 @@
+<label for="segmentation-model">{{ '模型' if model_only else '分词模型' }}</label>
+<select id="segmentation-model">
+{% if neural_only %}<option value="bilstm-crf">BiLSTM-CRF</option>
+{% elif model_only %}<option value="hmm1-smooth">HMM-1 Smooth</option><option value="hmm2-smooth">HMM-2 Smooth</option>
+{% else %}<option value="hmm1-smooth">HMM-1 Smooth（默认）</option><option value="longest">Longest Matching</option><option value="bigram">Bigram</option><option value="hmm2-smooth">HMM-2 Smooth</option><option value="bilstm-crf">BiLSTM-CRF</option>{% endif %}
+</select>

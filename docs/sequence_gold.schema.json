@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NLPLab Sequence Gold Sample",
+  "type": "object",
+  "required": [
+    "sample_id",
+    "doc_id",
+    "text",
+    "source_start",
+    "source_end"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "pattern": "^SEQ[0-9]{5,}$"
+    },
+    "doc_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_start": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_end": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "primary_label": {
+      "type": "string"
+    },
+    "source_type": {
+      "enum": [
+        "news",
+        "blog",
+        "comment",
+        "fiction"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "in_progress",
+        "done",
+        "reviewed"
+      ]
+    },
+    "gold_tokens": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "entities": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "text",
+              "type",
+              "start",
+              "end"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "enum": [
+                  "PER",
+                  "LOC",
+                  "ORG"
+                ]
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    "revision_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "notes": {
+      "type": "string"
+    },
+    "selection_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

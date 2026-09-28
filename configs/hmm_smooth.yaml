@@ -1,0 +1,7 @@
+# 增强模型：仅对合法 BMES 初始/转移及发射词表作 Add-alpha 平滑。
+smoothing: add_alpha
+alpha: 0.1
+unknown_strategy: unk_bucket
+seed: 42
+dev_ratio: 0.1
+emission_topk: 20

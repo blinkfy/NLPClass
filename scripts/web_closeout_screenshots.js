@@ -1,0 +1,53 @@
+async (page) => {
+  const out='F:/projects/NLPClass/outputs/exp1/final_report_assets/20260927_010652/screenshots/';
+  const errors=[], checks=[];
+  page.on('pageerror',e=>errors.push(String(e)));
+  page.on('console',m=>{if(m.type()==='error') errors.push(m.text());});
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth);
+  checks.push({bilstm_narrow_no_overflow:true});
+  await page.screenshot({path:out+'mobile-bilstm-crf.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:1000});
+  await page.locator('#segmentation-model').selectOption('hmm2-smooth');
+  await page.locator('#input-text').fill('商品🙂和服务');
+  await page.locator('#analyze-button').click();
+  await page.waitForFunction(()=>!document.querySelector('#analyze-button').disabled && document.querySelector('#algorithm-trace').dataset.traceType==='hmm2_pair_viterbi');
+  await page.locator('#algorithm-trace select').selectOption('3');
+  await page.locator('#algorithm-trace .pair-cell.selected-score').click();
+  checks.push({second_order_backpointer:await page.locator('#algorithm-trace').innerText()});
+  await page.locator('.algorithm-panel').screenshot({path:out+'06-hmm2-pair-dp.png'});
+  await page.locator('#segmentation-model').selectOption('hmm1-smooth');
+  await page.locator('#task-ner').check();
+  await page.locator('#input-text').fill('张三在北京的中国石油大学学习。');
+  await page.locator('#analyze-button').click();
+  await page.waitForFunction(()=>!document.querySelector('#analyze-button').disabled,{},{timeout:60000});
+  checks.push({ner:await page.locator('#ner-result').innerText(),common:await page.locator('#result-summary').innerText()});
+  await page.locator('#report-toggle').click();
+  checks.push({report_mode:await page.locator('#report-toggle').getAttribute('aria-pressed')});
+  await page.screenshot({path:out+'13-interactive-segmentation.png',fullPage:true});
+  await page.locator('#tab-parameters').click();
+  await page.waitForFunction(()=>document.querySelector('#model-specific-parameters').innerText.includes('Transition A'));
+  await page.screenshot({path:out+'02-hmm-pi-a-b.png',fullPage:true});
+  await page.locator('#tab-metrics').click();
+  await page.waitForFunction(()=>document.querySelector('#comparison-table').querySelectorAll('tr').length>=8);
+  await page.locator('#comparison-table').screenshot({path:out+'10-seven-model-comparison.png'});
+  await page.waitForFunction(()=>document.querySelector('#ner-metrics').innerText.includes('Overall'));
+  await page.locator('#ner-metrics').screenshot({path:out+'11-ner-metrics.png'});
+  await page.locator('#tab-errors').click();
+  await page.waitForFunction(()=>document.querySelector('#error-list').innerText.length>100);
+  await page.screenshot({path:out+'12-error-analysis.png',fullPage:true});
+  await page.goto('http://127.0.0.1:8000/');
+  await page.screenshot({path:out+'01-experiment-overview.png',fullPage:true});
+  await page.route('**/api/v1/experiments/1/extensions',async route=>{
+    const response=await route.fetch(); const body=await response.json();
+    for(const item of body.runs || body.items || []) if(item.model==='bigram') {item.available=false;item.unavailable_reason='QA unavailable fixture';}
+    await route.fulfill({response,json:body});
+  });
+  await page.goto('http://127.0.0.1:8000/sequence');
+  await page.waitForFunction(()=>document.querySelector('#run-select').options.length>1);
+  checks.push({unavailable_option:await page.locator('#segmentation-model option[value=bigram]').evaluate(o=>({disabled:o.disabled,text:o.textContent})),default_model:await page.locator('#segmentation-model').inputValue()});
+  await page.screenshot({path:out+'unavailable-resource.png'});
+  await page.unroute('**/api/v1/experiments/1/extensions');
+  await page.reload();
+  return {checks,errors,training_executed:false,official_test_inference_executed:false,scorer_executed:false,demo_inference_executed:true};
+}

@@ -1,0 +1,16 @@
+embedding_dim: 128
+hidden_size: 128
+num_layers: 1
+dropout: 0.2
+optimizer: AdamW
+lr: 0.001
+batch_size: 64
+max_epochs: 10
+patience: 2
+gradient_clip: 5.0
+seed: 42
+device: cpu
+cpu_threads: 8
+legal_bmes: true
+crf_package: pytorch-crf
+crf_version: 0.7.2

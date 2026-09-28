@@ -1,0 +1,10 @@
+{
+  "variant": "thucnews-official-14",
+  "version": "official-2005-2011",
+  "source_url": "https://thunlp.oss-cn-qingdao.aliyuncs.com/THUCNews.zip",
+  "homepage": "http://thuctc.thunlp.org/",
+  "source_file_sha256": "8d6aef71c4431ba27c217a00adb2be7a78f8aa44f3c0bcb99d57a9026bcf163c",
+  "downloaded_at": "REPLACE_WITH_ACTUAL_UTC_DOWNLOAD_TIME",
+  "license": "unknown",
+  "usage_note": "仅课程实验本地使用；官网商业授权说明不视为数据集明确许可证。"
+}

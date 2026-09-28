@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NLPLab public personal subset manifest (no raw selection key)",
+  "type": "object",
+  "required": ["dataset_name", "dataset_version", "source_hashes", "count", "selected_records", "selection_key_fingerprint", "data_sha256", "frozen_at"],
+  "properties": {
+    "dataset_name": {"enum": ["MSRA-NER", "THUCNews"]},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "source_hashes": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "data_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "selection_key_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "count": {"enum": [200, 600]},
+    "selected_records": {
+      "type": "array", "minItems": 200, "maxItems": 600,
+      "items": {
+        "type": "object",
+        "required": ["source_record_id", "text_sha256", "selection_score"],
+        "properties": {
+          "source_record_id": {"type": "string", "minLength": 1},
+          "text_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "selection_score": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "frozen_at": {"type": "string"},
+    "selection_uses_model_predictions": {"const": false}
+  },
+  "not": {"anyOf": [{"required": ["selection_key"]}, {"required": ["key"]}]},
+  "allOf": [
+    {"if": {"properties": {"dataset_name": {"const": "MSRA-NER"}}}, "then": {"required": ["source_split", "gold_support"], "properties": {"count": {"const": 200}, "source_split": {"const": "test"}, "selected_records": {"minItems": 200, "maxItems": 200}}}},
+    {"if": {"properties": {"dataset_name": {"const": "THUCNews"}}}, "then": {"required": ["dataset_variant", "category_counts"], "properties": {"count": {"const": 600}, "selected_records": {"minItems": 600, "maxItems": 600}}}}
+  ]
+}

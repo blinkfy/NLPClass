@@ -1,0 +1,5 @@
+smoothing: none
+alpha: 0.1
+unknown_strategy: unk_bucket
+initial_transition: first_pair_only
+legal_bmes: true

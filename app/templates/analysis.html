@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="page-header"><div><h1>综合分析</h1><p class="subtitle">将已真实存在的课程能力串联到一个输入</p></div><div class="header-controls">{% include 'partials/model_selector.html' %}</div></header>
+{% include 'partials/module_tabs.html' %}
+<section id="single" role="tabpanel" aria-labelledby="tab-single">{% set input_tasks=[('segmentation','分词'),('ner','NER')] %}{% set show_segmentation=true %}{% set show_ner=true %}{% set input_note='当前接入分词与 NER；未实现的能力不返回伪造结果。' %}{% include 'partials/text_workspace.html' %}</section>
+<section id="documents" role="tabpanel" aria-labelledby="tab-documents" hidden><section class="intro"><h2>多文档分析</h2><p>待后续实验接入。THUCNews600 数据已准备，尚未训练聚类或分类模型。</p></section></section>
+<section id="overview" role="tabpanel" aria-labelledby="tab-overview" hidden><section class="intro"><h2>全课程结果总览</h2><p>实验一 Completed / Frozen。正式指标的唯一主展示位置：<a href="/segmentation#evaluation">MSR CWS</a>与<a href="/tagging#evaluation">MSRA-200 NER</a>。</p><p>HMM 模型原理见<a href="/sequence-labeling#hmm">序列标注</a>；BiLSTM-CRF 结构与训练见<a href="/deep-learning#bilstm">深度学习</a>。POS、IE、依存、分类、聚类和 LLM 尚未实现。</p></section></section>
+<footer class="content-footer"><span id="active-run"></span><span>当前仅返回分词与 NER</span></footer>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/integrated-page.js') }}"></script>{% endblock %}

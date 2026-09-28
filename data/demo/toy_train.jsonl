@@ -1,0 +1,5 @@
+{"sample_id": "TOYTRAIN1", "doc_id": "DEMO1", "text": "商品和服务", "gold_tokens": ["商品", "和", "服务"], "is_demo": true}
+{"sample_id": "TOYTRAIN2", "doc_id": "DEMO2", "text": "自然语言处理课程", "gold_tokens": ["自然语言", "处理", "课程"], "is_demo": true}
+{"sample_id": "TOYTRAIN3", "doc_id": "DEMO3", "text": "我爱北京", "gold_tokens": ["我", "爱", "北京"], "is_demo": true}
+{"sample_id": "TOYTRAIN4", "doc_id": "DEMO4", "text": "北京大学的学生", "gold_tokens": ["北京", "大学", "的", "学生"], "is_demo": true}
+{"sample_id": "TOYTRAIN5", "doc_id": "DEMO5", "text": "服务中心欢迎你", "gold_tokens": ["服务中心", "欢迎", "你"], "is_demo": true}

@@ -1,0 +1,9 @@
+# 仅适用于此官方三类 MSRA BERT 模型；setup-ner 必须核对实际标签词表。
+model: MSRA_NER_BERT_BASE_ZH
+name: hanlp-msra-bert
+expected_entity_tags: [NR, NS, NT]
+label_map:
+  NR: PER
+  NS: LOC
+  NT: ORG
+tagset_source: https://ftp.hankcs.com/hanlp/ner/ner_bert_base_msra_20211227_114712.zip#vocabs.json

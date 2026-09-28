@@ -1,0 +1,26 @@
+msra:
+  dataset_name: MSRA-NER
+  version: levow-msra_ner-1.0.0-oye93-934e50bdbbd27f5ffa47eb4eff04651c6eef0a32
+  script_url: https://huggingface.co/datasets/levow/msra_ner/raw/250b3cc647ff1cef9d592301a5ba501679e27e91/msra_ner.py
+  license: unknown
+  usage_note: 仅课程实验本地使用；dataset script 许可不等同于数据许可。
+  sources:
+    train:
+      url: https://raw.githubusercontent.com/OYE93/Chinese-NLP-Corpus/934e50bdbbd27f5ffa47eb4eff04651c6eef0a32/NER/MSRA/msra_train_bio.txt
+      sha256: b403d1318c5289917ad2ca4136279592521684748327e93f1bf49a3845a40ac7
+    test:
+      url: https://raw.githubusercontent.com/OYE93/Chinese-NLP-Corpus/934e50bdbbd27f5ffa47eb4eff04651c6eef0a32/NER/MSRA/msra_test_bio.txt
+      sha256: 2be8e580bcb22e9086e4403d82a7ec0f6e18019ebef35b0fd52941724bdf89a3
+thucnews:
+  dataset_name: THUCNews
+  variant: thucnews-official-14
+  version: official-2005-2011
+  source_url: https://thunlp.oss-cn-qingdao.aliyuncs.com/THUCNews.zip
+  source_file_sha256: 8d6aef71c4431ba27c217a00adb2be7a78f8aa44f3c0bcb99d57a9026bcf163c
+  homepage: http://thuctc.thunlp.org/
+  license: unknown
+  usage_note: 仅课程实验本地使用；官网商业授权说明不视为数据集明确许可证。
+  min_length: 80
+  categories: [finance, education, science, sports, entertainment]
+  per_category: 120
+  split: {train: 84, val: 18, test: 18}

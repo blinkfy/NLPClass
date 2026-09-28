@@ -1,0 +1,6 @@
+# 课程 baseline：纯 MLE；alpha 不参与统计，UNK 概率为 0。
+smoothing: none
+unknown_strategy: unk_bucket
+seed: 42
+dev_ratio: 0.1
+emission_topk: 20

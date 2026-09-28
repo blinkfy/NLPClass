@@ -1,0 +1,3 @@
+<div class="error-toolbar"><h2>{{ error_task }} 冻结错误案例</h2><div class="header-controls"><label for="error-category">错误类别</label><select id="error-category"><option value="">全部类别</option>{% for category in ['OOV','Proper noun','Ambiguity','Number/date','English mixed','Other'] %}<option>{{ category }}</option>{% endfor %}</select></div></div>
+<div id="error-list"></div>
+<div class="pagination"><button id="errors-prev" class="outline">上一页</button><span id="errors-page"></span><button id="errors-next" class="outline">下一页</button></div>

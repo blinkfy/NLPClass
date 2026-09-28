@@ -1,0 +1,15 @@
+<div class="workspace">
+  <div class="workspace-left">
+    <form id="analysis-form" class="panel input-panel">
+      <h2>输入文本</h2><p class="muted">{{ input_note }}</p>
+      <label class="sr-only" for="input-text">请输入一段中文文本</label>
+      <textarea id="input-text" required maxlength="5000">中国石油大学（华东）欢迎你。 😊自然语言处理课程</textarea>
+      <div class="form-controls"><div>{% for task, label in input_tasks %}<label><input type="checkbox" id="task-{{ task }}" checked> {{ label }}</label>{% endfor %}</div><button id="analyze-button" class="primary" type="submit">开始分析</button></div>
+    </form>
+    <section class="panel original-panel"><h2>输入原文</h2><p id="model-info" class="muted"></p><div id="original-text" class="result-empty">运行后显示原文。</div></section>
+  </div>
+  <div class="result-stack">
+    {% if show_segmentation %}{% include 'partials/segmentation_result.html' %}{% endif %}
+    {% if show_ner %}{% include 'partials/ner_result.html' %}{% endif %}
+  </div>
+</div>

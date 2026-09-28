@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block head %}<script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
+{% block content %}
+<header class="page-header">
+  <div><h1>序列标注</h1><p class="subtitle">HMM 与课程拓展中文分词、命名实体识别</p></div>
+  <div class="header-controls"><label for="run-select">NER / 课程样本 Run</label><select id="run-select"><option value="">尚无实验结果</option></select><label for="segmentation-model">分词模型</label><select id="segmentation-model"><option value="hmm1-smooth">HMM-1 Smooth（默认）</option><option value="longest">Longest Matching</option><option value="bigram">Bigram</option><option value="hmm2-smooth">HMM-2 Smooth</option><option value="bilstm-crf">BiLSTM-CRF</option></select><button id="report-toggle" class="outline" aria-pressed="false">报告模式</button></div>
+</header>
+<p class="muted benchmark-sources">CWS benchmark: SIGHAN MSR · NER benchmark: MSRA-200</p>
+<div id="run-warning" class="notice" hidden></div>
+<div class="tabs" role="tablist" aria-label="序列标注功能">
+  {% for key, label in [('interactive','交互分析'), ('parameters','模型参数'), ('metrics','实验评测'), ('errors','错误分析')] %}
+  <button id="tab-{{ key }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="{{ key }}" tabindex="{{ '0' if loop.first else '-1' }}" data-tab="{{ key }}">{{ label }}</button>
+  {% endfor %}
+</div>
+<div id="page-message" role="status" class="notice" hidden></div>
+<section id="interactive" role="tabpanel" aria-labelledby="tab-interactive">
+  <div class="workspace">
+    <div class="workspace-left">
+      <form id="analysis-form" class="panel input-panel">
+        <h2>输入文本</h2><p class="muted">选择分词模型，统一查看最终结果与各模型的算法过程。</p>
+        <label class="sr-only" for="input-text">请输入一段中文文本</label>
+        <textarea id="input-text" required maxlength="5000" placeholder="请输入一段中文文本…">中国石油大学（华东）欢迎你。 😊自然语言处理课程</textarea>
+        <div class="form-controls"><div><label><input type="checkbox" id="task-segmentation" checked> 分词</label><label><input type="checkbox" id="task-ner" checked> NER</label></div><button id="analyze-button" class="primary" type="submit">开始分析</button></div>
+      </form>
+      <section class="panel original-panel"><h2>输入原文</h2><p id="model-info" class="muted"></p><div id="original-text" class="result-empty">运行分析后显示原始文本与独立实体高亮。</div></section>
+    </div>
+    <div class="result-stack">
+      <section class="panel"><h2>公共输出 · 最终分词</h2><div id="result-summary" class="metadata-strip"></div><div id="tokens-result" class="result-empty">运行分析后显示分词结果。</div></section>
+      <section class="panel"><h2 id="bmes-title">字符与 BMES</h2><div id="bmes-result" class="result-empty">运行分析后显示字符与 BMES 信息。</div></section>
+    </div>
+  </div>
+  <section class="panel algorithm-panel"><div class="section-heading"><div><h2 id="algorithm-title">当前模型 · 算法过程</h2><p class="muted">短文本 ≤30 Unicode code point 自动展示；模型参数与本次求解过程分开。</p></div><div class="header-controls"><button id="trace-button" class="outline" type="button">查看算法过程</button><button id="process-export" class="outline" type="button" hidden>导出过程 PNG</button></div></div><div id="algorithm-trace"></div></section>
+  <section class="panel model-information"><div id="model-details"><h2>当前模型 · 模型信息 / 参数</h2><p class="muted">分析后显示当前模型的词典、概率张量或神经网络结构。</p></div></section>
+  <section class="panel ner-panel"><div class="section-heading"><h2>NER · 独立实体结果</h2><div class="legend"><span class="per">PER</span><span class="loc">LOC</span><span class="org">ORG</span></div></div><div id="ner-result" class="result-empty">状态：等待分析。</div></section>
+</section>
+<section id="parameters" role="tabpanel" aria-labelledby="tab-parameters" hidden>
+  <div id="model-metadata" class="metadata-strip"></div>
+  <section id="model-specific-parameters" class="panel"></section>
+  <div class="charts-grid">
+    <section class="panel"><div class="section-heading"><h2 id="start-title">初始状态 π</h2><button class="outline small" data-export="start-chart">导出 PNG</button></div><div class="chart" id="start-chart"></div></section>
+    <section class="panel"><div class="section-heading"><h2 id="transition-title">状态转移 A</h2><button class="outline small" data-export="transition-chart">导出 PNG</button></div><div class="chart" id="transition-chart"></div></section>
+  </div>
+  <section class="panel emission-panel"><div class="section-heading"><h2 id="emission-title">发射概率 B · Top-K</h2><div class="header-controls" id="emission-controls"><label for="emission-state">状态</label><select id="emission-state"><option>B</option><option>M</option><option>E</option><option>S</option></select><label for="topk">Top-K</label><select id="topk"><option>10</option><option selected>20</option><option>50</option></select><button class="outline small" data-export="emission-chart">导出 PNG</button></div></div><div class="chart emission-chart" id="emission-chart"></div><p id="unknown-info" class="muted"></p></section>
+</section>
+<section id="metrics" role="tabpanel" aria-labelledby="tab-metrics" hidden>
+  <div id="evaluation-info" class="metadata-strip"></div>
+  <div id="metrics-values" class="metrics-values"></div>
+  <div class="charts-grid"><section class="panel"><div class="section-heading"><h2>分词评价指标</h2><button class="outline small" data-export="metrics-chart">导出 PNG</button></div><div id="metrics-chart" class="chart"></div></section><section class="panel"><div class="section-heading"><h2>BMES 混淆矩阵</h2><button class="outline small" data-export="confusion-chart">导出 PNG</button></div><div id="confusion-chart" class="chart"></div></section></div>
+  <section class="panel"><h2>MSR 统一课程方法比较</h2><p class="muted">Longest / Bigram / HMM-1 / HMM-2 / BiLSTM-CRF；MSRA NER 不进入此表。</p><div id="comparison-table" class="table-wrap"></div></section>
+  <section class="panel"><h2>NER · 精确实体跨度评价</h2><div id="ner-metrics" class="muted">尚无 NER 评价结果。</div></section>
+  <div class="export-row"><a id="metrics-download" class="outline">下载指标 JSON</a><a id="predictions-download" class="outline">下载预测 JSONL</a><a id="config-download" class="outline">下载配置 YAML</a></div>
+</section>
+<section id="errors" role="tabpanel" aria-labelledby="tab-errors" hidden>
+  <div class="error-toolbar"><h2>错误案例 · CWS / NER</h2><div class="header-controls"><label for="error-category">错误类别</label><select id="error-category"><option value="">全部类别</option>{% for category in ['OOV','Proper noun','Ambiguity','Number/date','English mixed','Other'] %}<option>{{ category }}</option>{% endfor %}</select><a id="errors-download" class="outline">下载错误 JSONL</a></div></div>
+  <p class="muted">CWS 自动类别来自启发式分析；NER 按 exact-span 对照。冻结正式 Run 只读。</p>
+  <div id="error-list"></div>
+  <div class="pagination"><button id="errors-prev" class="outline">上一页</button><span id="errors-page"></span><button id="errors-next" class="outline">下一页</button></div>
+</section>
+<footer class="content-footer"><span id="active-run"></span><span>数据与模型均来自选定 Run</span></footer>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/sequence.js') }}"></script>{% endblock %}

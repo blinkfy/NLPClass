@@ -1,0 +1,7 @@
+# 用户提供的第三章表 3-3 / 第四章 4.7.3；百分数，不作为调参目标。
+source: user-provided course slides 2026
+metric_order: [precision, recall, f1, oov_recall, iv_recall]
+longest: [89.41, 94.64, 91.95, 2.58, 97.14]
+bigram: [92.38, 96.70, 94.49, 2.58, 99.26]
+hmm1: [78.49, 80.38, 79.42, 41.11, 81.44]
+hmm2: [78.34, 80.01, 79.16, 42.06, 81.04]

@@ -1,0 +1,31 @@
+async (page) => {
+  const errors=[];
+  page.on('pageerror',e=>errors.push(String(e)));
+  await page.setViewportSize({width:1440,height:1000});
+  await page.reload();
+  await page.waitForFunction(()=>document.querySelector('#run-select').options.length>1);
+  await page.locator('#task-ner').uncheck();
+  await page.locator('#segmentation-model').selectOption('hmm2-smooth');
+  await page.locator('#input-text').fill('商品 🙂服务');
+  const responsePromise=page.waitForResponse(r=>r.url().includes('/experiments/1/trace')&&r.status()===200);
+  await page.locator('#analyze-button').click();
+  const trace=await (await responsePromise).json();
+  await page.waitForFunction(()=>!document.querySelector('#analyze-button').disabled);
+  const positions=await page.locator('#algorithm-trace select').innerText();
+  await page.locator('#algorithm-trace select').selectOption('4');
+  await page.locator('#algorithm-trace .pair-cell.selected-score').click();
+  await page.locator('.algorithm-panel').screenshot({path:'F:/projects/NLPClass/outputs/exp1/final_report_assets/20260927_010652/screenshots/unicode-hmm2-whitespace.png'});
+  await page.locator('#segmentation-model').selectOption('bilstm-crf');
+  await page.locator('#input-text').fill('商品🙂和服务');
+  await page.locator('#analyze-button').click();
+  await page.waitForFunction(()=>!document.querySelector('#analyze-button').disabled);
+  const downloadPromise=page.waitForEvent('download');
+  await page.locator('#process-export').click();
+  const download=await downloadPromise;
+  await download.saveAs('F:/projects/NLPClass/outputs/exp1/final_report_assets/20260927_010652/screenshots/08-bilstm-training-export.png');
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth);
+  const narrow={width:await page.evaluate(()=>innerWidth),scroll_width:await page.evaluate(()=>document.documentElement.scrollWidth)};
+  await page.locator('#segmentation-model').selectOption('hmm1-smooth');
+  return {positions,trace,training_curve_export:download.suggestedFilename(),narrow,errors,training_executed:false,official_test_inference_executed:false,scorer_executed:false,demo_inference_executed:true};
+}

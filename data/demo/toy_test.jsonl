@@ -1,0 +1,4 @@
+{"sample_id": "TOYTEST1", "doc_id": "DEMO6", "text": "商品和北京", "gold_tokens": ["商品", "和", "北京"], "is_demo": true}
+{"sample_id": "TOYTEST2", "doc_id": "DEMO7", "text": "学生学习自然语言", "gold_tokens": ["学生", "学习", "自然语言"], "is_demo": true}
+{"sample_id": "TOYTEST3", "doc_id": "DEMO8", "text": "服务中心在青岛", "gold_tokens": ["服务中心", "在", "青岛"], "is_demo": true}
+{"sample_id": "TOYTEST4", "doc_id": "DEMO9", "text": "北京大学位于北京", "gold_tokens": ["北京大学", "位于", "北京"], "is_demo": true}

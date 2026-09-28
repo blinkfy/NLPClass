@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', path='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/lab.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="/">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      {% set links = [('/', '首页', ''), ('/segmentation', '中文分词', '01'), ('/sequence-labeling', '序列标注', '02'), ('/tagging', '词性与命名实体', '03'), ('/information-extraction', '信息抽取', '04'), ('/clustering', '文本聚类', '05'), ('/classification', '文本分类', '06'), ('/dependency-parsing', '依存句法分析', '07'), ('/deep-learning', '深度学习与大模型', '08'), ('/integrated-analysis', '综合分析', '09')] %}
+      {% for href, label, number in links %}
+      <a href="{{ href }}" class="nav-link {{ 'active' if page == href else '' }}" {% if page == href %}aria-current="page"{% endif %}>
+        <span class="nav-number" aria-hidden="true">{{ number }}</span>{{ label }}
+      </a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button><span>{{ title }}</span><button id="report-toggle" class="outline small" aria-pressed="false">报告模式</button></div>{% block content %}{% endblock %}</main>
+  <script type="module" src="{{ url_for('static', path='js/layout.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

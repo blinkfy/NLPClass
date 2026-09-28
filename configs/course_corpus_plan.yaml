@@ -1,0 +1,100 @@
+version: 1
+name: NLPLab unified course corpus
+target_documents: 600
+language: zh
+
+primary_labels:
+  technology:
+    display_name: 科技
+    target: 100
+    source_type_quota: {news: 60, blog: 25, comment: 15, fiction: 0}
+  finance:
+    display_name: 财经
+    target: 100
+    source_type_quota: {news: 60, blog: 25, comment: 15, fiction: 0}
+  sports:
+    display_name: 体育
+    target: 100
+    source_type_quota: {news: 60, blog: 25, comment: 15, fiction: 0}
+  education:
+    display_name: 教育
+    target: 100
+    source_type_quota: {news: 60, blog: 25, comment: 15, fiction: 0}
+  society:
+    display_name: 社会民生
+    target: 100
+    source_type_quota: {news: 60, blog: 25, comment: 15, fiction: 0}
+  culture_entertainment:
+    display_name: 文化娱乐
+    target: 100
+    source_type_quota: {news: 40, blog: 20, comment: 20, fiction: 20}
+
+source_type_totals:
+  news: 340
+  blog: 145
+  comment: 95
+  fiction: 20
+
+document_constraints:
+  min_text_codepoints: 40
+  max_text_codepoints: 400
+  one_url_may_supply_at_most: 3
+  require_http_url: true
+  require_source_title: true
+  preserve_raw_text: true
+  normalize_only_for_dedup: true
+  dedup:
+    unicode_normalization: NFC
+    whitespace_collapse_for_fingerprint: true
+    exact_sha256: true
+
+sequence_gold_sampling:
+  target_samples: 200
+  max_samples_per_document: 1
+  candidate_min_codepoints: 15
+  candidate_max_codepoints: 80
+  primary_label_targets:
+    technology: 34
+    finance: 34
+    sports: 33
+    education: 33
+    society: 33
+    culture_entertainment: 33
+  source_type_targets:
+    news: 110
+    blog: 45
+    comment: 30
+    fiction: 15
+  source_type_tolerance: 3
+  selection_must_not_use_model_error: true
+  post_annotation_quality_targets:
+    samples_with_any_entity_min: 100
+    entity_support_min: {PER: 40, LOC: 40, ORG: 40}
+    difficult_samples_min: 40
+  freeze_policy:
+    random_seed: 42
+    description: Freeze sampling policy before final custom-Gold evaluation.
+
+annotation:
+  segmentation_guideline: msr_like_v1
+  entity_types: [PER, LOC, ORG]
+  nested_entities: false
+  span_indexing: python_unicode_codepoint_half_open
+  bmes_generated_from_gold_tokens: true
+  manual_bmes_editing: false
+  workflow_statuses: [pending, in_progress, done, reviewed]
+  final_export_requires_status: reviewed
+  draft_storage: per_sample_atomic_json
+  final_storage: data/annotations/sequence_gold.jsonl
+
+quality_control:
+  enforce_document_sample_provenance: true
+  require_source_offsets: true
+  require_gold_tokens_roundtrip: true
+  require_entity_text_roundtrip: true
+  forbid_entity_overlap: true
+  forbid_duplicate_sample_id: true
+  forbid_duplicate_doc_id_in_sequence_gold: true
+  review:
+    minimum_second_pass_samples: 40
+    record_revision_count: true

@@ -1,0 +1,6 @@
+<div class="tabs" role="tablist" aria-label="{{ title }}功能">
+{% for key, label in module_tabs %}
+<button id="tab-{{ key }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="{{ key }}" tabindex="{{ '0' if loop.first else '-1' }}" data-tab="{{ key }}">{{ label }}</button>
+{% endfor %}
+</div>
+<div id="page-message" role="status" class="notice" hidden></div>

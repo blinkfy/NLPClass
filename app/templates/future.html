@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="page-header"><div><h1>{{ title }}</h1><p class="subtitle">课程模块 · 待后续实验接入</p></div></header>
+{% include 'partials/module_tabs.html' %}
+{% for key, label in module_tabs %}<section id="{{ key }}" role="tabpanel" aria-labelledby="tab-{{ key }}" {% if not loop.first %}hidden{% endif %}>
+<section class="intro"><h2>{{ label }}</h2>
+{% if key == 'data' %}<p id="public-data-status">正在读取 THUCNews 全文数据清单…</p><p>分类共用固定分层 split；聚类使用全部600篇，训练输入不传 primary_label，标签只用于未来结果评价。模型未开发。</p>
+{% elif page == '/information-extraction' %}<p>课程内容：实体、关系与结构化信息抽取。本模块将在对应课程实验完成后接入。</p>
+{% elif page == '/dependency-parsing' %}<p>课程内容：依存关系、依存树与句法分析算法。本模块将在对应课程实验完成后接入。</p>
+{% else %}<p>本模块将在对应课程实验完成后接入；当前不提供模型预测、图表或评测结果。</p>{% endif %}
+</section></section>{% endfor %}
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/data-status.js') }}"></script>{% endblock %}

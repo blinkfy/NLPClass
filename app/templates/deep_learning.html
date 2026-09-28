@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block head %}<script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
+{% block content %}
+<header class="page-header"><div><h1>深度学习与大模型</h1><p class="subtitle">学习上下文表示与结构化解码</p></div><div class="header-controls">{% set model_only=true %}{% set neural_only=true %}{% include 'partials/model_selector.html' %}</div></header>
+{% include 'partials/module_tabs.html' %}
+<section id="bilstm" role="tabpanel" aria-labelledby="tab-bilstm">
+<section class="intro"><h2>BiLSTM-CRF · 模型本身</h2><p>PyTorch Embedding/LSTM/Linear + pytorch-crf 0.7.2 adapter。CRF forward / partition / Viterbi 来自第三方库，未宣称自行实现 CRF。</p><p>development best epoch = max epoch = 10；已达到预设预算上限，冻结后未增加训练轮数。<a href="/segmentation#evaluation">查看统一 CWS 评测</a>。</p></section>
+{% include 'partials/parameters.html' %}
+{% set input_tasks=[('segmentation','短文本 BMES')] %}{% set show_segmentation=true %}{% set input_note='使用同一 BiLSTM-CRF 资源查看 emission 与 CRF 解码；不训练模型。' %}{% include 'partials/text_workspace.html' %}
+{% include 'partials/process.html' %}
+</section>
+{% for key, label in [('transformer','Transformer'),('llm','大语言模型'),('extensions','扩展应用')] %}<section id="{{ key }}" role="tabpanel" aria-labelledby="tab-{{ key }}" hidden><section class="intro"><h2>{{ label }}</h2><p>上下文表示与深度学习方法；本模块将在对应课程实验完成后接入。</p></section></section>{% endfor %}
+<footer class="content-footer"><span id="active-run"></span><span>同一冻结资源，不维护第二套模型</span></footer>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/model-page.js') }}"></script>{% endblock %}
