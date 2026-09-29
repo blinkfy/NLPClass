@@ -22,7 +22,7 @@
     </nav>
     <div class="sidebar-footer">全课程 · 一个实验平台</div>
   </aside>
-  <main class="main"><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button><span>{{ title }}</span><button id="report-toggle" class="outline small" aria-pressed="false">报告模式</button></div>{% block content %}{% endblock %}</main>
+  <main class="main"><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>{% block content %}{% endblock %}</main>
   <script type="module" src="{{ url_for('static', path='js/layout.js') }}"></script>
   {% block scripts %}{% endblock %}
 </body>

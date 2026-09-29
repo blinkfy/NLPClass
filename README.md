@@ -404,14 +404,14 @@ $env:PYTHONPATH="src;."
 artifacts/runtime/hanlp-venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload --reload-dir app --reload-dir src
 ```
 
-访问 [首页](http://127.0.0.1:8000/) 或 [中文分词](http://127.0.0.1:8000/segmentation)。桌面只有一套课程 sidebar，移动端使用导航 drawer；模块内部使用水平 Tab。报告模式隐藏输入与编辑操作，保留数据来源、模型名称、正式结果与 Run，支持图表 PNG 导出。
+访问 [首页](http://127.0.0.1:8000/) 或 [中文分词](http://127.0.0.1:8000/segmentation)。桌面只有一套课程 sidebar，移动端使用导航 drawer；模块内部使用水平 Tab。支持图表 PNG 导出。
 
 | 一级模块 | Canonical route | 当前职责 |
 | --- | --- | --- |
 | 首页 | `/` | 课程能力总览；实验一 Completed / Frozen |
 | 中文分词 | `/segmentation` | 五模型交互、算法过程、唯一七模型 MSR 表、CWS 错误 |
-| 序列标注 | `/sequence-labeling` | BMES、HMM1/HMM2 原理、π/A/B、A2 与 Viterbi |
-| 词性与命名实体 | `/tagging` | 独立 NER 交互、MSRA-200 指标与错误；POS 待接入 |
+| 序列标注 | `/sequence-labeling` | BMES、HMM1/HMM2、平均结构化感知机与独立线性链 CRF 的真实交互与机制对比 |
+| 词性与命名实体 | `/tagging` | HanLP CTB9 POS 交互；独立 NER 交互、MSRA-200 指标与错误 |
 | 信息抽取 | `/information-extraction` | 课程框架，待接入 |
 | 文本聚类 | `/clustering` | THUCNews600 数据状态，模型未实现 |
 | 文本分类 | `/classification` | 固定420/90/90 split 状态，模型未实现 |
@@ -439,10 +439,21 @@ toy 的训练/测试不同，结果来自实际训练、预测和计分，始终
 | GET /api/v1/experiments/1/metrics | 选定 Run 标准指标 |
 | GET /api/v1/experiments/1/errors | run_id、category、page、page_size（NER 页复用） |
 | GET /api/v1/views/cws/errors | 只读聚合 CWS frozen errors；复用 RunStore / read_errors |
+| GET /api/v1/course/resources | 课程扩展模型和 POS 资源状态 |
+| POST /api/v1/course/sequence | 感知机或独立线性链 CRF 的 BMES、词序列与解释数据 |
+| POST /api/v1/course/pos | 现有 HMM 分词 + HanLP POS 原始标签及 Unicode 跨度 |
 | PATCH /api/v1/experiments/1/errors/{sample_id} | 设置或清除人工类别 |
 | GET /api/v1/experiments/1/export/{name} | metrics/predictions/errors/config |
 
 输入错误及无有效路径为 422，缺失 Run/模型为 503，均有清晰消息。分类/聚类 API 未注册。SequenceTagger、Segmenter、NERRecognizer 为结构化接口；NLPService 可以注入分词器加载器与 NER。TextClassifier、TextClusterer 仅保留接口，features 保留扩展位置，后续按课件实现真实模型。
+
+### 课程序列标注与 POS 补充模块
+
+`/sequence-labeling#perceptron` 是项目自行实现的平均结构化感知机薄层：字符窗口、相邻字符、字符类型和 BOS/EOS 特征，加上前一标签到当前标签的转移权重；沿用已有合法 BMES Viterbi。页面展示当前字符各标签累计得分、特征贡献和训练中真实保存的一次 Gold/预测差分更新。`/sequence-labeling#crf` 使用固定 `python-crfsuite==0.9.12` 的线性链 CRF，页面展示 BMES、位置边缘概率、状态特征与学习到的转移权重；训练优化与解码由该库提供。二者在同一份 MSR **official training 内部**用 seed 42 的固定哈希子集训练 8,000 句、开发 800 句，配置见 `configs/course_sequence.yaml`，模型和记录分别存于 `artifacts/models/course_sequence/` 与 `artifacts/cache/course_sequence_subset.json`。这是独立课程演示，不进入实验一七模型 official test 结果表，未运行 official test 或 scorer。
+
+`/tagging#pos` 使用已有 HMM-1 Smooth 对交互文本分词，再由 HanLP `CTB9_POS_ELECTRA_SMALL` 预训练模型标注词性。页面保留 HanLP 原始 CTB 标签、Unicode code point `[start,end)` 与辅助粗类配色；没有 POS Gold 和正式 POS benchmark。POS 模型来源为 [HanLP 官方 POS 模型目录](https://github.com/hankcs/hanlp/blob/master/docs/api/hanlp/pretrained/pos.md)，本地模型信息保存在 `artifacts/cache/pos_setup.json`。运行 POS 页面需使用已安装 HanLP 的 `artifacts/runtime/hanlp-venv`，缺失模型时 API 会返回明确的 unavailable 状态。
+
+课程第 5 章对应结构化感知机序列标注实验，第 6 章对应线性链 CRF 序列标注实验，第 7 章对应流水线式 POS 实验。三个模块依据课程核心算法思想组织实验说明和真实输出；工程实现沿用当前 Python 生态，不复刻课件示例代码或工具。感知机和 CRF 的开发集 Tag Accuracy 分别为 91.08% 和 93.33%（MSR official training 内部固定子集，train 8,000 / dev 800 / seed 42）；它们不是 official test 指标。`/sequence-labeling#comparison` 只比较机制与同一句的 BMES、分词及交互推理时间，不加入七模型正式排行榜。
 
 ## 测试与已知限制
 

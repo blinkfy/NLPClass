@@ -7,10 +7,10 @@
     <p class="home-lead">从字符、词语到结构与语义理解</p>
     <p class="home-intro">围绕真实语料与可复现结果，观察不同方法的输入、运算过程和输出。实验数据、算法轨迹与正式评价在各任务模块中对应呈现。</p>
   </div>
-  <div class="home-hero-visual" aria-label="自然语言处理能力从字符与词语逐层通向标签、实体、文本、句法与语义">
-    <div class="hero-layer hero-layer-input"><small>输入与表示</small><div><span>字符</span><i>→</i><span>词语</span><i>→</i><span>标签</span></div></div>
-    <div class="hero-layer hero-layer-structure"><small>结构识别</small><div><span>实体</span><i>→</i><span>文本</span></div></div>
-    <div class="hero-layer hero-layer-meaning"><small>结构与语义</small><div><span>句法</span><i>→</i><span>语义</span></div></div>
+  <div class="home-hero-visual" aria-label="自然语言处理能力：字符、分词、词性、命名实体；文本分类、聚类与信息抽取；句法、关系与语义">
+    <div class="hero-layer hero-layer-input"><small>输入与表示</small><div><span>字符</span><i>→</i><span>分词</span><i>→</i><span>词性</span><i>→</i><span>命名实体</span></div></div>
+    <div class="hero-layer hero-layer-structure"><small>文本分析</small><div><span>文本</span><i>→</i><span>分类</span><i>→</i><span>聚类</span><i>→</i><span>信息抽取</span></div></div>
+    <div class="hero-layer hero-layer-meaning"><small>结构与语义</small><div><span>句法</span><i>→</i><span>关系</span><i>→</i><span>语义</span></div></div>
     <div class="hero-connection" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></div>
   </div>
 </header>
@@ -19,8 +19,8 @@
 <div class="module-cards">
 {% for route, name, detail, status, state, glyph in [
 ('/segmentation','中文分词','五模型交互、算法过程与七模型 MSR 统一评测。','标准评测已接入','ready','词'),
-('/sequence-labeling','序列标注','BMES、HMM π/A/B、Viterbi 与二阶状态依赖。','HMM 已接入','ready','序'),
-('/tagging','词性与命名实体','MSRA-200 与 HanLP PER/LOC/ORG exact-span 评价。','NER 已接入 · POS 待开发','partial','实'),
+('/sequence-labeling','序列标注','HMM、平均结构化感知机与独立线性链 CRF 的 BMES 过程。','三种序列方法已接入','ready','序'),
+('/tagging','词性与命名实体','HanLP POS 交互；MSRA-200 NER exact-span 评价。','POS 与 NER 已接入','ready','实'),
 ('/information-extraction','信息抽取','实体与关系、结构化抽取与评价。','待后续实验接入','pending','抽'),
 ('/clustering','文本聚类','THUCNews 五类各 120 条，共 600 篇全文。','数据已准备 · 模型待开发','data','聚'),
 ('/classification','文本分类','固定分层 train/val/test = 420/90/90。','数据已准备 · 模型待开发','data','类'),

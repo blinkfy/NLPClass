@@ -1,0 +1,10 @@
+source: data/splits/msr_standard_20260926_124541_c0c7fa3b/train.jsonl
+seed: 42
+train_size: 8000
+dev_size: 800
+perceptron:
+  epochs: 5
+crf:
+  c1: 0.1
+  c2: 0.1
+  max_iterations: 80

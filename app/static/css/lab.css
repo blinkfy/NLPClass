@@ -88,7 +88,7 @@ p {
 .sidebar {
   position: fixed;
   inset: 0 auto 0 0;
-  width: 224px;
+  width: 200px;
   border-right: 1px solid var(--line);
   background: #fbfcfe;
   display: flex;
@@ -96,9 +96,9 @@ p {
 }
 .brand {
   display: block;
-  padding: 24px 26px 26px;
+  padding: 20px 22px 22px;
   color: var(--ink);
-  font-size: 30px;
+  font-size: 28px;
   letter-spacing: -0.6px;
   font-weight: 750;
   line-height: 1.4;
@@ -114,10 +114,10 @@ p {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 16px 28px;
+  padding: 14px 22px;
   border-left: 4px solid transparent;
   color: #536176;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 550;
 }
 .nav-link:hover {
@@ -135,7 +135,7 @@ p {
   font-size: 13px;
 }
 .main {
-  margin-left: 224px;
+  margin-left: 200px;
   padding: 28px 32px;
   max-width: 1800px;
   min-height: 100vh;
@@ -609,64 +609,12 @@ code {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
-.report-mode .sidebar {
-  display: none;
-}
-.report-mode .main {
-  margin-left: 0;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding: 24px 32px;
-}
-.report-mode .input-panel,
-.report-mode .export-row,
-.report-mode .error-toolbar select,
-.report-mode .manual-controls {
-  display: none;
-}
-.report-mode .workspace {
-  grid-template-columns: 1fr 1.5fr;
-}
-.report-mode .result-stack > .panel {
-  min-height: 130px;
-}
-.report-mode .result-empty {
-  min-height: 80px;
-}
-.report-mode .original-panel {
-  min-height: 200px;
-}
-.report-mode .panel {
-  padding: 16px;
-}
-.report-mode h1 {
-  font-size: 28px;
-}
-.report-mode .subtitle {
-  font-size: 15px;
-}
-.report-mode .chart {
-  height: 260px;
-}
-.report-mode .emission-chart {
-  height: 360px;
-}
-.report-mode #model-info {
-  font-size: 12px;
-}
-.report-mode .error-case {
-  padding: 16px;
-  margin-top: 12px;
-}
-.report-mode .content-footer {
-  font-size: 11px;
-}
 @media (max-width: 1100px) {
   .sidebar {
-    width: 190px;
+    width: 170px;
   }
   .main {
-    margin-left: 190px;
+    margin-left: 170px;
     padding: 24px;
   }
   .page-header {
@@ -762,8 +710,7 @@ code {
     white-space: nowrap;
   }
   .workspace,
-  .charts-grid,
-  .report-mode .workspace {
+  .charts-grid {
     grid-template-columns: 1fr;
   }
   .panel {
@@ -802,12 +749,6 @@ code {
   }
   .content-footer {
     flex-direction: column;
-  }
-  .report-mode .main {
-    padding: 20px 16px;
-  }
-  .report-mode .header-controls {
-    width: 100%;
   }
 }
 @media print {
@@ -894,8 +835,6 @@ code {
 .formula { padding: 12px 14px; background: #eef7f8; color: #087080; overflow-wrap: anywhere; }
 .tensor-controls label { display: inline-flex; gap: 8px; align-items: center; }
 .training-process-chart { height: 280px; max-width: 100%; }
-.report-mode .algorithm-panel .header-controls { display: none; }
-.report-mode .content-footer { overflow-wrap: anywhere; }
 @media (max-width: 600px) {
   .algorithm-panel, .model-information, .ner-panel { max-width: 100%; }
   .process-table th, .process-table td { padding: 9px; }
@@ -912,7 +851,6 @@ code {
 .sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
 .nav-number { color: #78909e; font-size: 12px; min-width: 18px; }
 .module-topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; color: var(--muted); }
-.module-topbar #report-toggle { margin-left: auto; }
 #drawer-toggle { display: none; }
 .drawer-backdrop { display: none; }
 .main { min-width: 0; }
@@ -927,7 +865,6 @@ code {
 .table-wrap { max-width: 100%; }
 .shell { padding: 24px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
 .shell h2 { margin-top: 0; }
-.report-mode #drawer-toggle { display: none; }
 @media (max-width: 1100px) { .module-cards { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 768px) {
   .sidebar { position: fixed; top: 0; left: 0; width: 270px; max-width: 90vw; height: 100dvh; z-index: 102; padding: 24px 18px; transform: translateX(-100%); transition: transform .18s ease; }
@@ -940,7 +877,6 @@ code {
   #drawer-toggle { display: inline-block; padding: 8px 12px; }
   .main { margin-left: 0; padding: 20px 16px; width: 100%; }
   .module-topbar { gap: 8px; font-size: 13px; }
-  .module-topbar #report-toggle { white-space: nowrap; padding: 8px; font-size: 12px; }
   .page-header { flex-wrap: wrap; }
   .header-controls { min-width: 0; max-width: 100%; }
   .header-controls select { width: 100%; max-width: 100%; min-width: 0; }
@@ -1099,12 +1035,9 @@ code {
 .ner-workbench .ner-item { border-bottom: 1px solid var(--line); padding: 8px 0; }
 .ner-workbench .ner-item:last-child { border-bottom: 0; }
 .metric-strip { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
-.metric-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 5px; background: #fbfdfe; }
-.metric-card:nth-child(2) { border-top-color: var(--loc); }
-.metric-card:nth-child(3) { border-top-color: var(--org); }
-.metric-card h3 { font-size: 13px; }
-.metric-card strong { display: block; color: var(--ink); font-size: 24px; line-height: 1.25; margin: 6px 0 3px; }
-.metric-card small { color: var(--muted); font-size: 12px; }
+.metric-card { min-width: 0; padding: 11px 12px; border: 1px solid var(--line); border-top: 0; border-radius: 10px; background: linear-gradient(180deg,#fff,#f9fdff); }
+.metric-card strong { display: block; color: var(--ink); font-size: 24px; line-height: 1.25; margin: 5px 0 0; }
+.metric-card small { display: block; color: var(--muted); font-size: 12px; }
 .ner-preview-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .ner-preview-card { min-width: 0; border: 1px solid var(--line); border-radius: 5px; padding: 12px; background: #fbfdfe; }
 .ner-preview-card strong, .ner-preview-card small { color: var(--muted); font-size: 12px; }
@@ -1248,7 +1181,7 @@ button,.outline,.primary,select { border-radius: 8px; }
 .method-strip-symbol { display: grid; place-items: center; flex: none; width: 27px; height: 27px; border-radius: 7px; background: #e2f1f6; color: #087f8c; font-size: 11px; font-weight: 800; }
 .method-strip-metrics { display: block; margin: 5px 0; color: #557387; font-size: 10px; }
 .method-strip-bar { display: block; height: 4px; overflow: hidden; border-radius: 5px; background: #e8eff4; }.method-strip-bar:before { content: ''; display: block; width: var(--value); height: 100%; border-radius: inherit; background: #128b9c; }
-#interactive-trace-disclosure { padding: 12px 16px; }.report-mode #interactive-trace-disclosure { display: none; }
+#interactive-trace-disclosure { padding: 12px 16px; }
 
 /* 算法过程页：词网与路径居中，说明独立，完整 DP 下沉。 */
 #process { display: grid; grid-template-columns: minmax(0,1fr) minmax(220px,245px); gap: 12px; align-items: start; }
@@ -1301,19 +1234,16 @@ button,.outline,.primary,select { border-radius: 8px; }
 .ner-workbench .ner-items { gap: 0; margin-top: 0; }.ner-workbench .ner-item { min-height: 41px; padding: 5px 9px; border-bottom: 1px solid #e5edf2; font-size: 12px; }.ner-workbench .ner-item:hover { background: #f2f9fa; }
 .ner-entity-text { min-width: 0; overflow-wrap: anywhere; }.ner-workbench .ner-item .entity { justify-self: start; padding: 2px 6px; font-size: 10px; font-weight: 800; }.ner-workbench .ner-item small { white-space: nowrap; font-size: 10px; }
 .ner-metrics-panel { padding: 17px; }.ner-metrics-panel .section-heading { margin-bottom: 12px; }.ner-metrics-panel .section-heading p { margin: 0; font-size: 11px; }
-.metric-card { padding: 11px 12px; border-top: 0; border-radius: 10px; background: linear-gradient(180deg,#fff,#f9fdff); }
-.metric-card:nth-child(2) { border-top: 0; }.metric-card:nth-child(3) { border-top: 0; }
 .metric-card-head { display: flex; align-items: center; gap: 7px; }.metric-card-head h3 { margin: 0; font-size: 12px; }
 .metric-card-icon { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: #ddf4ef; color: #087668; font-size: 11px; font-weight: 800; }
 .metric-card:nth-child(2) .metric-card-icon { background: #dfedff; color: #2274af; }.metric-card:nth-child(3) .metric-card-icon { background: #fff1d9; color: #9c6b16; }
-.metric-card strong { margin: 5px 0 0; font-size: 24px; }.metric-card small { display: block; }
 .metric-card-values { display: flex; justify-content: space-between; gap: 5px; margin-top: 7px; color: #58768b; font-size: 10px; }
 .metric-rail { height: 5px; margin-top: 7px; border-radius: 5px; background: #e7eef2; overflow: hidden; }.metric-rail:before { content: ''; display: block; width: var(--metric-value); height: 100%; border-radius: inherit; background: #087f8c; }.metric-card:nth-child(2) .metric-rail:before { background: #2289c3; }.metric-card:nth-child(3) .metric-rail:before { background: #bc8100; }
 .ner-preview-card { padding: 13px; border-radius: 9px; }.ner-preview-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }.ner-preview-card p { font-size: 12px; line-height: 1.55; }.preview-entity-row { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-top: 6px; }.preview-entity { padding: 2px 6px; border-radius: 5px; background: #e8f5ef; color: #216b55; font-size: 10px; }.preview-entity.extra { background: #fff0ed; color: #a3554b; }
 
 @media (max-width: 1180px) { .experiment-workbench,.hmm-workbench { grid-template-columns: minmax(230px,290px) minmax(0,1fr); } .experiment-notes { grid-column: 1 / -1; } }
 @media (max-width: 850px) { .home-hero { grid-template-columns: minmax(0,1fr); }.home-hero-visual { justify-self: center; width: min(100%,460px); }.experiment-workbench,.hmm-workbench,#process { grid-template-columns: minmax(0,1fr); }.experiment-notes { grid-column: auto; } #process > .algorithm-panel,#process > .process-page-notes,#process > .model-information { grid-column: 1; grid-row: auto; } #process > .process-page-notes { position: static; }.method-strip { grid-template-columns: repeat(3,minmax(0,1fr)); } }
-@media (max-width: 600px) { .main { padding: 18px 16px; }.home-hero { padding: 23px 20px 17px; }.home-hero h1 { margin-top: 13px; }.home-hero-visual { display: block; width: 100%; min-height: 212px; }.hero-layer { left: 0; right: 0; padding: 7px 10px; }.hero-layer-input { left: 7%; }.hero-layer-structure { left: 0; right: 7%; top: 72px; }.hero-layer-meaning { left: 7%; top: 136px; }.hero-layer span { min-width: 42px; font-size: 11px; }.hero-connection { display: none; }.knowledge-line { padding: 12px 0; }.home-section-count { display: none; }.module-card { min-height: 145px; }.experiment-workbench,.hmm-workbench { grid-template-columns: minmax(0,1fr); }.method-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }.metric-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }.ner-preview-list { grid-template-columns: minmax(0,1fr); }.hmm-parameters .charts-grid,.hmm-demo-layout { grid-template-columns: minmax(0,1fr); }.hmm-parameters .chart { height: 240px; }.hmm-parameters .emission-panel .section-heading { flex-wrap: wrap; }.entity-table-heading,.ner-workbench .ner-item { grid-template-columns: minmax(0,1fr) 45px 74px; gap: 4px; }.ner-workbench .ner-item small { font-size: 9px; }.process-explain-step { margin-top: 6px; } }
+@media (max-width: 600px) { .main { padding: 18px 16px; }.home-hero { padding: 23px 20px 17px; }.home-hero h1 { margin-top: 13px; }.home-hero-visual { display: block; width: 100%; min-height: 212px; }.hero-layer { left: 0; right: 0; padding: 7px 10px; }.hero-layer-input { left: 7%; }.hero-layer-structure { left: 0; right: 7%; top: 72px; }.hero-layer-meaning { left: 7%; top: 136px; }.hero-layer div { gap: 5px; }.hero-layer span { min-width: 0; padding: 3px 4px; font-size: 10px; }.hero-connection { display: none; }.knowledge-line { padding: 12px 0; }.home-section-count { display: none; }.module-card { min-height: 145px; }.experiment-workbench,.hmm-workbench { grid-template-columns: minmax(0,1fr); }.method-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }.metric-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }.ner-preview-list { grid-template-columns: minmax(0,1fr); }.hmm-parameters .charts-grid,.hmm-demo-layout { grid-template-columns: minmax(0,1fr); }.hmm-parameters .chart { height: 240px; }.hmm-parameters .emission-panel .section-heading { flex-wrap: wrap; }.entity-table-heading,.ner-workbench .ner-item { grid-template-columns: minmax(0,1fr) 45px 74px; gap: 4px; }.ner-workbench .ner-item small { font-size: 9px; }.process-explain-step { margin-top: 6px; } }
 @media (prefers-reduced-motion: reduce) { .module-card,.method-strip-item { transition: none; } }
 
 /* 侧栏跟随同一行结果高度；填充内容均取自当前输入、模型或冻结指标。 */
@@ -1345,3 +1275,46 @@ button,.outline,.primary,select { border-radius: 8px; }
 .hmm-focus-char { display: grid; place-items: center; flex: none; width: 54px; height: 54px; border-radius: 11px; background: #0b8391; color: #fff; font-size: 28px; font-weight: 800; box-shadow: 0 5px 12px rgba(9,127,145,.2); }
 .hmm-focus-detail { display: grid; gap: 2px; }.hmm-focus-detail small { color: #60899b; font-size: 11px; }.hmm-focus-detail strong { color: #074e66; font-size: 16px; }.hmm-focus-detail span { color: #087a89; font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 700; }
 .hmm-predecessor-strip { display: flex; flex-wrap: wrap; gap: 5px; margin: 9px 0 14px; }.hmm-predecessor-step { padding: 5px 8px; border: 1px solid #d7e7ec; border-radius: 7px; background: #f7fbfd; color: #426779; font-size: 11px; }.hmm-predecessor-step.is-active { border-color: #0a8391; background: #e3f6f6; color: #075b6c; font-weight: 800; }
+
+/* 课程扩展：与 HMM 共用工作台骨架，当前字符和真实模型输出成为视觉中心。 */
+.course-sequence-workbench textarea,.pos-workbench textarea { width: 100%; min-height: 155px; margin: 6px 0 9px; }
+.course-sequence-workbench .primary,.pos-workbench .primary { width: 100%; }
+.feature-template-list,.course-token-row,.course-path-row,.pos-result,.pos-legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.feature-template-list span { padding: 5px 7px; border-radius: 6px; background: #e9f4f8; color: #266f82; font-size: 11px; }
+.course-token-row { min-height: 50px; align-items: center; padding: 9px; border: 1px solid #d8eaf1; border-radius: 9px; background: #f7fbff; }
+.course-path-row { margin: 13px 0; padding: 10px; border: 1px solid #dcebf1; border-radius: 9px; background: #fff; }
+.course-path-step { display: grid; justify-items: center; min-width: 35px; padding: 5px; border: 1px solid #d6e7ee; border-radius: 7px; background: #f6fafc; color: #285f75; cursor: pointer; }
+.course-path-step strong { font-size: 16px; }.course-path-step small { color: #758fa2; font-size: 10px; }
+.course-path-step.is-active { border-color: #0b8896; background: #dff5f4; box-shadow: 0 0 0 2px #ddf3f3; }
+.course-step-focus { display: flex; gap: 12px; align-items: center; padding: 12px; border: 1px solid #acd9e3; border-radius: 10px; background: linear-gradient(120deg,#eaf9fb,#f5fbff); }
+.course-step-focus > div:last-child { display: grid; gap: 2px; }.course-step-focus small { color: #608397; }.course-step-focus strong { color: #095971; }.course-step-focus span { color: #0b8490; font-variant-numeric: tabular-nums; }
+.course-state-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px; margin: 12px 0; }
+.course-state-card { display: grid; justify-items: center; gap: 3px; min-width: 0; padding: 10px 3px; border: 1px solid #d8e8f0; border-radius: 8px; background: #f7fbfd; }
+.course-state-card.is-path { border-color: #44aeb0; background: #e4f7f3; }.course-state-card strong { color: #0a7181; font-size: 16px; }.course-state-card span,.course-state-card small { color: #557589; font-size: 10px; text-align: center; }
+.course-feature-panel { padding: 11px; border: 1px solid #d9e8ee; border-radius: 9px; background: #fff; }.course-feature-panel h3 { margin: 0 0 7px; font-size: 13px; }
+.course-feature-row { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid #eef3f6; font-size: 11px; }.course-feature-row span { overflow-wrap: anywhere; }.course-feature-row strong { flex: none; color: #0d7b89; font-variant-numeric: tabular-nums; }
+.course-update-panel,.course-transition-panel { margin-top: 12px; }.course-update-text { padding: 9px; border-radius: 7px; background: #f4f9fc; font-weight: 700; }
+.course-update-paths { display: grid; gap: 5px; color: #245c71; font-size: 12px; }.course-update-diff { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; margin-top: 10px; }
+.course-update-diff > div { display: flex; flex-wrap: wrap; gap: 5px; align-content: start; padding: 9px; border-radius: 8px; background: #f1fbf7; }.course-update-diff .negative { background: #fff6f1; }.course-update-diff strong { width: 100%; font-size: 12px; }.course-update-diff span { padding: 4px; border-radius: 5px; background: #fff; font-size: 10px; overflow-wrap: anywhere; }
+.comparison-table th:first-child { min-width: 110px; }.comparison-results { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; margin-top: 10px; }.comparison-result-card { min-width: 0; padding: 11px; border: 1px solid #d9e9ef; border-radius: 9px; background: #f7fbfe; }.comparison-result-card h3 { margin: 0 0 6px; font-size: 12px; }.comparison-result-card p { margin: 5px 0; overflow-wrap: anywhere; font-size: 11px; }.course-comparison-tags { color: #087e88; letter-spacing: 2px; }
+.pos-original { min-height: 68px; padding: 14px; border: 1px solid #d8e8f0; border-radius: 9px; background: #f7fbff; font-size: 18px; line-height: 2; white-space: pre-wrap; }
+.pos-mark { padding: 3px; border-radius: 5px; color: #0d6378; background: #ddf1f9; }.pos-mark.pos-verb { color: #136d56; background: #dff6e9; }.pos-mark.pos-adjective { color: #816119; background: #fff1cf; }.pos-mark.pos-pronoun { color: #684ea5; background: #ebe5fd; }.pos-mark.pos-adverb { color: #a05550; background: #fdeae8; }.pos-mark.pos-other { color: #53677b; background: #eef1f5; }
+.pos-result { margin: 12px 0 17px; }.pos-token { display: grid; justify-items: center; min-width: 47px; padding: 6px 8px; border: 1px solid #cde6ef; border-radius: 8px; background: #eaf6fb; color: #146d81; }.pos-token.pos-verb { border-color: #cbe8da; background: #e8f7ee; color: #16664d; }.pos-token.pos-adjective { border-color: #f0e3b6; background: #fff8e6; color: #806018; }.pos-token.pos-pronoun { border-color: #e0d7f3; background: #f2edfc; color: #7051a0; }.pos-token.pos-adverb { border-color: #f3d6d2; background: #fff0ef; color: #9d5c53; }.pos-token.pos-other { border-color: #dfe7ed; background: #f4f7f9; color: #607383; }.pos-token small { font-size: 10px; }
+.pos-counts { display: grid; gap: 7px; }.pos-count { position: relative; display: flex; justify-content: space-between; padding: 8px; overflow: hidden; border-radius: 7px; background: #edf3f6; font-size: 11px; }.pos-count strong,.pos-count span { z-index: 1; }.pos-count i { position: absolute; left: 0; top: 0; bottom: 0; background: #d4edf6; }.pos-count.pos-verb i { background: #d8f2e3; }.pos-count.pos-adjective i { background: #fff0c8; }.pos-count.pos-pronoun i { background: #e8dcfa; }.pos-count.pos-adverb i { background: #f9e1dc; }
+.pos-legend span { padding: 4px 6px; border-radius: 6px; background: #eaf6fb; color: #146d81; font-size: 10px; }.pos-legend [data-category="verb"] { background: #e8f7ee; color: #16664d; }.pos-legend [data-category="adjective"] { background: #fff8e6; color: #806018; }.pos-legend [data-category="pronoun"] { background: #f2edfc; color: #7051a0; }.pos-legend [data-category="adverb"] { background: #fff0ef; color: #9d5c53; }.pos-legend [data-category="other"] { background: #f4f7f9; color: #607383; }
+.pos-explanation { display: flex; gap: 9px; padding: 3px 0; font-size: 11px; }.pos-explanation strong { width: 25px; color: #096e80; }.pos-detail-panel { margin-top: 12px; }
+.hmm-only-selector.is-hidden { display: none; }
+@media (max-width: 600px) { .course-state-grid { gap: 4px; }.course-state-card span { font-size: 9px; }.comparison-results,.course-update-diff { grid-template-columns: minmax(0,1fr); }.course-path-row { max-width: 100%; overflow-x: auto; } }
+
+/* 课程补充实验：机制先行，短句输出次之，完整机制表保留在折叠层。 */
+.sequence-mechanism-strip { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 11px; margin: 12px 0; }
+.mechanism-card { min-width: 0; padding: 15px; border-top: 3px solid #77bec4; background: linear-gradient(180deg,#f8fcff,#fff 42%); }
+.mechanism-card:nth-child(2) { border-top-color: #59ac86; }.mechanism-card:nth-child(3) { border-top-color: #738ebd; }
+.mechanism-card h2 { margin: 7px 0; font-size: 17px; }.mechanism-card p { margin: 0 0 10px; color: #245e72; font-weight: 700; }.mechanism-card small { display: block; margin-top: 8px; color: #667f8c; }
+.mechanism-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }.mechanism-flow span { padding: 5px 7px; border-radius: 6px; background: #edf6fa; color: #0e7080; font-size: 11px; font-weight: 700; }.mechanism-flow b { color: #71a9b2; }
+.comparison-live-panel { border-color: #a8d8df; box-shadow: 0 10px 24px rgba(19,103,125,.07); }.comparison-live-panel input { width: min(100%,440px); margin-top: 6px; }
+.comparison-result-card { border-top: 3px solid #6db7c2; }.comparison-result-card:nth-child(2) { border-top-color: #59ac86; }.comparison-result-card:nth-child(3) { border-top-color: #738ebd; }.comparison-result-card small { color: #688296; font-variant-numeric: tabular-nums; }
+.comparison-takeaway { padding: 12px 14px; border-left: 3px solid #1c9aaa; border-radius: 0 7px 7px 0; background: #edf8fa; color: #245d6f; font-size: 13px; font-weight: 650; }
+.course-observation-results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }.course-observation-card { min-width: 0; padding: 11px; border: 1px solid #d5e8ed; border-radius: 8px; background: #f8fcfe; }.course-observation-card p { margin: 5px 0; font-size: 12px; }.course-observation-card small { display: block; overflow-wrap: anywhere; color: #126e7b; font-variant-numeric: tabular-nums; }
+.pos-examples { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }.pos-examples button { padding: 5px 7px; border: 1px solid #c8e2e8; border-radius: 6px; background: #fff; color: #126d7f; font-size: 11px; text-align: left; }.pos-examples button:hover { background: #e8f7f8; }
+@media (max-width: 600px) { .sequence-mechanism-strip,.course-observation-results { grid-template-columns: minmax(0,1fr); } }

@@ -40,13 +40,8 @@ def test_asset_and_source_hashes_and_execution_flags(assets):
         assert all(item[name] is False for name in FLAGS)
         for source, digest in item["source_sha256"].items():
             assert (ROOT / source).is_file()
-            if source in {
-                "app/static/js/algorithm-view.js",
-                "app/static/js/charts.js",
-                "app/templates/index.html",
-                "app/static/css/lab.css",
-            }:
-                # The report records historic Web source; later authorized IA changes
+            if source.startswith(("app/static/", "app/templates/")):
+                # The report records historic Web source; later authorized Web changes
                 # are outside the frozen model/data/benchmark boundary.
                 assert len(digest) == 64 and all(c in "0123456789abcdef" for c in digest)
                 continue

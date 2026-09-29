@@ -3,7 +3,7 @@
 {% block content %}
 <header class="page-header">
   <div><h1>序列标注</h1><p class="subtitle">HMM 与课程拓展中文分词、命名实体识别</p></div>
-  <div class="header-controls"><label for="run-select">NER / 课程样本 Run</label><select id="run-select"><option value="">尚无实验结果</option></select><label for="segmentation-model">分词模型</label><select id="segmentation-model"><option value="hmm1-smooth">HMM-1 Smooth（默认）</option><option value="longest">Longest Matching</option><option value="bigram">Bigram</option><option value="hmm2-smooth">HMM-2 Smooth</option><option value="bilstm-crf">BiLSTM-CRF</option></select><button id="report-toggle" class="outline" aria-pressed="false">报告模式</button></div>
+  <div class="header-controls"><label for="run-select">NER / 课程样本 Run</label><select id="run-select"><option value="">尚无实验结果</option></select><label for="segmentation-model">分词模型</label><select id="segmentation-model"><option value="hmm1-smooth">HMM-1 Smooth（默认）</option><option value="longest">Longest Matching</option><option value="bigram">Bigram</option><option value="hmm2-smooth">HMM-2 Smooth</option><option value="bilstm-crf">BiLSTM-CRF</option></select></div>
 </header>
 <p class="muted benchmark-sources">CWS benchmark: SIGHAN MSR · NER benchmark: MSRA-200</p>
 <div id="run-warning" class="notice" hidden></div>

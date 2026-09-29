@@ -59,12 +59,6 @@ document.querySelectorAll("[role=tab]").forEach((button) => {
     showTab(buttons[index].dataset.tab);
   });
 });
-$("report-toggle").addEventListener("click", () => {
-  const enabled = document.body.classList.toggle("report-mode");
-  $("report-toggle").setAttribute("aria-pressed", enabled);
-  $("report-toggle").textContent = enabled ? "普通模式" : "报告模式";
-  resizeCharts();
-});
 document.querySelectorAll("[data-export]").forEach((button) =>
   button.addEventListener("click", () => {
     try {

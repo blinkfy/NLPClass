@@ -7,12 +7,13 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.api import analysis, annotation, experiment, views
+from app.api import analysis, annotation, course_extensions, experiment, views
 from nlplab import __version__
 from nlplab.core.config import Settings, default_settings
 from nlplab.core.exceptions import DataValidationError, NoValidPathError, ResourceUnavailableError
 from nlplab.data.sequence_annotations import AnnotationStore
 from nlplab.ner.hanlp_adapter import HanLPRecognizer
+from nlplab.services.course_extension_service import CourseExtensionService
 from nlplab.services.experiment_service import RunStore
 from nlplab.services.nlp_service import NLPService
 
@@ -26,7 +27,9 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
     application.state.nlp = service or NLPService(
         settings, ner=HanLPRecognizer.from_settings(settings)
     )
+    application.state.course = CourseExtensionService(settings, application.state.nlp)
     application.include_router(analysis.router)
+    application.include_router(course_extensions.router)
     application.include_router(experiment.router)
     application.include_router(annotation.router)
     application.include_router(views.router)

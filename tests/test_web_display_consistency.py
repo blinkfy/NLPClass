@@ -25,8 +25,8 @@ def test_homepage_and_benchmark_labels():
         assert "CWS benchmark：SIGHAN MSR" in client.get("/segmentation").text
         sequence = client.get("/sequence-labeling").text
         assert "method-overview" in sequence
-        assert "02 · 待接入" in sequence
-        assert "独立 CRF 课程模型尚未实现" in sequence
+        assert "02 · 已接入" in sequence
+        assert "线性链 CRF" in sequence
 
 
 def test_saved_derived_tags_match_run_and_do_not_mutate_input(tmp_path):

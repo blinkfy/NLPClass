@@ -18,10 +18,6 @@ document.addEventListener('keydown',event=>{
     else if(!event.shiftKey&&document.activeElement===last) {event.preventDefault();first.focus();}
   }
 });
-const report=document.getElementById('report-toggle');
-report.addEventListener('click',()=>{
-  const active=document.body.classList.toggle('report-mode');report.setAttribute('aria-pressed',String(active));report.textContent=active?'普通模式':'报告模式';window.dispatchEvent(new Event('resize'));
-});
 const tabs=[...document.querySelectorAll('[data-tab]')];
 export function activeTab() {return tabs.find(t=>t.getAttribute('aria-selected')==='true')?.dataset.tab;}
 export function selectTab(key,updateHash=true) {
@@ -34,5 +30,5 @@ tabs.forEach((tab,i)=>{
   tab.addEventListener('click',()=>selectTab(tab.dataset.tab));
   tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];next.focus();selectTab(next.dataset.tab);});
 });
-function hashTab() {const raw=location.hash.slice(1),key=({metrics:'evaluation',parameters:'process'})[raw]||raw;selectTab(key||(location.pathname==='/sequence-labeling'?'hmm':location.pathname==='/tagging'?'ner':tabs[0]?.dataset.tab),false);}
+function hashTab() {const raw=location.hash.slice(1),key=({metrics:'evaluation',parameters:'process'})[raw]||raw;selectTab(key||(location.pathname==='/sequence-labeling'?'overview':location.pathname==='/tagging'?'pos':tabs[0]?.dataset.tab),false);}
 window.addEventListener('hashchange',hashTab);hashTab();
