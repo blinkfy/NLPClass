@@ -7,7 +7,14 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.api import analysis, annotation, course_extensions, experiment, views
+from app.api import (
+    analysis,
+    annotation,
+    course_extensions,
+    experiment,
+    information_extraction,
+    views,
+)
 from nlplab import __version__
 from nlplab.core.config import Settings, default_settings
 from nlplab.core.exceptions import DataValidationError, NoValidPathError, ResourceUnavailableError
@@ -15,6 +22,7 @@ from nlplab.data.sequence_annotations import AnnotationStore
 from nlplab.ner.hanlp_adapter import HanLPRecognizer
 from nlplab.services.course_extension_service import CourseExtensionService
 from nlplab.services.experiment_service import RunStore
+from nlplab.services.information_extraction_service import InformationExtractionService
 from nlplab.services.nlp_service import NLPService
 
 
@@ -28,7 +36,9 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
         settings, ner=HanLPRecognizer.from_settings(settings)
     )
     application.state.course = CourseExtensionService(settings, application.state.nlp)
+    application.state.information_extraction = InformationExtractionService(application.state.nlp)
     application.include_router(analysis.router)
+    application.include_router(information_extraction.router)
     application.include_router(course_extensions.router)
     application.include_router(experiment.router)
     application.include_router(annotation.router)
@@ -55,7 +65,7 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
         "/segmentation": ("segmentation.html", "中文分词"),
         "/sequence-labeling": ("sequence_labeling.html", "序列标注"),
         "/tagging": ("tagging.html", "词性与命名实体"),
-        "/information-extraction": ("future.html", "信息抽取"),
+        "/information-extraction": ("information_extraction.html", "信息抽取"),
         "/clustering": ("future.html", "文本聚类"),
         "/classification": ("future.html", "文本分类"),
         "/dependency-parsing": ("future.html", "依存句法分析"),
@@ -87,7 +97,7 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
             ("interactive", "交互抽取"),
             ("relations", "实体与关系"),
             ("results", "抽取结果"),
-            ("evaluation", "实验评测"),
+            ("evaluation", "方法与规则"),
         ],
         "/clustering": [
             ("data", "数据与表示"),

@@ -412,7 +412,7 @@ artifacts/runtime/hanlp-venv/Scripts/python.exe -m uvicorn app.main:app --host 1
 | 中文分词 | `/segmentation` | 五模型交互、算法过程、唯一七模型 MSR 表、CWS 错误 |
 | 序列标注 | `/sequence-labeling` | BMES、HMM1/HMM2、平均结构化感知机与独立线性链 CRF 的真实交互与机制对比 |
 | 词性与命名实体 | `/tagging` | HanLP CTB9 POS 交互；独立 NER 交互、MSRA-200 指标与错误 |
-| 信息抽取 | `/information-extraction` | 课程框架，待接入 |
+| 信息抽取 | `/information-extraction` | 课程补充实验：复用现有 HanLP NER，以实体类型和显式触发词抽取带原文证据的 SPO；提供实体关系图与 JSON。不是四个正式实验之一，没有 Relation Gold 或正式关系 benchmark。 |
 | 文本聚类 | `/clustering` | THUCNews600 数据状态，模型未实现 |
 | 文本分类 | `/classification` | 固定420/90/90 split 状态，模型未实现 |
 | 依存句法分析 | `/dependency-parsing` | 课程框架，待接入 |

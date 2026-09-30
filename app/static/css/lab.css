@@ -1268,6 +1268,35 @@ button,.outline,.primary,select { border-radius: 8px; }
 .entity-span-visual { margin-top: 16px; padding: 12px; border: 1px solid #dbeaf0; border-radius: 9px; background: #f8fcff; }.entity-span-visual h3 { color: #285f78; font-size: 12px; }.entity-track-line { position: relative; height: 38px; margin: 10px 0 3px; border-radius: 8px; background: repeating-linear-gradient(90deg,#e6eff5 0,#e6eff5 1px,#f3f8fb 1px,#f3f8fb 10%); }.entity-track-bar { position: absolute; top: 6px; display: grid; place-items: center; height: 26px; padding: 0 5px; overflow: hidden; border: 1px solid currentColor; border-radius: 6px; background: #ddf5ed; color: #096a58; font-size: 10px; font-weight: 750; white-space: nowrap; cursor: pointer; }.entity-track-bar.loc { background: #ddedff; color: #0b67a0; }.entity-track-bar.org { background: #fff0c9; color: #8d5b05; }.entity-track-bar:hover,.entity-track-bar:focus { outline: 2px solid currentColor; outline-offset: 2px; }.entity-track-axis { display: flex; justify-content: space-between; color: #68889b; font-size: 10px; }
 @media (min-width: 851px) { #process > .process-page-notes { display: flex; flex-direction: column; } #process-method-notes { display: grid; gap: 7px; align-content: start; } }
 @media (min-width: 1181px) { .experiment-workbench > * { margin-bottom: 0; } .experiment-workbench { margin-bottom: 12px; } }
+
+/* 信息抽取：沿用实验工作台，关系与证据优先于完整 JSON。 */
+.ie-workbench .experiment-controls textarea { min-height: 190px; }
+.ie-workbench .experiment-controls .primary { flex: 0 0 auto; width: 100%; min-height: 42px; }
+.ie-examples { display: flex; flex-wrap: wrap; gap: 7px; margin: 8px 0; }
+.ie-examples button { border: 1px solid #cfe1e9; border-radius: 7px; background: #f4fafd; color: #22576d; padding: 6px 9px; cursor: pointer; }
+.ie-highlight { min-height: 86px; padding: 16px; border: 1px solid #d6e8f2; border-radius: 10px; background: linear-gradient(135deg,#fcfeff,#f6fbff); font-size: 19px; line-height: 2.2; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ie-highlight .entity { padding: 3px 5px; border-radius: 6px; font-weight: 700; }
+.ie-highlight .entity.per,.ie-node.per { background: #ddf5ed; color: #096a58; }
+.ie-highlight .entity.loc,.ie-node.loc { background: #ddedff; color: #0b67a0; }
+.ie-highlight .entity.org,.ie-node.org { background: #fff0c9; color: #8d5b05; }
+.ie-workbench .section-heading { margin-top: 16px; }
+.ie-relation-cards { display: grid; gap: 9px; }
+.ie-relation-card { padding: 11px 13px; border: 1px solid #d9eaf0; border-left: 3px solid #43a7ae; border-radius: 9px; background: #fbfeff; }
+.ie-relation-card p { margin: 9px 0 4px; font-size: 13px; }
+.ie-relation-card small { color: #587082; overflow-wrap: anywhere; }
+.ie-triple { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; font-weight: 700; }
+.ie-node { padding: 5px 9px; border-radius: 7px; }
+.ie-predicate { color: #087f8c; }
+.ie-graph { min-height: 255px; border: 1px solid #d9eaf0; border-radius: 10px; background: #f8fcff; }
+.ie-graph .ie-empty { display: grid; place-items: center; min-height: 245px; padding: 20px; text-align: center; }
+.ie-empty { color: #647a89; }
+.ie-detail-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); gap: 14px; }
+.ie-detail-grid > * { min-width: 0; }
+.ie-entity-row { padding: 9px 12px; border-bottom: 1px solid #e3edf1; }
+.ie-entity-row:last-child { border-bottom: 0; }
+.ie-entity-row.per { color: #096a58; }.ie-entity-row.loc { color: #0b67a0; }.ie-entity-row.org { color: #8d5b05; }
+.ie-json { max-height: 65vh; overflow: auto; padding: 18px; border: 1px solid #d9eaf0; border-radius: 9px; background: #f8fbfd; font-size: 12px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 800px) { .ie-detail-grid { grid-template-columns: minmax(0,1fr); } }
 @media (max-width: 850px) { #process > .algorithm-panel { order: -1; } }
 #process .trace-playback { border-color: #b6dce5; border-radius: 11px; background: linear-gradient(145deg,#effaff,#f7fcff); box-shadow: 0 10px 24px rgba(24,97,129,.07); }
 #process .trace-step-stage { border-color: #d4e7ee; border-radius: 9px; background: #fff; }

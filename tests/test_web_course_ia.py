@@ -75,9 +75,9 @@ def test_task_and_model_views_have_distinct_responsibilities(tmp_path):
     for route in ["/sequence-labeling", "/deep-learning"]:
         assert 'id="model-specific-parameters"' in pages[route]
         assert "js/model-page.js" in pages[route]
-    for route in ["/information-extraction", "/dependency-parsing"]:
-        assert "待后续实验接入" in pages[route]
-        assert 'id="analysis-form"' not in pages[route]
+    assert 'id="ie-input"' in pages["/information-extraction"]
+    assert "方法与规则" in pages["/information-extraction"]
+    assert "待后续实验接入" in pages["/dependency-parsing"]
     assert client.get("/annotation/sequence").status_code == 200
 
 
