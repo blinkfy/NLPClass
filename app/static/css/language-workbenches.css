@@ -1,0 +1,237 @@
+/* Scoped to the existing language workbenches; shared navigation stays unchanged. */
+.language-page {
+  --workbench-ink: #123c53;
+  --workbench-border: #c9e2e9;
+  --workbench-soft: #f0f8fb;
+}
+.language-page .panel { border-radius: 13px; }
+.language-page .experiment-workbench { gap: 14px; }
+.language-page .experiment-workbench > .panel {
+  margin-bottom: 0;
+  padding: 19px;
+  border-color: #d4e5ed;
+}
+.language-page .experiment-workbench { margin-bottom: 16px; }
+.language-page .experiment-stage {
+  border: 1px solid #99cbd5 !important;
+  background: linear-gradient(155deg, #fff 65%, #f2fafc);
+  box-shadow: 0 10px 28px #164d6610;
+}
+.language-page .panel-title {
+  gap: 11px;
+  margin-bottom: 15px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e2edf2;
+}
+.language-page .panel-title small { color: #5e8497; font-size: 10px; letter-spacing: 1px; }
+.language-page .panel-title h2 { color: var(--workbench-ink); font-size: 19px; }
+.language-page .panel-symbol {
+  width: 37px;
+  height: 37px;
+  border: 1px solid #cde5ed;
+  background: #e9f6fa;
+  border-radius: 10px;
+}
+.language-page .experiment-stage > .panel-title .panel-symbol {
+  background: #087f8c;
+  color: #fff;
+  border-color: #087f8c;
+  box-shadow: 0 4px 9px #087f8c20;
+}
+.language-page .experiment-controls > .muted,
+.language-page .experiment-stage > .muted { font-size: 12px; line-height: 1.7; }
+.language-page .experiment-controls label { color: #254e65; font-size: 12px; font-weight: 650; }
+.language-page .experiment-controls textarea { background: #fcfeff; border-color: #c7dee7; line-height: 1.9; }
+.language-page .control-context { padding: 12px; background: #f3f9fc; }
+.language-page .control-context p { color: #557488; font-size: 11px; line-height: 1.7; }
+.language-page .control-context h3 { font-size: 12px; }
+.language-page .experiment-controls .primary { flex: 0 0 auto; min-height: 41px; border-radius: 8px; }
+.language-page .experiment-notes { background: #f7fbfd; }
+.language-page .process-notes .algorithm-note-card { padding: 12px 12px 12px 15px; }
+.language-page .process-notes .algorithm-note-card h3 { color: #1d4960; font-size: 12px; }
+.language-page .process-notes .algorithm-note-card p { color: #557286; font-size: 12px; line-height: 1.7; }
+.language-page .process-notes .note-run { margin-top: 12px; }
+.language-page .formula-panel { border-color: #b9dce6; background: #eaf6f9; }
+.language-page .formula-panel p { line-height: 1.7; }
+.language-page .trace-disclosure,
+.language-page .candidate-details { border-radius: 9px; background: #f8fbfd; box-shadow: none; }
+.language-page .trace-disclosure > summary,
+.language-page .candidate-details > summary { color: #37667c; font-size: 12px; }
+.language-page .table-wrap { max-width: 100%; }
+.language-page .stage-number,
+.language-page .bmes-output h3::before {
+  display: inline-grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  margin-right: 4px;
+  border-radius: 6px;
+  background: #d9eef2;
+  color: #0b7485;
+  font-size: 10px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+.language-page .bmes-output h3::before { content: '02'; }
+
+/* Segmentation: output, decoded path, and model mechanism have distinct levels. */
+.language-page .result-stage .result-facts { border-bottom: 0; padding-bottom: 3px; }
+.language-page .result-facts > span { border: 0; background: #edf6f9; color: #547489; }
+.language-page .result-facts > span:first-child { flex-basis: 100%; background: transparent; padding: 0; }
+.language-page .result-facts strong { color: #12546a; }
+.language-page .stage-block { margin-top: 16px; }
+.language-page .stage-block h3 { color: #234f65; font-size: 13px; }
+.language-page .primary-output {
+  padding: 13px;
+  border: 1px solid #c0e2e8;
+  border-radius: 10px;
+  background: #eef9fa;
+}
+.language-page .primary-output .tokens { border: 0; background: transparent; padding: 4px 0 0; gap: 6px; }
+.language-page .result-stage .token {
+  min-width: 40px;
+  padding: 9px 10px 6px;
+  border: 1px solid #b9dfe5;
+  background: #fff;
+  color: #135c70;
+  font-size: 15px;
+  box-shadow: 0 2px 5px #19597008;
+}
+.language-page .result-stage .token:nth-child(3n) { background: #f6fbff; }
+.language-page .result-stage .token small { margin-top: 4px; font-size: 10px; }
+.language-page .result-stage .bmes { padding: 10px; gap: 5px; background: #f9fbfd; }
+.language-page .bmes-cell { padding: 6px 5px; font-size: 14px; }
+.language-page .bmes-cell small { padding-top: 2px; font-size: 10px; }
+.language-page .compact-process { border-color: #badbe5; background: #f2f8fb; padding: 13px; }
+.language-page .mini-trellis { gap: 4px; padding: 10px; }
+.language-page .mini-trellis-char { color: #1d4c63; font-weight: 700; }
+.language-page .mini-trellis-cell { min-height: 25px; }
+.language-page .mini-trellis-cell.is-path { background: #0d8792; color: #fff; box-shadow: none; }
+.language-page .compact-scan-step,
+.language-page .compact-pair-step,
+.language-page .compact-neural-step { padding: 9px 11px; border-left: 3px solid #39a7b0; }
+.language-page .compact-path-caption { padding-top: 5px; font-size: 11px; overflow-wrap: anywhere; }
+.language-page .method-identity { background: #15475c; border-color: #15475c; color: #fff; padding: 13px; }
+.language-page .method-identity small { color: #c3e0ea; }
+.language-page .method-emblem { background: #276478; color: #c4f6f1; border: 1px solid #3f7889; }
+.language-page .method-benchmark { margin-top: auto; border-color: #bedde5; background: #eaf6f9; }
+.language-page .method-strip-item { padding: 11px 12px; border-radius: 9px; }
+.language-page .method-strip-item.is-active { border-color: #148b95; box-shadow: inset 0 3px #148b95; }
+.language-page .method-strip-metrics { font-size: 11px; }
+.language-page .method-strip-symbol { width: 32px; height: 32px; }
+
+/* The existing replay remains interactive; the active frame is the focal point. */
+.language-page #process > .algorithm-panel { border-color: #a3ccd8; box-shadow: 0 8px 23px #23536c0c; }
+.language-page #process .trace-playback { padding: 16px; background: #edf7fa; border-color: #afd7e2; }
+.language-page .trace-playback-head { padding-bottom: 11px; border-bottom: 1px solid #cde3ea; }
+.language-page .trace-playback-head > strong { font-size: 14px; }
+.language-page .trace-playback-controls button { border-radius: 6px; padding: 5px 9px; background: #fff; }
+.language-page .trace-step-stage { padding: 14px; background: #fff; border-color: #cfe5eb; }
+.language-page .hmm-step-focus { border: 0; padding: 12px; background: #eef8fa; }
+.language-page .hmm-focus-char { width: 61px; height: 61px; font-size: 31px; }
+.language-page .hmm-focus-detail strong { font-size: 18px; }
+.language-page .hmm-focus-detail span { font-size: 13px; }
+.language-page .trace-state { padding: 11px 6px; border-radius: 8px; background: #f7fafc; color: #5a7a8e; }
+.language-page .trace-state.is-active { background: #0d7e8b; border-color: #0d7e8b; color: #fff; box-shadow: 0 4px 10px #087f8c20; }
+.language-page .decoded-path { gap: 5px; }
+.language-page .path-state { padding: 6px 9px; border-radius: 7px; background: #f3f8fb; }
+.language-page .decoded-path .path-state.is-active { background: #087f8c; color: #fff; box-shadow: none; }
+.language-page .hmm-predecessor-strip { gap: 5px; }
+.language-page .hmm-predecessor-step { font-size: 11px; border-color: #e0eaf0; }
+.language-page #process .lattice-wrap { background: radial-gradient(ellipse at center, #eef8fb, #fff 80%); border-color: #c1dfe8; }
+.language-page #process .lattice-wrap svg { min-height: 270px; }
+.language-page .lattice-edge:not([data-best="true"]):not(.is-active) { opacity: .55; }
+.language-page .lattice-edge[data-best="true"] { stroke-width: 4; }
+.language-page #process .best-path { background: #e6f6f5; border-color: #b4dedc; padding: 12px; }
+.language-page #process .best-path .flow-step { background: #fff; border: 1px solid #b3dada; padding: 6px 13px; }
+.language-page #process .lattice-summary { display: block; padding: 10px 13px; background: #e6f4f7; }
+.language-page .process-explain-step { padding: 13px 12px 13px 40px; }
+.language-page .process-explain-step p { font-size: 12px; }
+.language-page .process-live { border-color: #add5e0; background: #edf7fa; }
+
+/* Sequence models: parameters remain visual, sentence-specific details separate. */
+.language-page .model-signature { display: grid; gap: 5px; margin: 13px 0; padding: 15px; border-radius: 9px; background: #edf7fa; }
+.language-page .model-signature small { color: #3a7187; font-size: 11px; }
+.language-page .model-signature strong { color: #12556b; font-size: 24px; font-family: Georgia, serif; }
+.language-page .model-signature span { color: #3b687e; font-size: 12px; }
+.language-page .method-card { border-top: 3px solid #188b99; }
+.language-page .method-card:nth-of-type(2) { border-top-color: #747fbb; }
+.language-page .method-card:nth-of-type(2) .model-signature { background: #f1f1fa; }
+.language-page .method-card:nth-of-type(3) { border-top-color: #249b79; }
+.language-page .method-card:nth-of-type(3) .model-signature { background: #edf9f3; }
+.language-page .bmes-map { height: 168px; background: #f6fbfe; }
+.language-page .bmes-transition-list { inset: 55px 7px auto; }
+.language-page .bmes-transition-list > button { width: 49px; height: 49px; }
+.language-page .legal-transition-key { margin-top: 15px; padding: 12px; background: #eef6fa; border-radius: 9px; }
+.language-page .hmm-factorization { display: grid; gap: 6px; margin-top: auto; padding: 14px; border: 1px solid #cbe3eb; border-radius: 9px; background: #edf7fa; }
+.language-page .hmm-factorization small { color: #518298; font-size: 10px; }
+.language-page .hmm-factorization strong { color: #1f5d72; font-family: Georgia, serif; font-size: 16px; }
+.language-page .hmm-factorization > span { color: #1f5d72; font-family: Georgia, serif; font-size: 13px; }
+.language-page .hmm-factorization p { padding-top: 4px; color: #5d7c8e; font-size: 11px; line-height: 1.7; }
+.language-page .hmm-parameters .chart-section { background: #f6fafc; border-radius: 10px; padding: 9px; }
+.language-page .hmm-parameters .chart-section h3 { font-size: 13px; }
+.language-page .parameter-caption { padding: 7px; border-top: 1px solid #deebf1; color: #53748a; font-size: 10px; }
+.language-page .parameter-caption b { margin-right: 4px; color: #0c7888; font-size: 12px; }
+.language-page .hmm-parameters .emission-panel { padding: 11px; margin-top: 10px; border: 1px solid #d5e7ef; border-radius: 10px; background: #fcfeff; }
+.language-page .hmm-order-compare { margin-top: auto; background: #edf6fa; }
+.language-page .hmm-demo { border-color: #b7dce4; }
+.language-page .course-step-focus { padding: 15px; margin: 15px 0; border-color: #9cced9; }
+.language-page .course-path-step { min-width: 32px; padding: 5px 7px; }
+.language-page .course-path-step.is-active { color: #fff; background: #087f8c; border-color: #087f8c; }
+.language-page .course-state-card { padding: 13px 9px; border-radius: 9px; background: #f5f9fc; }
+.language-page .course-state-card > strong { font-size: 19px; }
+.language-page .course-state-card.is-path { border-color: #168b97; background: #e7f7f6; box-shadow: inset 0 3px #168b97; }
+.language-page .course-feature-panel { padding: 13px; margin-top: 16px; background: #fafcfe; }
+.language-page .course-feature-panel h3 { padding-bottom: 7px; font-size: 12px; }
+.language-page .course-feature-row { padding: 6px 0; border-bottom: 1px dashed #dfebf0; }
+.language-page .course-feature-row:last-child { border: 0; }
+.language-page .mechanism-card { padding: 20px; background: #fbfdff; }
+.language-page .comparison-result-card { background: #f8fcfd; border-radius: 10px; }
+
+/* POS and NER: readable annotated source, selectable words, and precise spans. */
+.language-page .result-section-label { margin: 15px 0 8px; font-size: 13px; color: #315d73; }
+.language-page .pos-original { padding: 17px; background: #f2f9fc; font-size: 20px; line-height: 2.3; }
+.language-page .pos-mark { padding: 4px 5px; border-radius: 5px; cursor: pointer; }
+.language-page .pos-result { gap: 7px; margin: 10px 0 14px; }
+.language-page .pos-token { padding: 9px 11px; border-top: 3px solid currentColor; box-shadow: 0 2px 5px #274c5d08; font-size: 14px; }
+.language-page .pos-token small { font-size: 10px; letter-spacing: .5px; }
+.language-page .pos-token.is-selected { outline: 2px solid #168493; outline-offset: 2px; }
+.language-page .pos-mark.is-selected { box-shadow: 0 2px #168493; }
+.language-page .pos-selected { padding: 9px 12px; border: 1px solid #cde5eb; border-radius: 8px; background: #eef8fa; color: #286176; font-size: 12px; }
+.language-page .pos-counts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.language-page .pos-count { padding: 10px 11px; border: 1px solid #e0eaf0; font-size: 12px; }
+.language-page .lexical-pipeline { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: auto; padding: 22px 0 3px; }
+.language-page .pos-stage { display: flex; flex-direction: column; }
+.language-page .lexical-pipeline > span { display: grid; gap: 2px; flex: 1; padding: 10px 7px; border: 1px solid #d6e7ef; border-radius: 8px; color: #255b70; background: #f4f9fc; text-align: center; font-size: 11px; }
+.language-page .lexical-pipeline small { color: #62889a; font-size: 9px; letter-spacing: 1px; }
+.language-page .lexical-pipeline b { color: #5299a7; font-size: 13px; }
+.language-page .pos-explanation { gap: 10px; padding: 5px 0; }
+.language-page .pos-explanation strong { min-width: 25px; color: #087f8c; }
+.language-page .pos-legend { margin-bottom: 6px; }
+.language-page .ner-stage #original-text { padding: 22px 19px; border-color: #bbdce8; background: #f3fafe; font-size: 21px; line-height: 2.4; }
+.language-page .ner-stage .entity-detail { margin-top: 10px; padding: 9px 12px; background: #edf7fa; font-size: 12px; }
+.language-page .ner-workbench .ner-item { min-height: 46px; padding: 9px; }
+.language-page .ner-workbench .ner-item.is-active { border-left: 3px solid #0b8794; background: #edf8fa; }
+.language-page .entity-span-visual { background: #f3f8fc; padding: 14px; }
+.language-page .entity-track-line { height: 44px; }
+.language-page .entity-track-bar { top: 8px; height: 28px; }
+.language-page #ner-metric-cards { gap: 12px; }
+.language-page .metric-card { padding: 15px 17px; border-color: #d1e5ec; border-radius: 10px; box-shadow: 0 4px 13px #234e6408; }
+.language-page .metric-card > strong { font-size: 27px; color: #155569; }
+.language-page .metric-card-values { font-size: 11px; }
+.language-page .metric-card-head { margin-bottom: 8px; }
+.language-page .metric-card-icon { width: 31px; height: 31px; border-radius: 8px; }
+.language-page .ner-preview-card { background: #fbfdff; border-left: 3px solid #d2a064; }
+
+@media (min-width: 1181px) {
+  .language-page .experiment-workbench { grid-template-columns: minmax(245px, 270px) minmax(0, 1fr) minmax(245px, 270px); }
+}
+@media (max-width: 600px) {
+  .language-page .experiment-workbench > .panel { padding: 15px; }
+  .language-page .trace-state-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .language-page .hmm-focus-detail strong { font-size: 15px; }
+  .language-page .course-state-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .language-page .pos-original { font-size: 18px; padding: 13px; }
+  .language-page .ner-stage #original-text { padding: 16px; font-size: 19px; }
+  .language-page .lexical-pipeline { gap: 4px; }
+}

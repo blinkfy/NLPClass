@@ -1,0 +1,12 @@
+#classification-stage4-chart { width:100%; max-width:850px; margin:12px auto; }
+#classification-stage4-chart svg { display:block; width:100%; height:auto; font-size:12px; fill:#596c7e; }
+#classification-stage4-legend { display:flex; flex-wrap:wrap; gap:12px 20px; margin:8px 0 18px; font-size:13px; }
+#classification-stage4-legend i { display:inline-block; width:14px; height:3px; vertical-align:middle; margin-right:6px; }
+#classification-stage4-panel details { margin-top:18px; }
+#classification-stage4-panel summary { cursor:pointer; font-weight:600; }
+#classification-stage4-panel .classification-exports { margin-top:18px; }
+body[data-stage4-analysis="true"] #comparison > :not(#classification-stage4-panel) { display:none !important; }
+body[data-stage4-analysis="true"] .tabs button:disabled { opacity:.45; cursor:default; }
+body[data-stage4-analysis="true"] #classification-run,
+body[data-stage4-analysis="true"] #classification-model { opacity:.7; }
+@media(max-width:600px) { #classification-stage4-panel .section-heading { display:block; } #classification-stage4-panel .section-heading label { display:block; margin-top:12px; } }

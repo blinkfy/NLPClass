@@ -7,8 +7,8 @@
 | 实验 | 数据与算法 | 当前状态 |
 | --- | --- | --- |
 | 一：序列标注 | 七方法 MSR CWS + MSRA NER test personal-200 | Completed / Frozen：标准评价、错误分析、算法过程与 Web 均完成 |
-| 二：文本聚类 | THUCNews 五类平衡全文 600 → K-means | 数据已准备；尚未训练模型，输入不含 primary_label |
-| 三：文本分类 | 同一 600 条 → NB / SVM | 固定分层 420/90/90 已冻结；尚未训练模型 |
+| 二：文本聚类 | THUCNews 五类平衡全文 600 → TF-IDF / K-means | K=2…10 sweep、K=5参考与四 Tab Web 已接入；拟合输入不含 primary_label |
+| 三：文本分类 | 同一 600 条 → NB / SVM | 固定分层 420/90/90；C0/C1 第一阶段已完成 |
 | 四：应用程序 | Web → NLPService → 分词 / NER / 分类 / 聚类 | 网页骨架与实验一系统测试，后续逐步接入 |
 
 ## 当前状态：实验一 Completed / Frozen
@@ -17,7 +17,7 @@ MSR standard 最终 benchmark 已完成并冻结，结果保存在 outputs/exp1/
 原有一阶 HMM/Viterbi/MSR importer、最终配置、模型及已有 Run 保持不变。默认课程数据使用公开语料个人子集：
 MSRA NER test 200 条、官方 THUCNews 全文五类各 120 条。自采集与人工 Gold 工具保留为可选方案。
 正式 NER Run：`20260926_152118_34a953fb`，Overall P/R/F1 = 91.88% / 92.74% / 92.31%。
-toy 仅验证功能，不能计入课程样本和实验指标。实验二/三仍未实现。
+toy 仅验证功能，不能计入课程样本和实验指标。实验二已完成第一阶段主实验；实验三 C0/C1 第一阶段已完成。
 
 ## 实验一课程方法拓展（MSR 冻结评测）
 
@@ -80,7 +80,7 @@ BiLSTM development 达到 max_epochs=10，best_epoch=10，patience=2 未提前�
 - [实验要求—证据矩阵](docs/exp1_requirement_traceability.md)
 - [最终冻结声明](docs/exp1_freeze.md)
 
-实验二 THUCNews 600 全文数据已准备，模型未实现；实验三固定 420/90/90 split 已准备，模型未实现。
+实验二 THUCNews 600 全文 TF-IDF / K-means 主实验已完成，协议与真实结果见 [实验二记录](docs/exp2_clustering.md)；实验三基于固定 420/90/90 split 完成 C0/C1，严格 Train→Validation 选参、510 篇最终拟合、90 篇 Test 一次评价；真实结果见 [实验三第一阶段记录](docs/exp3_classification_stage1.md)。
 custom corpus / 620-slot / manual annotation 保留为 Optional Workflow，不作为当前主线条件。
 
 ## 环境安装
@@ -197,7 +197,7 @@ NER 使用已核验 NR→PER、NS→LOC、NT→ORG；按模型实际 WordPiece �
 
 独立输出 `outputs/exp1/course_samples/<run_id>/`，保存配置、manifest、指纹、预测、错误、样例、指标及 report。
 不覆盖 development/最终 MSR Run 或旧 latest.json。中文分词页绑定冻结 MSR 模型；词性与命名实体页独立选择课程 200 NER Run，不显示不存在的 CWS F1，正式 Run 只读。
-中文分词交互默认 HMM-1 Smooth；进入分析页、修改输入或切换模型后自动分析，输入修改使用短延迟合并。中文分词页默认在结果下方展开算法过程，按钮仍可手动刷新。HMM 参数见序列标注，BiLSTM 结构与训练见深度学习。聚类/分类页面仅显示数据状态。
+中文分词交互默认 HMM-1 Smooth；进入分析页、修改输入或切换模型后自动分析，输入修改使用短延迟合并。中文分词页默认在结果下方展开算法过程，按钮仍可手动刷新。HMM 参数见序列标注，BiLSTM 结构与训练见深度学习。聚类页面只读展示实验二 Run；分类页面仅显示数据状态。
 
 审计输出 JSON + Markdown 到不覆盖的 `outputs/data_quality/<id>/`。
 [子集 manifest schema](docs/public_subset_manifest.schema.json)描述提交格式；真实全文、原始语料、键、权重、Run 均忽略 Git。
@@ -413,8 +413,8 @@ artifacts/runtime/hanlp-venv/Scripts/python.exe -m uvicorn app.main:app --host 1
 | 序列标注 | `/sequence-labeling` | BMES、HMM1/HMM2、平均结构化感知机与独立线性链 CRF 的真实交互与机制对比 |
 | 词性与命名实体 | `/tagging` | HanLP CTB9 POS 交互；独立 NER 交互、MSRA-200 指标与错误 |
 | 信息抽取 | `/information-extraction` | 课程补充实验：复用现有 HanLP NER，以实体类型和显式触发词抽取带原文证据的 SPO；提供实体关系图与 JSON。不是四个正式实验之一，没有 Relation Gold 或正式关系 benchmark。 |
-| 文本聚类 | `/clustering` | THUCNews600 数据状态，模型未实现 |
-| 文本分类 | `/classification` | 固定420/90/90 split 状态，模型未实现 |
+| 文本聚类 | `/clustering` | TF-IDF、K sweep、簇解释、二维投影与事后评价；只读真实 Run |
+| 文本分类 | `/classification` | C0/C1 可解释实时预测、独立 Validation/Test 指标、每类指标、混淆矩阵与错误样本 |
 | 依存句法分析 | `/dependency-parsing` | 课程框架，待接入 |
 | 深度学习与大模型 | `/deep-learning` | BiLSTM-CRF 结构、CRF、冻结训练曲线；Transformer/LLM 待接入 |
 | 综合分析 | `/integrated-analysis` | 同一 service 的分词+NER；多文档能力待接入 |
@@ -445,7 +445,7 @@ toy 的训练/测试不同，结果来自实际训练、预测和计分，始终
 | PATCH /api/v1/experiments/1/errors/{sample_id} | 设置或清除人工类别 |
 | GET /api/v1/experiments/1/export/{name} | metrics/predictions/errors/config |
 
-输入错误及无有效路径为 422，缺失 Run/模型为 503，均有清晰消息。分类/聚类 API 未注册。SequenceTagger、Segmenter、NERRecognizer 为结构化接口；NLPService 可以注入分词器加载器与 NER。TextClassifier、TextClusterer 仅保留接口，features 保留扩展位置，后续按课件实现真实模型。
+输入错误及无有效路径为 422，缺失 Run/模型为 503，均有清晰消息。分类 API 未注册；聚类只读 API 位于 `/api/v1/experiments/2/{runs,overview,result,export}`，执行入口为 `python -m nlplab.clustering`。SequenceTagger、Segmenter、NERRecognizer 为结构化接口；NLPService 可以注入分词器加载器与 NER。实验二由独立 ClusteringService 复用 exp2 RunStore，算法位于 features/clustering/evaluation；Web 不执行 fit，TextClassifier 仍为后续扩展接口。
 
 ### 课程序列标注与 POS 补充模块
 

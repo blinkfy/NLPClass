@@ -1,0 +1,23 @@
+# 单一预注册配置；仅根据无标签 corpus DF 统计制定，不做参数 sweep。
+baseline_run_id: 20260930_094537_befa08d2
+enhanced_tfidf:
+  min_df: 2
+  max_df: 0.30
+  max_features: 20000
+  sublinear_tf: true
+  smooth_idf: true
+  norm: l2
+  ngram_range: [1, 2]
+lsa:
+  n_components: 100
+  n_iter: 7
+  random_state: 42
+  algorithm: randomized
+selection_evidence:
+  label_free: true
+  baseline_max_unigram_df: 252
+  baseline_document_count: 600
+  removed_unigrams_by_df_threshold: 10
+  rationale: 全文 DF 大于 30% 的词仅十项；更宽松阈值对泛化词过滤不足。bigram 捕捉相邻词组合，维度预算保持 20000。
+  stopword_resource: none
+  parameter_search: false

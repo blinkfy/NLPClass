@@ -1,0 +1,62 @@
+"""Stage3 预注册常量；可由两个既有隔离 runtime 同时读取。"""
+
+ARCHITECTURE = {
+    "embedding_dim": 128,
+    "embedding_trainable": True,
+    "padding_idx": 0,
+    "kernels": [3, 4, 5],
+    "channels_per_kernel": 128,
+    "activation": "relu",
+    "pooling": "global_max_valid_windows_only",
+    "pooled_dimension": 384,
+    "dropout": 0.5,
+    "output_classes": 5,
+    "initialization": "PyTorch default random initialization; PAD embedding zeros",
+    "short_sequences": "kernel longer than retained length -> zero activation, position -1",
+    "head_tail_join": "convolution may cross join; explanations flag original-position gaps",
+}
+
+TRAINING = {
+    "loss": "CrossEntropyLoss",
+    "class_weights": None,
+    "optimizer": "AdamW",
+    "weight_decay": 1e-4,
+    "batch_size": 32,
+    "max_epochs": 30,
+    "gradient_clip_norm": 5.0,
+    "patience": 5,
+    "metric": "validation_macro_f1",
+    "scheduler": None,
+    "label_smoothing": 0.0,
+    "augmentation": None,
+    "best_epoch_tie": "earliest strict improvement",
+    "seed": [42, 43, 44],
+    "learning_rates": [0.001, 0.0005],
+    "threads": 2,
+    "device": "cpu",
+    "deterministic_algorithms": True,
+}
+
+PROTOCOL = {
+    "stage1_run_id": "20261001_123337_9c1e7341",
+    "stage2_run_id": "20261001_133829_68ee50d7",
+    "vocabulary": {
+        "pad": 0,
+        "unk": 1,
+        "min_freq": 2,
+        "max_vocab": None,
+        "order": "frequency desc, lexical asc",
+    },
+    "max_len_rule": "max(128, min(768, ceil(P95_train / 32) * 32))",
+    "percentile_method": "numpy linear",
+    "truncation": "head ceil(max_len/2) + tail floor(max_len/2); right PAD",
+    "lr_selection": ["mean_macro_f1_desc", "population_std_asc", "learning_rate_asc"],
+    "std_ddof": 0,
+    "final_seed": 42,
+    "final_epochs_rule": "median of three best epochs at selected lr",
+    "final_fit_splits": ["train", "val"],
+    "test_policy": "one formal evaluation after final model saved; no retuning",
+    "historical_test_note": "post-hoc extension; Test already used by Stage1/2",
+    "pretrained_vectors": False,
+    "external_corpus": False,
+}

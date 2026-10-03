@@ -1,0 +1,115 @@
+.clustering-workbench-eyebrow { display:block; color:#087f8c; font-size:10px; font-weight:800; letter-spacing:.1em; margin-bottom:5px; }
+.clustering-field { display:grid; gap:4px; min-width:0; max-width:100%; color:#536176; font-size:12px; }
+.clustering-field select { min-width:0; width:100%; max-width:280px; }
+.clustering-flow { display:grid; grid-template-columns:repeat(var(--flow-count,5),minmax(0,1fr)); gap:18px; margin-top:20px; }
+.clustering-flow-step { position:relative; min-width:0; padding:16px 12px; background:#f4fafb; border:1px solid #d4e7ec; border-radius:8px; }
+.clustering-flow-step:nth-child(3) { background:#fbf8f1; border-color:#ece2cc; }
+.clustering-flow-step:nth-child(4) { background:#f6f4fa; border-color:#e2dced; }
+.clustering-flow-step:not(:last-child)::after { content:'→'; position:absolute; right:-16px; top:50%; color:#087f8c; font-size:20px; }
+.clustering-stage-number { color:#087f8c; font-size:11px; font-weight:800; }
+.clustering-flow-step h4 { margin:8px 0; font-size:13px; }
+.clustering-flow-step p { font-size:13px; line-height:1.7; min-height:65px; overflow-wrap:anywhere; }
+.clustering-flow-step small, .clustering-sample-cell small { color:#71849a; font-size:11px; }
+.clustering-sample-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.clustering-sample-cell { min-width:0; border:1px solid #e3ebf0; padding:16px; border-radius:7px; background:#fbfdfe; }
+.clustering-sample-cell h4 { font-size:13px; margin-bottom:12px; }
+.clustering-sample-cell p { font-size:13px; line-height:1.8; overflow-wrap:anywhere; }
+.clustering-weight-bars { display:grid; gap:7px; margin:12px 0; }
+.clustering-weight-row { display:grid; grid-template-columns:minmax(70px,.8fr) minmax(45px,1.3fr) 52px; align-items:center; gap:8px; min-width:0; font-size:12px; }
+.clustering-weight-row > span { overflow-wrap:anywhere; }
+.clustering-weight-row strong { font-size:11px; font-weight:500; text-align:right; color:#536176; }
+.clustering-weight-rail { display:block; background:#edf3f6; height:8px; border-radius:2px; overflow:hidden; }
+.clustering-weight-rail > i { display:block; height:100%; background:#51a7b1; }
+button.clustering-weight-row { width:100%; border:1px solid transparent; border-radius:4px; padding:7px 5px; background:transparent; color:#375d7a; text-align:left; cursor:pointer; }
+button.clustering-weight-row:hover { background:#f0f7f8; border-color:#c7e2e4; }
+.clustering-weight-row.is-nearest { background:#e7f5f4; border-color:#a8d9d7; font-weight:700; }
+.clustering-weight-row.is-nearest .clustering-weight-rail > i { background:#087f8c; }
+.clustering-coordinate-chips { display:flex; flex-wrap:wrap; gap:5px; margin:12px 0; }
+.clustering-coordinate-chips span { color:#087f8c; background:#eef8f9; border:1px solid #d4e7ec; padding:4px 7px; border-radius:4px; font:11px ui-monospace,monospace; }
+.clustering-coordinate-chips .is-negative { color:#6b62a3; background:#f4f2fa; border-color:#e3ddef; }
+.clustering-explorer { display:grid; grid-template-columns:220px minmax(0,1fr) 285px; gap:14px; align-items:start; }
+.clustering-explorer > *, .clustering-space-workbench > * { min-width:0; }
+.clustering-explorer .panel { margin:0; padding:18px; }
+.clustering-explorer-list h3 { font-size:15px; margin-bottom:12px; }
+#clustering-cluster-cards { display:grid; gap:9px; max-height:640px; overflow:auto; }
+.clustering-cluster-tile { min-width:0; width:100%; white-space:normal; overflow-wrap:anywhere; text-align:left; padding:12px; border:1px solid #dce8ef; border-radius:7px; background:#fbfdfe; color:#173b52; cursor:pointer; }
+.clustering-cluster-tile.is-current { border-color:#73b5bd; background:#edf8f8; box-shadow:inset 3px 0 #087f8c; }
+.clustering-tile-head { display:flex; align-items:center; gap:7px; font-size:13px; }
+.clustering-tile-head > span:last-child { margin-left:auto; font-size:12px; color:#536176; }
+.clustering-cluster-dot { display:inline-grid; place-items:center; height:23px; width:23px; border-radius:50%; color:white; font-size:11px; }
+.clustering-cluster-tile .clustering-terms { gap:4px; margin:8px 0; }
+.clustering-cluster-tile .clustering-terms span { padding:2px 5px; font-size:10px; }
+.clustering-cluster-tile p { font-size:11px; line-height:1.6; color:#536176; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.clustering-cluster-tile > small { display:block; font-size:10px; color:#71849a; margin-top:6px; overflow-wrap:anywhere; }
+#clustering-cluster-detail > h3 { font-size:19px; margin:6px 0; overflow-wrap:anywhere; }
+#clustering-cluster-detail > h4 { font-size:13px; margin-top:16px; }
+#clustering-cluster-detail > small { font-size:11px; color:#71849a; }
+.clustering-centroid-profile { margin:18px 0 12px; padding:12px; border:1px solid #dae7ef; border-radius:6px; background:#f7fafc; }
+.clustering-centroid-profile h4 { font-size:13px; margin-bottom:10px; }
+.clustering-inspector-facts { display:grid; grid-template-columns:minmax(75px,.8fr) minmax(0,1.2fr); font-size:12px; gap:7px 10px; margin:14px 0; }
+.clustering-inspector-facts dt { color:#71849a; }
+.clustering-inspector-facts dd { margin:0; color:#173b52; overflow-wrap:anywhere; }
+.clustering-representative-link { display:block; width:100%; white-space:normal; overflow-wrap:anywhere; text-align:left; margin:12px 0; padding:13px; border:1px solid #dce8ef; border-radius:7px; background:#fbfdfe; cursor:pointer; color:#173b52; }
+.clustering-representative-link:hover { border-color:#73b5bd; background:#f3fafb; }
+.clustering-representative-link small, .clustering-representative-link strong { display:block; font-size:11px; overflow-wrap:anywhere; }
+.clustering-representative-link small { color:#087f8c; margin-bottom:5px; }
+.clustering-representative-link p { font-size:12px; line-height:1.7; margin:9px 0; }
+.clustering-representative-link span { color:#71849a; font-size:11px; }
+.clustering-document-id { display:block; font-size:11px; color:#375d7a; overflow-wrap:anywhere; margin:12px 0; }
+.clustering-inspector-panel h3, .clustering-fixed-inspector h3 { font-size:17px; margin:5px 0 14px; }
+.clustering-inspector-panel h4, .clustering-fixed-inspector h4 { font-size:12px; margin-top:15px; }
+.clustering-inspector-snippet { background:#f4f8fb; border-radius:5px; padding:10px; line-height:1.7; font-size:12px; overflow-wrap:anywhere; }
+.clustering-assignment-mechanism { padding-top:2px; border-top:1px solid #dce8ef; margin-top:16px; }
+.clustering-assignment-mechanism small { color:#71849a; font-size:11px; }
+.clustering-nearest-verdict { padding:9px; background:#e7f5f4; color:#087482; font-size:12px; border-radius:5px; }
+.clustering-space-workbench { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:20px; margin-top:20px; align-items:start; }
+.clustering-space-workbench .clustering-scatter { height:510px; }
+.clustering-fixed-inspector { border-left:1px solid #e2ebef; padding-left:18px; position:sticky; top:16px; }
+.clustering-fixed-inspector > label { display:block; font-size:11px; color:#71849a; }
+.clustering-fixed-inspector select { width:100%; margin:6px 0 16px; }
+.clustering-k-facts { display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; font-size:12px; }
+.clustering-k-context { padding:13px 16px; background:#eef7f8; border:1px solid #d4e7ec; border-radius:7px; margin-bottom:14px; }
+.clustering-k-context p { margin-top:7px; font-size:11px; color:#64778a; }
+#clustering-space-centroids { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px; }
+#clustering-space-centroids button { background:#fbfdfe; border:1px solid #dce8ef; color:#375d7a; padding:5px 9px; border-radius:5px; cursor:pointer; }
+#clustering-space-centroids button.is-current { background:#e7f5f4; border-color:#73b5bd; color:#087482; }
+#clustering-space-centroids small { width:100%; color:#71849a; font-size:11px; margin-top:5px; }
+.clustering-structure-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.clustering-structure-card { padding:18px; border:1px solid #dce8ef; border-radius:7px; background:#fbfdfe; min-width:0; }
+.clustering-structure-card:last-child { border-color:#b6dadd; }
+.clustering-structure-card h3 { font-size:17px; margin-bottom:6px; }
+.clustering-comparison-mini { height:230px; width:100%; }
+.clustering-workbench-action { border:1px solid #b6dadd; background:#f0f8f9; color:#087f8c; padding:7px 12px; border-radius:5px; cursor:pointer; font-size:12px; }
+#clustering-structure-r1 { max-width:540px; margin-top:12px; }
+.clustering-content details > summary { cursor:pointer; font-size:13px; color:#375d7a; }
+.clustering-content details[open] > summary { margin-bottom:16px; }
+.clustering-content .panel-head select { max-width:280px; }
+.clustering-content input[type=checkbox] { accent-color:#087f8c; }
+@media(max-width:1200px) {
+  .clustering-explorer { grid-template-columns:190px minmax(0,1fr); }
+  .clustering-inspector-panel { grid-column:1 / -1; }
+  .clustering-inspector-panel .clustering-assignment-mechanism { max-width:600px; }
+  .clustering-space-workbench { grid-template-columns:minmax(0,1fr) 270px; gap:12px; }
+}
+@media(max-width:850px) {
+  .clustering-flow { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .clustering-flow-step::after { display:none; }
+  .clustering-space-workbench { grid-template-columns:minmax(0,1fr); }
+  .clustering-fixed-inspector { position:static; border-left:0; border-top:1px solid #e2ebef; padding:20px 0 0; }
+}
+@media(max-width:600px) {
+  .clustering-flow, .clustering-sample-grid, .clustering-structure-comparison, .clustering-explorer { grid-template-columns:minmax(0,1fr); }
+  .clustering-flow { gap:8px; }
+  .clustering-flow-step { padding:12px; }
+  .clustering-flow-step p { min-height:0; }
+  .clustering-flow-step h4 { display:inline; margin-left:10px; }
+  .clustering-explorer-list { overflow:hidden; }
+  #clustering-cluster-cards { display:flex; max-height:none; overflow-x:auto; padding-bottom:6px; }
+  .clustering-cluster-tile { flex:0 0 210px; }
+  .clustering-inspector-panel { grid-column:auto; }
+  .clustering-space-workbench .clustering-scatter { height:360px; }
+  .clustering-comparison-mini { height:210px; }
+  .clustering-field, .clustering-field select { width:100%; max-width:100%; }
+  .clustering-structure-card { padding:12px; }
+  .clustering-weight-row { grid-template-columns:minmax(60px,.8fr) minmax(40px,1.2fr) 48px; gap:5px; }
+}

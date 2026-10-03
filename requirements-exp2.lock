@@ -1,0 +1,9 @@
+# 实验二独立环境；不替换核心 requirements.lock 或实验一环境。
+numpy==2.4.6
+PyYAML==6.0.3
+scikit-learn==1.9.1
+scipy==1.17.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+narwhals==2.26.0
+cloudpickle==3.1.2

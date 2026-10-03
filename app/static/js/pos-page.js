@@ -23,17 +23,50 @@ function render(value) {
   result.replaceChildren();
   const chars = Array.from(value.text);
   let cursor = 0;
+  const wordViews = [];
+  function selectWord(index) {
+    const item = value.items[index];
+    if (!item) return;
+    for (const [position, view] of wordViews.entries()) {
+      const selected = position === index;
+      for (const element of [view.mark, view.chip]) {
+        element.classList.toggle('is-selected', selected);
+        element.setAttribute('aria-pressed', String(selected));
+      }
+    }
+    $('pos-selected').textContent = `${item.word} · ${item.pos} · ${value.labels[item.pos] || CATEGORY_LABELS[item.category]} · [${item.start}, ${item.end})`;
+  }
   for (const item of value.items) {
     if (item.start > cursor) original.append(document.createTextNode(chars.slice(cursor, item.start).join('')));
     const mark = put(original, 'mark', item.word, `pos-mark pos-${item.category}`);
     mark.title = `${item.pos} · [${item.start},${item.end})`;
-    const chip = put(result, 'span', '', `pos-token pos-${item.category}`);
+    const chip = put(result, 'button', '', `pos-token pos-${item.category}`);
+    chip.type = 'button';
+    chip.title = mark.title;
+    chip.setAttribute('aria-label', `${item.word} · ${item.pos} · [${item.start},${item.end})`);
+    mark.tabIndex = 0;
+    mark.setAttribute('role', 'button');
+    mark.setAttribute('aria-label', chip.getAttribute('aria-label'));
+    const index = wordViews.length;
+    wordViews.push({ mark, chip });
+    chip.addEventListener('click', () => selectWord(index));
+    mark.addEventListener('click', () => selectWord(index));
+    mark.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectWord(index);
+      }
+    });
     put(chip, 'strong', item.word);
     put(chip, 'small', item.pos);
     cursor = item.end;
   }
   if (cursor < chars.length) original.append(document.createTextNode(chars.slice(cursor).join('')));
-  if (!value.items.length) result.textContent = '当前文本没有可标注的词语。';
+  if (value.items.length) selectWord(0);
+  else {
+    result.textContent = '当前文本没有可标注的词语。';
+    $('pos-selected').textContent = '当前文本没有可查看的词语跨度。';
+  }
   const counts = $('pos-counts');
   counts.replaceChildren();
   const total = value.items.length;

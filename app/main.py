@@ -10,6 +10,8 @@ from fastapi.templating import Jinja2Templates
 from app.api import (
     analysis,
     annotation,
+    classification,
+    clustering,
     course_extensions,
     experiment,
     information_extraction,
@@ -20,6 +22,8 @@ from nlplab.core.config import Settings, default_settings
 from nlplab.core.exceptions import DataValidationError, NoValidPathError, ResourceUnavailableError
 from nlplab.data.sequence_annotations import AnnotationStore
 from nlplab.ner.hanlp_adapter import HanLPRecognizer
+from nlplab.services.classification_service import ClassificationService
+from nlplab.services.clustering_service import ClusteringService
 from nlplab.services.course_extension_service import CourseExtensionService
 from nlplab.services.experiment_service import RunStore
 from nlplab.services.information_extraction_service import InformationExtractionService
@@ -31,6 +35,8 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
     application = FastAPI(title="NLPLab", version=__version__)
     settings = settings or default_settings()
     application.state.store = RunStore(settings)
+    application.state.clustering = ClusteringService(settings)
+    application.state.classification = ClassificationService(settings)
     application.state.annotations = AnnotationStore(settings.root)
     application.state.nlp = service or NLPService(
         settings, ner=HanLPRecognizer.from_settings(settings)
@@ -38,6 +44,8 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
     application.state.course = CourseExtensionService(settings, application.state.nlp)
     application.state.information_extraction = InformationExtractionService(application.state.nlp)
     application.include_router(analysis.router)
+    application.include_router(clustering.router)
+    application.include_router(classification.router)
     application.include_router(information_extraction.router)
     application.include_router(course_extensions.router)
     application.include_router(experiment.router)
@@ -66,8 +74,8 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
         "/sequence-labeling": ("sequence_labeling.html", "序列标注"),
         "/tagging": ("tagging.html", "词性与命名实体"),
         "/information-extraction": ("information_extraction.html", "信息抽取"),
-        "/clustering": ("future.html", "文本聚类"),
-        "/classification": ("future.html", "文本分类"),
+        "/clustering": ("clustering.html", "文本聚类"),
+        "/classification": ("classification.html", "文本分类"),
         "/dependency-parsing": ("future.html", "依存句法分析"),
         "/deep-learning": ("deep_learning.html", "深度学习与大模型"),
         "/integrated-analysis": ("analysis.html", "综合分析"),

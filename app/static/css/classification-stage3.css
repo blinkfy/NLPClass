@@ -1,0 +1,7 @@
+.classification-training-curves{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.classification-training-curves svg{display:block;width:100%;height:auto;max-height:270px}
+.classification-training-curves text{font-family:inherit;font-size:13px;fill:var(--muted,#647477)}
+.classification-news-text{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto}
+#classification-stage3-config{white-space:pre-wrap;overflow-wrap:anywhere}
+#classification-stage3-data .table-wrap{margin-block:14px}
+@media(max-width:760px){.classification-training-curves{grid-template-columns:1fr}}

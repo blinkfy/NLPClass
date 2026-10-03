@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', path='css/clustering.css') }}"><link rel="stylesheet" href="{{ url_for('static', path='css/clustering-workbench.css') }}"><link rel="stylesheet" href="{{ url_for('static', path='css/clustering-visual-workbench.css') }}?v=20261003-calc3"><script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
+{% block content %}
+<header class="page-header clustering-header">
+  <div><span class="eyebrow">EXPERIMENT 02 · UNSUPERVISED LEARNING</span><h1>文本聚类</h1><p class="subtitle">从文档表示到簇解释，观察 K-Means 如何组织真实新闻文本。</p></div>
+  <div class="clustering-controls" aria-label="实验选择">
+    <label for="clustering-run">实验 Run<select id="clustering-run" disabled><option>正在加载…</option></select></label>
+    <label for="clustering-k">簇数 K<select id="clustering-k" disabled><option>等待 Run</option></select></label>
+  </div>
+</header>
+{% include 'partials/module_tabs.html' %}
+<section id="data" role="tabpanel" aria-labelledby="tab-data">
+  <div id="clustering-data-content" class="clustering-content" hidden>
+    <div class="clustering-lead"><div><span class="eyebrow">DATA → FEATURES</span><h2>数据与文本表示</h2><p>查看本次 Run 实际读取的文档、预处理步骤与一个词向量示例。</p></div><span id="clustering-data-count" class="clustering-count"></span></div>
+    <div id="clustering-data-stats" class="clustering-stats compact-run-facts"></div>
+    <section class="panel clustering-process-panel"><div class="section-heading"><div><h3>文本怎样进入 K-means</h3><p class="muted">选一篇真实文档，逐步聚焦它在各阶段的真实表示。</p><div class="clustering-flow-controls"><button id="clustering-flow-prev" type="button" aria-label="上一个表示阶段">上一步</button><button id="clustering-flow-play" type="button">播放表示路径</button><button id="clustering-flow-next" type="button" aria-label="下一个表示阶段">下一步</button><span id="clustering-flow-status" aria-live="polite">正在连接实验数据…</span></div></div><label class="clustering-field" for="clustering-sample-document">示例文档<select id="clustering-sample-document" disabled><option>等待文档</option></select></label></div><div id="clustering-flow" class="clustering-flow"></div></section>
+    <section class="panel"><div class="section-heading"><h3>表示演进</h3><span class="muted">主表示 R2 · 保留全部对照</span></div><div id="clustering-representation-evolution" class="clustering-evolution"></div><details><summary>最终主表示的选择依据</summary><p id="clustering-final-rationale" class="clustering-chart-note"></p></details></section>
+    <section class="panel compact-detail-panel"><details><summary>同一篇文档 · 完整词权重与真实坐标节选 <span id="clustering-sample-id"></span></summary><div id="clustering-example"></div></details></section>
+    <section class="panel"><details><summary>详细处理配置 · 表示与预处理</summary><div id="clustering-representation-facts"></div><div id="clustering-config" class="clustering-details"></div></details></section>
+    <section class="panel clustering-provenance"><details><summary>数据来源与复现</summary><div id="clustering-provenance"></div></details></section>
+  </div>
+</section>
+<section id="clustering" role="tabpanel" aria-labelledby="tab-clustering" hidden>
+  <div id="clustering-clusters-content" class="clustering-content" hidden>
+    <div class="clustering-lead"><div><span class="eyebrow">K-MEANS · CURRENT RESULT</span><h2>聚类分析</h2><p>用高权重词和原文片段解释每个簇；边界文档用于观察归属较不明确的样本。</p></div><span id="clustering-role" class="clustering-count"></span></div>
+    <div id="clustering-cluster-summary" class="clustering-stats compact-run-facts"></div>
+    <div class="clustering-explorer"><aside class="panel clustering-explorer-list"><div class="section-heading"><h3>Cluster Explorer</h3><span class="muted">点击选簇</span></div><div id="clustering-cluster-cards"></div></aside><section id="clustering-cluster-detail" class="panel"></section><aside class="panel clustering-inspector-panel"><div id="clustering-analysis-inspector"></div></aside></div>
+  </div>
+</section>
+<section id="visualization" role="tabpanel" aria-labelledby="tab-visualization" hidden>
+  <div id="clustering-visual-content" class="clustering-content" hidden>
+    <div class="clustering-lead"><div><span class="eyebrow">SWEEP → PROJECTION</span><h2>Document Space Explorer</h2><p>点击真实文档，沿显示连线找到质心，再观察实际空间里的最近中心判定。</p></div><label for="clustering-representation">表示对照<select id="clustering-representation" disabled><option>正在加载…</option></select></label></div>
+    <div id="clustering-current-k" class="clustering-k-context"></div><div id="clustering-representation-switch" class="representation-switch"></div>
+    <section class="panel clustering-space-panel"><div class="section-heading clustering-scatter-head"><div><h3 id="clustering-projection-title">文档二维投影</h3><p id="clustering-projection-caption" class="muted"></p></div><div class="clustering-scatter-controls"><label for="clustering-projection-dimensions">维数<select id="clustering-projection-dimensions"><option value="2">二维</option><option value="3">三维</option></select></label><label for="clustering-cluster-filter">查看簇<select id="clustering-cluster-filter"><option value="all">全部簇</option></select></label><label class="clustering-check"><input id="clustering-show-centroids" type="checkbox" checked>质心</label></div></div><div class="clustering-space-workbench"><div><div id="clustering-scatter-chart" class="clustering-chart clustering-scatter" role="img" aria-label="文档与质心投影，点击点查看真实空间距离"></div><p id="clustering-projection-note" class="clustering-chart-note">点击文档或质心；低维连线仅用于显示，真实分配依据实际聚类空间距离。</p><div id="clustering-space-centroids" class="clustering-center-buttons"></div></div><aside class="clustering-fixed-inspector"><label class="clustering-field" for="clustering-document-select">选择文档<select id="clustering-document-select" disabled><option>等待文档</option></select></label><div id="clustering-document-inspector"></div></aside></div><div id="clustering-actual-assignment" class="actual-assignment-surface"></div></section>
+    <section class="panel"><details id="clustering-sweep-details"><summary>K sweep 与簇规模 · 查看 K=2～10</summary><div class="clustering-two-col clustering-chart-grid"><section><h3>K 对惯性与轮廓系数</h3><div id="clustering-sweep-chart" class="clustering-chart" role="img" aria-label="不同 K 的惯性和轮廓系数折线图"></div></section><section><h3>簇规模</h3><div id="clustering-size-chart" class="clustering-chart" role="img" aria-label="各簇文档数量柱状图"></div></section></div><details><summary>各 K 的完整指标</summary><div id="clustering-sweep-table" class="table-wrap"></div></details></details></section>
+  </div>
+</section>
+<section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden>
+  <div id="clustering-evaluation-content" class="clustering-content" hidden>
+    <div class="clustering-lead"><div><span class="eyebrow">EVALUATION · CURRENT K</span><h2>实验评测</h2><p>内部指标衡量簇的几何结构；外部指标在这里将簇与已知新闻类别对照，不把类别用于拟合。</p></div></div>
+    <section class="panel clustering-comparison-panel"><div class="section-heading"><div><h3>从稀疏词空间，到紧凑语义空间</h3><p class="muted">主视觉对照 R0 → R2；各自坐标不构成跨空间距离比较，簇编号也未跨表示对齐。</p></div><span id="clustering-structure-role" class="clustering-count"></span></div><div class="experiment-story"><div id="clustering-structure-comparison" class="clustering-structure-comparison"></div><div class="experiment-story-bridge"><span>R0 → R1 → R2</span><div id="clustering-structure-r1"></div><small>实验过程：词汇更丰富，并不代表聚类质量单调改善。</small></div></div><p class="clustering-chart-note">显示投影各自取轴；簇编号未跨表示对齐。内部指标不构成绝对跨空间排名。</p></section>
+    <div class="clustering-two-col">
+      <section class="panel"><h3>内部指标</h3><div id="clustering-internal-metrics" class="clustering-metrics"></div></section>
+      <section class="panel"><h3>外部对照</h3><div id="clustering-external-metrics" class="clustering-metrics"></div></section>
+    </div>
+    <section class="panel"><details><summary>完整表示对照表 · <span id="clustering-comparison-role">K=5 · 5主题参考配置</span></summary><div id="clustering-comparison-table" class="table-wrap"></div></details><p class="clustering-chart-note">silhouette / CH / DB / stability 属于内部结构；ARI / NMI 属于事后外部评价。LSA 改变表示空间，几何指标不能作为绝对跨空间排名；SSE 不纳入主对照表。外部标签未参与表示构建、fit 或参数搜索。</p></section>
+    <div id="clustering-observation-cards" class="experiment-observations"></div>
+    <section class="panel"><details><summary>完整优化观察与结果解读</summary><div id="clustering-optimization"></div><div id="clustering-interpretation"></div></details></section>
+    <section class="panel"><div class="section-heading"><div><h3>簇 × 已知类别组成</h3><p class="muted">行是算法得到的簇，列是用于评价的原始类别；颜色越深，文档数越多。</p></div></div><div id="clustering-matrix-chart" class="clustering-chart clustering-matrix" role="img" aria-label="簇与已知类别的文档数量热力图"></div><details><summary>完整组成表</summary><div id="clustering-matrix-table" class="table-wrap"></div></details></section>
+    <section class="panel"><details><summary>按已知类别查看投影 · 仅事后观察</summary><div class="section-heading"><div><h3>按已知类别查看投影</h3><p class="muted">仅用于评价对照；聚类结果与上方组成矩阵来自同一批文档。</p></div></div><div id="clustering-gold-chart" class="clustering-chart clustering-scatter" role="img" aria-label="按已知类别着色的文档二维散点图"></div></details></section>
+  </div>
+</section>
+<footer class="content-footer"><span id="clustering-footer-run">等待实验记录</span><span>实验二 · 文本聚类</span></footer>
+{% endblock %}
+{% block scripts %}
+<script type="module">
+  import("{{ url_for('static', path='js/clustering-page.js') }}?v=20261003-calc3").catch(error => {
+    console.error('Clustering workbench startup failed', error);
+    const message = `实验工作台脚本加载失败：${error.message}`;
+    const status = document.getElementById('clustering-flow-status');
+    if (status) status.textContent = message;
+    const notice = document.getElementById('page-message');
+    if (notice) { notice.hidden = false; notice.className = 'notice failure'; notice.textContent = message; }
+  });
+</script>
+{% endblock %}

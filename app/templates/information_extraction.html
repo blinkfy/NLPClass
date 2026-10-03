@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', path='css/information-extraction.css') }}">{% endblock %}
 {% block content %}
-<header class="page-header"><div><h1>信息抽取</h1><p class="subtitle">课程补充实验 · 从真实实体到有文本证据的关系</p></div></header>
+<div class="ie-page">
+<header class="page-header"><div><span class="ie-eyebrow">INFORMATION EXTRACTION</span><h1>信息抽取</h1><p class="subtitle">从一段文本，提取有据可查的实体关系</p></div><span class="ie-course-badge">课程补充实验</span></header>
 <p class="muted benchmark-sources">现有 HanLP NER → 实体类型与显式触发词规则 → SPO。当前没有 Relation Gold，不报告 P/R/F1。</p>
 {% include 'partials/module_tabs.html' %}
 <section id="interactive" role="tabpanel" aria-labelledby="tab-interactive">
@@ -9,18 +11,20 @@
       <label for="ie-input">待抽取中文文本</label><textarea id="ie-input" maxlength="5000">马云在杭州创立了阿里巴巴。</textarea>
       <button id="ie-analyze" class="primary" type="button">抽取实体与关系 →</button>
       <p id="ie-status" class="muted" aria-live="polite">正在检查 NER 资源…</p>
-      <div class="control-context"><h3>试试短句</h3><div class="ie-examples"><button type="button" data-ie-example="马云在杭州创立了阿里巴巴。">创立关系</button><button type="button" data-ie-example="李明在杭州参观了中国石油大学（华东）。">只有共现</button></div><p>示例只提供输入；实体与关系均由当前服务实时生成。</p></div>
+      <div class="control-context"><h3>选择一个观察场景</h3><div class="ie-examples"><button type="button" data-ie-example="马云在杭州创立了阿里巴巴。"><strong>01 · 显式关系</strong><span>观察触发词与主客体</span></button><button type="button" data-ie-example="张三和李四就业于马云在杭州创立的阿里巴巴。"><strong>02 · 多实体关系</strong><span>并列主语与嵌套修饰语</span></button><button type="button" data-ie-example="李明在杭州参观了中国石油大学（华东）。"><strong>03 · 仅有共现</strong><span>观察无关系时的结果</span></button></div><p>所有示例均实时调用当前模型与规则。</p></div>
     </section>
     <section class="panel experiment-stage ie-stage"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">取</span><div><small>ENTITIES → RELATIONS</small><h2>原文与结构化关系</h2></div></div>
-      <p class="muted">原文实体保留 PER / LOC / ORG 类型与 Unicode code point 跨度。</p>
+      <div class="ie-live-metrics" aria-live="polite"><div><strong id="ie-char-count">—</strong><span>原文字符</span></div><div><strong id="ie-entity-count">—</strong><span>识别实体</span></div><div><strong id="ie-result-count">—</strong><span>显式关系</span></div></div>
+      <div class="ie-source-heading"><span>原文 · 实体高亮</span><div class="ie-legend"><span class="per">PER</span><span class="loc">LOC</span><span class="org">ORG</span></div></div>
       <div id="ie-highlight" class="ie-highlight">等待分析。</div>
+      <p id="ie-selection-hint" class="ie-selection-hint">选择下方三元组，定位原文中的证据与触发词。</p>
       <div class="section-heading"><h3>抽取的关系</h3><span id="ie-relation-count" class="status-chip status-data">0 条</span></div>
       <div id="ie-relation-cards" class="ie-relation-cards">等待分析。</div>
-      <div class="section-heading"><h3>实体关系图</h3><small class="muted">节点来自 NER；边来自显式规则</small></div>
+      <div class="section-heading"><div><h3>实体关系图</h3><small class="muted">箭头表示已抽取关系 · 可拖动节点、缩放查看</small></div><button id="ie-reset-view" class="outline" type="button">重置视图</button></div>
       <div id="ie-graph" class="ie-graph" role="img" aria-label="实体关系图"></div>
     </section>
     <aside class="panel experiment-notes process-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">法</span><div><small>HOW IT WORKS</small><h2>方法说明</h2></div></div>
-      <div class="algorithm-note-card note-idea"><h3>处理路径</h3><p>现有 NER 识别实体 → 按类型组成候选对 → 在原文局部窗口寻找明确触发词 → 输出带证据的 SPO。</p></div>
+      <ol class="ie-process"><li><span>01</span><div><strong>识别实体</strong><p>HanLP 标定人物、地点与机构。</p></div></li><li><span>02</span><div><strong>寻找显式触发</strong><p>同一短分句内检查类型与触发词。</p></div></li><li><span>03</span><div><strong>保留原文证据</strong><p>每条 SPO 对应精确文本跨度。</p></div></li></ol>
       <div class="algorithm-note-card note-strength"><h3>高精度取向</h3><p>实体共现不构成关系。只接受预设类型、同一短分句和显式肯定表达；关系不附加虚构置信度。</p><p>“和 / 、”连接的同类型主语可逐项展开；宾语前只跨过受限的创立修饰语。</p></div>
       <div class="algorithm-note-card note-limit"><h3>局限</h3><p>依赖 NER 边界；主要覆盖显式关系。不处理复杂指代、跨句推理和未定义关系。</p></div>
       <div class="algorithm-note-card note-run"><h3>当前运行</h3><p id="ie-summary">等待当前输入的实体与关系结果。</p></div>
@@ -30,5 +34,6 @@
 <section id="relations" role="tabpanel" aria-labelledby="tab-relations" hidden><div class="ie-detail-grid"><section class="panel"><div class="section-heading"><h2>识别实体</h2><span class="muted">原文 [start,end)</span></div><div id="ie-entities">等待分析。</div></section><section class="panel"><div class="section-heading"><h2>关系与证据</h2></div><div id="ie-relation-details">等待分析。</div></section></div></section>
 <section id="results" role="tabpanel" aria-labelledby="tab-results" hidden><section class="panel"><div class="section-heading"><div><h2>SPO / JSON</h2><p class="muted">从当前真实 NER 与规则结果直接生成；不写入 Gold 或正式 Run。</p></div><button id="ie-copy-json" class="outline" type="button">复制 JSON</button></div><pre id="ie-json" class="ie-json">等待分析。</pre></section></section>
 <section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden><div class="ie-detail-grid"><section class="panel"><h2>方法与规则</h2><p>本课程补充实验采用可解释规则 baseline，不训练新模型。</p><div class="table-wrap"><table><thead><tr><th>主体 → 客体</th><th>关系</th><th>显式触发词</th></tr></thead><tbody><tr><td>PER → ORG</td><td>创立</td><td>创立、创建、创办</td></tr><tr><td>PER → ORG</td><td>任职于</td><td>任职于、就职于、供职于、就业于、加入</td></tr><tr><td>PER → ORG</td><td>毕业于</td><td>毕业于</td></tr><tr><td>PER → ORG</td><td>就读于</td><td>就读于</td></tr><tr><td>PER → LOC</td><td>出生于</td><td>出生于、生于</td></tr><tr><td>ORG → LOC</td><td>位于</td><td>总部位于、总部设在、坐落于、位于</td></tr></tbody></table></div></section><aside class="panel process-notes"><h2>证据与边界</h2><p>每条三元组保留主客体、原文证据及触发词的精确跨度。否定、跨分句、只有实体共现的文本不抽取关系。</p><p>“在杭州创立某公司”可支持人与公司的创立关系；不据此推断公司的位置。</p><p>当前没有 relation Gold，因此本页不提供正式关系准确率或 P/R/F1。</p></aside></div></section>
+</div>
 {% endblock %}
-{% block scripts %}<script src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script><script type="module" src="{{ url_for('static', path='js/information-extraction-page.js') }}"></script>{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script><script type="module" src="{{ url_for('static', path='js/information-extraction-page.js') }}?v=20261002"></script>{% endblock %}

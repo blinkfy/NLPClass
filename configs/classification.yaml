@@ -1,0 +1,25 @@
+# 第一阶段预注册：固定表示，只对 alpha/C 做有限 Validation 选择。
+phase: exp3-stage1
+tokenizer_run_id: 20260926_130612_32a5e168_smooth
+preprocessing:
+  unicode_normalization: NFKC
+  lowercase: true
+  min_token_length: 2
+  token_pattern: '[\u3400-\u9fff]+|[a-zA-Z][a-zA-Z0-9]*'
+  stopwords: []
+representation:
+  min_df: 2
+  max_df: 0.30
+  max_features: 20000
+  sublinear_tf: true
+  smooth_idf: true
+  norm: l2
+  ngram_range: [1, 2]
+candidates:
+  C0: [0.1, 0.5, 1.0]
+  C1: [0.1, 0.5, 1.0, 2.0]
+selection_metric: macro_f1
+tie_break: first_in_declared_candidate_order
+final_fit_splits: [train, val]
+test_policy: one_final_evaluation_per_model_after_selection_freeze
+representation_rationale: 复用已验证的无标签预处理与 R1 配置经验；在 Train 420 上重新构建词表/IDF，统计仅作为诊断，不做表示搜索。

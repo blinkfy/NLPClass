@@ -1,7 +1,7 @@
 <section id="{{ key }}" role="tabpanel" aria-labelledby="tab-{{ key }}" hidden>
   <div class="experiment-workbench course-sequence-workbench" data-course-model="{{ key }}">
     <section class="panel experiment-controls control-panel">
-      <div class="panel-title"><span class="panel-symbol" aria-hidden="true">{{ '感' if key == 'perceptron' else '链' }}</span><div><small>COURSE EXTENSION · BMES</small><h2>{{ title }}输入</h2></div></div>
+      <div class="panel-title"><span class="panel-symbol" aria-hidden="true">{{ '感' if key == 'perceptron' else '链' }}</span><div><small>COURSE EXTENSION · BMES</small><h2>{{ '感知机' if key == 'perceptron' else 'CRF' }} · 输入</h2></div></div>
       <p class="muted">基于 MSR official training 内部固定子集训练的独立课程模型；输入变化后自动预测。</p>
       <label for="{{ key }}-input">中文短文本</label>
       <textarea id="{{ key }}-input" maxlength="500">中国石油大学（华东）欢迎你。</textarea>
@@ -19,7 +19,7 @@
       {% if key == 'crf' %}<p class="muted">这里是当前位置标签边缘概率 P(yₜ | X)，表示该位置的边缘分布；不能逐字符独立取最大值组成路径。最终 BMES 仍由整句最优序列解码得到。</p>{% else %}<p class="muted">这里是到当前字符与标签的累计线性得分，不是概率；Viterbi 寻找整体得分最高的合法 BMES 序列。</p>{% endif %}
     </section>
     <aside class="panel experiment-notes process-notes">
-      <div class="panel-title"><span class="panel-symbol" aria-hidden="true">解</span><div><small>HOW IT WORKS</small><h2>{{ title }}原理</h2></div></div>
+      <div class="panel-title"><span class="panel-symbol" aria-hidden="true">解</span><div><small>HOW IT WORKS</small><h2>{{ '感知机' if key == 'perceptron' else 'CRF' }}原理</h2></div></div>
       {% if key == 'perceptron' %}
       <div class="algorithm-note-card note-idea"><h3>1 · 状态与转移特征</h3><p>字符窗口、组合及类型描述输入与当前 BMES 标签；相邻标签构成转移特征。</p></div>
       <div class="algorithm-note-card"><h3>2 · 序列线性打分</h3><p>将路径上激活的状态与转移特征权重累加，不把得分解释为概率。</p></div>
