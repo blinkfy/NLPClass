@@ -1,23 +1,23 @@
 # NLPLab
 
-大学《自然语言处理》连续实验工程。当前实现实验一：最长匹配、二元语法、一/二阶 BMES HMM、BiLSTM-CRF、标准评价、透明模型存储、独立 Run 和轻量网页。HanLP MSRA BERT 用于独立 NER 评价，不替代 HMM。
+大学《自然语言处理》连续实验工程。当前已完成实验一至实验四，并形成统一的 NLPLab Web 工作台：01 中文分词、02 序列标注、03 词性与命名实体、04 信息抽取、05 文本聚类、06 文本分类、07 依存句法分析、08 深度学习与大模型、09 综合分析。实验一至三的正式模型与指标保持冻结，实验四复用已有能力完成文档级与语料级联动分析。
 
 ## 四个实验的发展路线
 
 | 实验 | 数据与算法 | 当前状态 |
 | --- | --- | --- |
 | 一：序列标注 | 七方法 MSR CWS + MSRA NER test personal-200 | Completed / Frozen：标准评价、错误分析、算法过程与 Web 均完成 |
-| 二：文本聚类 | THUCNews 五类平衡全文 600 → TF-IDF / K-means | K=2…10 sweep、K=5参考与四 Tab Web 已接入；拟合输入不含 primary_label |
-| 三：文本分类 | 同一 600 条 → NB / SVM | 固定分层 420/90/90；C0/C1 第一阶段已完成 |
-| 四：应用程序 | Web → NLPService → 分词 / NER / 分类 / 聚类 | 网页骨架与实验一系统测试，后续逐步接入 |
+| 二：文本聚类 | THUCNews 五类平衡全文 600 → TF-IDF / LSA / K-means | Completed / Frozen：R0/R1/R2、K=2…10 sweep、R2/K=5 与四 Tab 工作台均已完成 |
+| 三：文本分类 | 同一 600 条 → NB / LinearSVC / TextCNN | Completed / Frozen：固定 420/90/90；C0～C3、Stage4～6 与一次正式 Test 评价均已完成 |
+| 四：应用程序 | Linked NLP Workspace → 分词 / POS / NER / 分类 / 聚类 | Completed：文档工作台、语料空间、关联探索、应用评测；507/507 eligible 文档建立冻结 C2 应用推理索引 |
 
-## 当前状态：实验一 Completed / Frozen
+## 实验一：Completed / Frozen
 
 MSR standard 最终 benchmark 已完成并冻结，结果保存在 outputs/exp1/benchmarks/20260926_130612_32a5e168。
 原有一阶 HMM/Viterbi/MSR importer、最终配置、模型及已有 Run 保持不变。默认课程数据使用公开语料个人子集：
 MSRA NER test 200 条、官方 THUCNews 全文五类各 120 条。自采集与人工 Gold 工具保留为可选方案。
 正式 NER Run：`20260926_152118_34a953fb`，Overall P/R/F1 = 91.88% / 92.74% / 92.31%。
-toy 仅验证功能，不能计入课程样本和实验指标。实验二已完成第一阶段主实验；实验三 C0/C1 第一阶段已完成。
+toy 仅验证功能，不能计入课程样本和实验指标。实验二、实验三和实验四均已完成；正式实验结果、冻结协议与应用集成记录见下方对应文档。
 
 ## 实验一课程方法拓展（MSR 冻结评测）
 
@@ -80,7 +80,7 @@ BiLSTM development 达到 max_epochs=10，best_epoch=10，patience=2 未提前�
 - [实验要求—证据矩阵](docs/exp1_requirement_traceability.md)
 - [最终冻结声明](docs/exp1_freeze.md)
 
-实验二 THUCNews 600 全文 TF-IDF / K-means 主实验已完成，协议与真实结果见 [实验二记录](docs/exp2_clustering.md)；实验三基于固定 420/90/90 split 完成 C0/C1，严格 Train→Validation 选参、510 篇最终拟合、90 篇 Test 一次评价；真实结果见 [实验三第一阶段记录](docs/exp3_classification_stage1.md)。
+实验二 THUCNews 600 全文聚类实验已完成并冻结，协议与真实结果见 [实验二记录](docs/exp2_clustering.md)。实验三基于固定 420/90/90 split 完成 C0～C3，并在 Stage4～6 分析样本效率、来源/模板捷径与统计可靠性；90 篇 Test 仅作一次正式评价，相关记录见 [Stage6 统计分析](docs/exp3_classification_stage6.md)。实验四已完成 Linked NLP Workspace，复用冻结分词、POS/NER、C2 分类与 R2 聚类，实现文档工作台、语料空间、关联探索和应用评测；最终集成记录见 [实验四 Workspace Final Integration](docs/exp4_workspace_integration.md)。
 custom corpus / 620-slot / manual annotation 保留为 Optional Workflow，不作为当前主线条件。
 
 ## 环境安装
@@ -408,16 +408,16 @@ artifacts/runtime/hanlp-venv/Scripts/python.exe -m uvicorn app.main:app --host 1
 
 | 一级模块 | Canonical route | 当前职责 |
 | --- | --- | --- |
-| 首页 | `/` | 课程能力总览；实验一 Completed / Frozen |
+| 首页 | `/` | 课程能力总览；实验一至四与课程扩展模块状态 |
 | 中文分词 | `/segmentation` | 五模型交互、算法过程、唯一七模型 MSR 表、CWS 错误 |
 | 序列标注 | `/sequence-labeling` | BMES、HMM1/HMM2、平均结构化感知机与独立线性链 CRF 的真实交互与机制对比 |
 | 词性与命名实体 | `/tagging` | HanLP CTB9 POS 交互；独立 NER 交互、MSRA-200 指标与错误 |
 | 信息抽取 | `/information-extraction` | 课程补充实验：复用现有 HanLP NER，以实体类型和显式触发词抽取带原文证据的 SPO；提供实体关系图与 JSON。不是四个正式实验之一，没有 Relation Gold 或正式关系 benchmark。 |
 | 文本聚类 | `/clustering` | TF-IDF、K sweep、簇解释、二维投影与事后评价；只读真实 Run |
-| 文本分类 | `/classification` | C0/C1 可解释实时预测、独立 Validation/Test 指标、每类指标、混淆矩阵与错误样本 |
-| 依存句法分析 | `/dependency-parsing` | 课程框架，待接入 |
-| 深度学习与大模型 | `/deep-learning` | BiLSTM-CRF 结构、CRF、冻结训练曲线；Transformer/LLM 待接入 |
-| 综合分析 | `/integrated-analysis` | 同一 service 的分词+NER；多文档能力待接入 |
+| 文本分类 | `/classification` | C0～C3：NB、word/char LinearSVC 与 TextCNN；可解释预测、模型对比、错误分析及 Stage4～6 扩展分析 |
+| 依存句法分析 | `/dependency-parsing` | 真实依存树、biaffine head/relation 打分、CoNLL-U 与 Gold-token 教学诊断 |
+| 深度学习与大模型 | `/deep-learning` | BiLSTM-CRF、BERT/Transformer 与本地 Qwen 的真实推理过程和扩展应用 |
+| 综合分析 | `/integrated-analysis` | Linked NLP Workspace：文档工作台、600篇语料空间、跨任务关联探索与应用评测 |
 
 旧 `/sequence` → `/segmentation`、`/analysis` → `/integrated-analysis` 使用307兼容重定向。`/annotation/sequence` 保留为可选人工标注，不进入主导航。模型/数据/API 复用关系及迁移证据见 [Web IA 迁移记录](docs/web_ia_migration.md)。
 
@@ -429,7 +429,7 @@ artifacts/runtime/hanlp-venv/Scripts/python.exe -m uvicorn app.main:app --host 1
 
 toy 的训练/测试不同，结果来自实际训练、预测和计分，始终标记为演示，不能用于正式实验性能。NLPLAB_ROOT 可指定模型与 Run 工程根目录。当前面向本机使用，无账号、Redis、数据库或后台任务队列。
 
-## API 与未来扩展
+## API 与应用接口
 
 | API | 用途 |
 | --- | --- |
@@ -445,7 +445,7 @@ toy 的训练/测试不同，结果来自实际训练、预测和计分，始终
 | PATCH /api/v1/experiments/1/errors/{sample_id} | 设置或清除人工类别 |
 | GET /api/v1/experiments/1/export/{name} | metrics/predictions/errors/config |
 
-输入错误及无有效路径为 422，缺失 Run/模型为 503，均有清晰消息。分类 API 未注册；聚类只读 API 位于 `/api/v1/experiments/2/{runs,overview,result,export}`，执行入口为 `python -m nlplab.clustering`。SequenceTagger、Segmenter、NERRecognizer 为结构化接口；NLPService 可以注入分词器加载器与 NER。实验二由独立 ClusteringService 复用 exp2 RunStore，算法位于 features/clustering/evaluation；Web 不执行 fit，TextClassifier 仍为后续扩展接口。
+输入错误及无有效路径为 422，缺失 Run/模型为 503，均有清晰消息。实验二只读接口位于 `/api/v1/experiments/2`，实验三冻结结果与预测接口位于 `/api/v1/experiments/3`，实验四综合应用接口位于 `/api/v1/comprehensive`。SequenceTagger、Segmenter、NERRecognizer 与分类/聚类 service 均保持结构化接口；09 的 `ComprehensiveAnalysisService` 只编排已有能力，不复制算法。正式实验页面不从 Web 重新 fit 冻结模型；自定义临时聚类与 09 应用缓存和正式 Run/latest 隔离。
 
 ### 课程序列标注与 POS 补充模块
 
