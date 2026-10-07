@@ -1,5 +1,7 @@
 # 实验四：09 综合分析应用
 
+> 当前最终状态：09 已完成 Linked NLP Workspace Final Integration，最终工作空间、507/507 eligible 分类应用索引、分类证据回原文和跨任务 drill-down 见 [`exp4_workspace_integration.md`](exp4_workspace_integration.md)。本文保留 2026-10-06 第一版综合应用实施记录，用于追溯初始架构与验收过程。
+
 完成日期：2026-10-06（Asia/Taipei）。实施计划见 `exp4_application_plan.md`。09 是原文中心的应用编排，不是新的分类 Stage 或算法实验；01～08 页面、模型、数据、Run、latest、指标和输入协议保持冻结。
 
 ## 架构与复用
