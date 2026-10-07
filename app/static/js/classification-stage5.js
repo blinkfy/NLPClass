@@ -2,7 +2,7 @@ const $=id=>document.getElementById(id);
 const conditions=['OO','OS','OT','OA','AA'];
 const models=['C0','C1','C2','C3'];
 const labels={finance:'财经',education:'教育',science:'科技',sports:'体育',entertainment:'娱乐'};
-const conditionNames={OO:'Original → Original',OS:'Original → Source-clean',OT:'Original → Template-clean',OA:'Original → All-clean',AA:'All-clean → All-clean'};
+const conditionNames={OO:'原始输入',OS:'去除来源',OT:'去除模板',OA:'全部清理',AA:'清理后重新训练'};
 const directions={correct_to_wrong:'正确 → 错误',wrong_to_correct:'错误 → 正确',wrong_to_wrong:'错误 → 错误'};
 const escape=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const label=value=>labels[value]||value||'—';
@@ -33,7 +33,7 @@ function configureAnalysisOnly(){
 
 function renderResults(rows){
   const lookup=new Map(rows.map(row=>[`${row.model_id}:${row.condition}`,row]));
-  const headers=['模型',...conditions.map(condition=>`${condition} Macro-F1 / Δ`)];
+  const headers=['模型',...conditions.map(condition=>`${condition} · ${conditionNames[condition]} · Macro-F1 / Δ`)];
   const body=models.map(model=>[
     model,
     ...conditions.map(condition=>{

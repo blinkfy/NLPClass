@@ -12,7 +12,9 @@ from app.api import (
     annotation,
     classification,
     clustering,
+    comprehensive,
     course_extensions,
+    course_modules,
     experiment,
     information_extraction,
     views,
@@ -24,7 +26,9 @@ from nlplab.data.sequence_annotations import AnnotationStore
 from nlplab.ner.hanlp_adapter import HanLPRecognizer
 from nlplab.services.classification_service import ClassificationService
 from nlplab.services.clustering_service import ClusteringService
+from nlplab.services.comprehensive_service import ComprehensiveAnalysisService
 from nlplab.services.course_extension_service import CourseExtensionService
+from nlplab.services.course_neural_service import CourseNeuralService
 from nlplab.services.experiment_service import RunStore
 from nlplab.services.information_extraction_service import InformationExtractionService
 from nlplab.services.nlp_service import NLPService
@@ -42,12 +46,17 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
         settings, ner=HanLPRecognizer.from_settings(settings)
     )
     application.state.course = CourseExtensionService(settings, application.state.nlp)
+    application.state.course_neural = CourseNeuralService(settings, application.state.nlp)
     application.state.information_extraction = InformationExtractionService(application.state.nlp)
+    application.state.comprehensive = ComprehensiveAnalysisService(settings, application.state.nlp,
+        application.state.course, application.state.clustering, application.state.course_neural)
+    application.include_router(comprehensive.router)
     application.include_router(analysis.router)
     application.include_router(clustering.router)
     application.include_router(classification.router)
     application.include_router(information_extraction.router)
     application.include_router(course_extensions.router)
+    application.include_router(course_modules.router)
     application.include_router(experiment.router)
     application.include_router(annotation.router)
     application.include_router(views.router)
@@ -76,7 +85,7 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
         "/information-extraction": ("information_extraction.html", "信息抽取"),
         "/clustering": ("clustering.html", "文本聚类"),
         "/classification": ("classification.html", "文本分类"),
-        "/dependency-parsing": ("future.html", "依存句法分析"),
+        "/dependency-parsing": ("dependency.html", "依存句法分析"),
         "/deep-learning": ("deep_learning.html", "深度学习与大模型"),
         "/integrated-analysis": ("analysis.html", "综合分析"),
         "/annotation/sequence": ("annotation_sequence.html", "人工 Sequence Gold"),
@@ -132,9 +141,10 @@ def create_app(settings: Settings | None = None, service: NLPService | None = No
             ("extensions", "扩展应用"),
         ],
         "/integrated-analysis": [
-            ("single", "单文本综合分析"),
-            ("documents", "多文档分析"),
-            ("overview", "全课程结果总览"),
+            ("single", "文档工作台"),
+            ("documents", "语料空间"),
+            ("linkage", "关联探索"),
+            ("testing", "应用评测"),
         ],
     }
 

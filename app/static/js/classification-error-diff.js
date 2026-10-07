@@ -49,7 +49,7 @@ export function createErrorDiff({store,request,onOpenPrediction}){
     if(!next?.detail?.document){clear();return;}
     const s=state(),identity=[s.currentRun,s.currentDocument,s.currentModel,s.currentComparison,s.currentCondition,s.documentSource].join(':');
     if(identity===key&&context){render();return;}
-    key=identity;context=next;lanes=[];const version=++epoch;
+    key=identity;context=next;lanes=[];mobileSummary.hidden=true;const version=++epoch;
     main.innerHTML='<h2>判别差异</h2><p>正在读取同一文档的冻结证据…</p>';inspector.innerHTML='<h2>判断检查器</h2><p>正在加载当前对象。</p>';
     try{
       if(s.documentSource==='stage5'){

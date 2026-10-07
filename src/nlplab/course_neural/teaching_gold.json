@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "title": "中文依存句法教学小样本",
+  "purpose": "toy 教学诊断数据；仅评估 gold-token 条件下的依存解析，不是 CTB benchmark。",
+  "evaluation_protocol": {
+    "dataset_scope": "toy_teaching_gold",
+    "benchmark_scope": "not_ctb_benchmark",
+    "tokenization": "gold-token",
+    "head_indexing": "1-based token IDs; 0 denotes ROOT",
+    "relation_inventory": "Stanford Chinese dependency style",
+    "punctuation": "报告包含标点和排除标点两套 UAS/LAS",
+    "provenance": "人工预先编写的课程教学 Gold；不得据此声称正式语料基准成绩。"
+  },
+  "examples": [
+    {
+      "id": "toy-zh-01",
+      "text": "我喜欢苹果。",
+      "tokens": ["我", "喜欢", "苹果", "。"],
+      "heads": [2, 0, 2, 2],
+      "relations": ["nsubj", "root", "dobj", "punct"],
+      "teaching_note": "基础主谓宾结构；谓词作根节点。"
+    },
+    {
+      "id": "toy-zh-02",
+      "text": "学生读书。",
+      "tokens": ["学生", "读", "书", "。"],
+      "heads": [2, 0, 2, 2],
+      "relations": ["nsubj", "root", "dobj", "punct"],
+      "teaching_note": "观察主语、谓词、宾语和标点弧。"
+    },
+    {
+      "id": "toy-zh-03",
+      "text": "小明昨天来了。",
+      "tokens": ["小明", "昨天", "来", "了", "。"],
+      "heads": [3, 3, 0, 3, 3],
+      "relations": ["nsubj", "tmod", "root", "asp", "punct"],
+      "teaching_note": "时间修饰语和体标记都依附于谓词。"
+    },
+    {
+      "id": "toy-zh-04",
+      "text": "他不喜欢咖啡。",
+      "tokens": ["他", "不", "喜欢", "咖啡", "。"],
+      "heads": [3, 3, 0, 3, 3],
+      "relations": ["nsubj", "neg", "root", "dobj", "punct"],
+      "teaching_note": "否定词作为谓词的 neg 修饰语。"
+    },
+    {
+      "id": "toy-zh-05",
+      "text": "我在学校学习中文。",
+      "tokens": ["我", "在", "学校", "学习", "中文", "。"],
+      "heads": [4, 4, 2, 0, 4, 4],
+      "relations": ["nsubj", "prep", "pobj", "root", "dobj", "punct"],
+      "teaching_note": "介词短语由 prep 与 pobj 两条弧表示。"
+    },
+    {
+      "id": "toy-zh-06",
+      "text": "红花开了。",
+      "tokens": ["红花", "开", "了", "。"],
+      "heads": [2, 0, 2, 2],
+      "relations": ["nsubj", "root", "asp", "punct"],
+      "teaching_note": "短句中的主谓关系、体标记和标点。"
+    }
+  ]
+}

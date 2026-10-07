@@ -1,15 +1,37 @@
 {% extends 'base.html' %}
-{% block head %}<script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', path='css/course-modules.css') }}"><link rel="stylesheet" href="{{ url_for('static', path='css/course-deep.css') }}"><script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
 {% block content %}
-<header class="page-header"><div><h1>深度学习与大模型</h1><p class="subtitle">学习上下文表示与结构化解码</p></div><div class="header-controls">{% set model_only=true %}{% set neural_only=true %}{% include 'partials/model_selector.html' %}</div></header>
+<div class="cm-page deep-page">
+<header class="page-header cm-page-header"><div><span class="eyebrow">COURSE MODULE · 08</span><h1>深度学习与大模型</h1><p class="subtitle">真实张量与解码过程 · 冻结 BiLSTM、双向 BERT、本地生成模型</p></div><span class="cm-badge">本地 CPU · 只读推理</span></header>
 {% include 'partials/module_tabs.html' %}
-<section id="bilstm" role="tabpanel" aria-labelledby="tab-bilstm">
-<section class="intro"><h2>BiLSTM-CRF · 模型本身</h2><p>PyTorch Embedding/LSTM/Linear + pytorch-crf 0.7.2 adapter。CRF forward / partition / Viterbi 来自第三方库，未宣称自行实现 CRF。</p><p>development best epoch = max epoch = 10；已达到预设预算上限，冻结后未增加训练轮数。<a href="/segmentation#evaluation">查看统一 CWS 评测</a>。</p></section>
-{% include 'partials/parameters.html' %}
-{% set input_tasks=[('segmentation','短文本 BMES')] %}{% set show_segmentation=true %}{% set input_note='使用同一 BiLSTM-CRF 资源查看 emission 与 CRF 解码；不训练模型。' %}{% include 'partials/text_workspace.html' %}
-{% include 'partials/process.html' %}
-</section>
-{% for key, label in [('transformer','Transformer'),('llm','大语言模型'),('extensions','扩展应用')] %}<section id="{{ key }}" role="tabpanel" aria-labelledby="tab-{{ key }}" hidden><section class="intro"><h2>{{ label }}</h2><p>上下文表示与深度学习方法；本模块将在对应课程实验完成后接入。</p></section></section>{% endfor %}
-<footer class="content-footer"><span id="active-run"></span><span>同一冻结资源，不维护第二套模型</span></footer>
+<p id="deep-resources" class="cm-resource" role="status">正在检查本地资源…</p>
+{% for key, title, note, example, limit in [
+ ('bilstm','BiLSTM-CRF','字符上下文 → BMES emission → CRF 路径；沿用实验一冻结模型。','中国人民生活幸福',30),
+ ('transformer','Transformer · BERT','WordPiece → Q/K/V → 双向 attention → MASK 候选。不是生成式聊天模型。','中国的首都是[MASK]京。',120),
+ ('llm','大语言模型 · Qwen','聊天模板 → token IDs → 实时流式解码。显示真实输出，不自动改写。','请用一句话解释什么是机器学习。',500),
+ ('extensions','扩展应用','同一本地生成模型：摘要、结构化抽取与提示词边界诊断。','记者张明在北京报道：城市图书馆周六开放新的阅览室。',500)
+] %}
+<section id="{{ key }}" role="tabpanel" aria-labelledby="tab-{{ key }}" {% if key!='bilstm' %}hidden{% endif %}>
+{% set stages = {'bilstm':['字符','Embedding','BiLSTM','BMES emission','CRF 路径'], 'transformer':['WordPiece','Q / K / V','双向 Attention','MASK 候选'], 'llm':['消息模板','Token IDs','自回归生成','Token 分布'], 'extensions':['原始文本','任务提示','本地生成','输出观察']} %}
+<div class="deep-workflow" aria-label="当前模型处理路径"><span class="deep-workflow-label">处理路径</span><ol>{% for stage in stages[key] %}<li><span>{{ loop.index }}</span>{{ stage }}</li>{% endfor %}</ol></div>
+<div class="cm-workspace deep-workspace">
+<section class="cm-panel cm-controls"><span class="deep-panel-label">01 · 输入与控制</span><h2>{{ title }}</h2><p class="cm-note">{{ note }}</p>
+<form data-deep-form="{{ key }}"><label for="deep-input-{{ key }}">输入文本 <small>最多 {{ limit }} 字</small></label><textarea id="deep-input-{{ key }}" name="text" rows="5" maxlength="{{ limit }}" required>{{ example }}</textarea>
+{% if key=='transformer' %}<p class="cm-note">使用 <code>[MASK]</code> 探索补全。最多 64 个 WordPiece，超限拒绝、不自动截断。</p>{% endif %}
+{% if key in ['llm','extensions'] %}
+{% if key=='extensions' %}<label>任务<select name="task"><option value="summary">中文摘要</option><option value="extract">结构化抽取 / JSON</option><option value="boundary">提示词边界实验</option></select></label><button type="button" class="outline" data-boundary-example>填入当前任务示例</button>{% endif %}
+<p class="cm-note">输入最多 500 字；含系统消息和聊天模板后的总长度最多 512 token，超限拒绝、不截断。</p><label>生成预算<select name="max_new_tokens"><option>16</option><option selected>32</option><option>48</option><option>64</option></select></label><label class="deep-checkbox"><input type="checkbox" name="sampling">固定 seed=42 采样 <small>默认 greedy</small></label>
+{% endif %}<button type="submit" class="cm-button primary">运行并查看过程</button>{% if key=='llm' %}<button type="button" class="outline" data-llm-stop hidden>停止生成</button>{% endif %}{% if key=='extensions' %}<button type="button" class="outline" data-boundary-compare>基础 / 边界提示 A/B</button><p class="cm-note">将同一文本分别交给基础摘要提示与现有边界提示，各请求一次；不自动重试。</p>{% endif %}</form>
+<p data-deep-status="{{ key }}" class="cm-status" role="status">尚未运行；点击按钮进行单篇诊断。</p><div data-deep-controls="{{ key }}"></div></section>
+<section class="cm-panel cm-main"><span class="deep-panel-label">02 · 真实模型过程</span><div data-deep-main="{{ key }}" class="cm-empty">运行后在此探索真实模型输出。切换 token、位置或 head 会同步更新相关视图。</div></section>
+<aside class="cm-panel cm-inspector" aria-label="当前对象"><span class="deep-panel-label">03 · 对象细节</span><div data-deep-inspector="{{ key }}"><h2>当前对象</h2><p class="cm-note">选择 token 或解码位置后查看实际数值与来源。</p></div></aside>
+</div>
+{% if key=='bilstm' %}<details class="deep-record"><summary>冻结训练记录与模型边界</summary><p>本页不训练、不更新实验一指标。训练曲线只有实际记录的 train loss；缺失的 Validation loss 不补写。</p><div id="deep-history" class="deep-history"></div><a href="/segmentation#evaluation">实验一统一分词评价 →</a></details>{% endif %}
+{% if key=='transformer' %}<p class="cm-note">attention 是当前输入下的权重分布，不是因果归因。MASK Softmax 是词表输出，不是答案正确率。</p>{% endif %}
+{% if key in ['llm','extensions'] %}<p class="cm-note">Qwen2.5-0.5B-Instruct 是小型本地教学模型，用于观察自回归 next-token generation，不代表当前大语言模型能力上限。保留错误事实、不完整输出和格式失败；下一 token 分布不是回答正确率或事实可信度。</p>{% endif %}
+{% if key=='extensions' %}<details class="deep-record"><summary>模型能力与任务协议</summary><div class="cm-scroll"><table><thead><tr><th>模型</th><th>输入 / 输出</th><th>可核验过程</th></tr></thead><tbody><tr><td>BiLSTM-CRF</td><td>字符 → BMES 分词</td><td>emission、转移、Viterbi 与配分函数</td></tr><tr><td>BERT</td><td>双向上下文 → MASK 候选</td><td>QK 缩放、attention、真实 logits</td></tr><tr><td>Qwen</td><td>消息 → 自回归 token</td><td>聊天模板、生成分布、EOS / 预算</td></tr></tbody></table></div><p>任务切换只改变明确展示的提示词；没有另行训练。JSON 格式检查不代表事实正确。边界实验观察模型是否执行了正文中的指令，不承诺安全保证。</p></details>{% endif %}
+</section>{% endfor %}
+<footer class="content-footer">独立课程诊断 · Exp1 / Exp2 / Exp3 冻结资产只读 · 无远程 provider</footer>
+</div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{{ url_for('static', path='js/model-page.js') }}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/course-deep.js') }}"></script>{% endblock %}

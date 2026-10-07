@@ -1,10 +1,32 @@
 {% extends 'base.html' %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', path='css/comprehensive.css') }}"><link rel="stylesheet" href="{{ url_for('static', path='css/comprehensive-document.css') }}"><link rel="stylesheet" href="{{ url_for('static', path='css/comprehensive-corpus.css') }}"><script defer src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script>{% endblock %}
 {% block content %}
-<header class="page-header"><div><h1>综合分析</h1><p class="subtitle">将已真实存在的课程能力串联到一个输入</p></div><div class="header-controls">{% include 'partials/model_selector.html' %}</div></header>
+<div class="ca-page cw-page">
+<header class="page-header cw-header"><div><span class="eyebrow">EXPERIMENT 04 · LINKED NLP WORKSPACE</span><h1>综合分析</h1><p class="subtitle">从语料选择到文档、实体与词项，沿同一份原文连续探索。</p></div><span class="cw-badge">已有模型 · 真实结果</span></header>
 {% include 'partials/module_tabs.html' %}
-<section id="single" role="tabpanel" aria-labelledby="tab-single">{% set input_tasks=[('segmentation','分词'),('ner','NER')] %}{% set show_segmentation=true %}{% set show_ner=true %}{% set input_note='当前接入分词与 NER；未实现的能力不返回伪造结果。' %}{% include 'partials/text_workspace.html' %}</section>
-<section id="documents" role="tabpanel" aria-labelledby="tab-documents" hidden><section class="intro"><h2>多文档分析</h2><p>待后续实验接入。THUCNews600 数据已准备，尚未训练聚类或分类模型。</p></section></section>
-<section id="overview" role="tabpanel" aria-labelledby="tab-overview" hidden><section class="intro"><h2>全课程结果总览</h2><p>实验一 Completed / Frozen。正式指标的唯一主展示位置：<a href="/segmentation#evaluation">MSR CWS</a>与<a href="/tagging#evaluation">MSRA-200 NER</a>。</p><p>HMM 模型原理见<a href="/sequence-labeling#hmm">序列标注</a>；BiLSTM-CRF 结构与训练见<a href="/deep-learning#bilstm">深度学习</a>。POS、IE、依存、分类、聚类和 LLM 尚未实现。</p></section></section>
-<footer class="content-footer"><span id="active-run"></span><span>当前仅返回分词与 NER</span></footer>
+<div class="cw-context" aria-label="当前探索上下文"><div id="cw-context-path">未载入语料 / 输入文本或读取课程语料</div><div class="cw-context-actions"><button id="cw-back" class="outline small" disabled>返回上一步</button><button id="cw-reset" class="outline small">重置筛选</button></div></div>
+<p id="cw-status" class="cw-status" role="status" aria-live="polite">选择一个工作空间开始；不会自动运行模型。</p>
+<section id="single" role="tabpanel" aria-labelledby="tab-single">
+<div class="cw-document-layout"><aside class="cw-controls"><h2>当前文档</h2><div id="cw-document-source" class="cw-note">独立文本或语料文档</div><label for="ca-text">原始文本 · 最多5,000字</label><textarea id="ca-text" rows="7" placeholder="输入正文，或从语料散点打开文档。"></textarea><div class="cw-action-row"><button id="ca-example" class="outline small">示例</button><button id="ca-clear" class="outline small">新文本</button><span id="ca-length">0字</span></div><button id="ca-analyze" class="primary">分析当前文档</button><p id="ca-single-status" class="cw-note" role="status">只运行分词、POS、NER与C2。</p><div class="cw-divider"></div><h3>观察层</h3><div class="cw-layers"><label><input type="checkbox" data-cw-layer="tokens" checked> 词项边界</label><label><input type="checkbox" data-cw-layer="pos" checked> POS标签</label><label><input type="checkbox" data-cw-layer="entities" checked> 实体跨度</label><label><input type="checkbox" data-cw-layer="dependency" checked> 已运行句法</label></div><p class="cw-note">任务各自保留真实输入协议，靠原文字符位置对齐。</p><button id="cw-doc-to-relations" class="outline">带当前对象到关联探索 →</button></aside>
+<main id="ca-doc-canvas" class="cw-primary" aria-label="原文多层标注画布"></main><aside id="ca-doc-inspector" class="cw-inspector" aria-label="当前对象检查器"></aside></div>
+<div id="cw-context-action" class="cw-context-action" hidden><div class="cw-heading"><div><h2>当前对象的深层分析</h2><p class="cw-note">同一文档的实际连续原文选区；不截断模型输入，不自动运行。</p></div><button id="cw-close-action" class="outline small">收起</button></div><div class="cw-action-row"><label>任务<select id="cw-action-kind"><option value="dependency">依存句法</option><option value="information_extraction">信息抽取</option><option value="summary">本地摘要</option></select></label><label>原文start <input id="cw-action-start" type="number" min="0"></label><label>end <input id="cw-action-end" type="number" min="1"></label><button id="cw-run-action" class="primary">运行当前选区</button></div><pre id="cw-action-preview" class="cw-preview"></pre><p id="cw-action-status" class="cw-status" role="status"></p></div>
+</section>
+<section id="documents" role="tabpanel" aria-labelledby="tab-documents" hidden>
+<div class="cw-corpus-controls"><label>语料来源<select id="ca-source"><option value="course">THUCNews · 冻结R2/K5</option><option value="custom">自定义临时语料</option></select></label><button id="cw-classification-index" type="button">建立 / 补全应用分类索引</button>
+              <button id="ca-load-course" class="primary">读取课程语料</button><button id="cw-build-sample" class="outline">建立均衡联动样本</button><span id="cw-corpus-message" class="cw-note">600篇历史聚类；新分析仅在Train/Validation白名单。</span></div>
+<details id="cw-custom-input"><summary>自定义文档输入与临时聚类</summary><label for="ca-documents">3～30篇；独立一行 --- 分隔，正文空格原样保留</label><textarea id="ca-documents" rows="5" placeholder="文章一全文
+---
+文章二全文"></textarea><div class="cw-action-row"><label>K <input id="ca-k" type="number" min="2" max="29" value="3"></label><button id="ca-cluster" class="primary">临时聚类</button><span class="cw-note">不保存正式模型、不更新latest。</span></div></details>
+<div class="cw-corpus-layout"><aside id="ca-corpus-list" class="cw-list" aria-label="当前选择的文档列表"></aside><main id="ca-corpus-canvas" class="cw-primary" aria-label="语料投影与刷选"></main><aside id="ca-corpus-inspector" class="cw-inspector" aria-label="语料选择检查器"></aside></div><div id="ca-selection-stats" class="cw-selection-statistics"></div>
+</section>
+<section id="linkage" role="tabpanel" aria-labelledby="tab-linkage" hidden>
+<div class="cw-heading"><div><h2>当前选择的跨任务关系</h2><p class="cw-note">簇不等于类别；只统计已分析文档，不把unknown画成假流。所有条件与语料空间共享。</p></div><button id="cw-analyze-selection" class="primary">分析当前选择</button></div>
+<div class="cw-relations-layout"><main class="cw-primary"><div class="cw-heading"><h3>Cluster → 五类新闻prediction</h3><span>流宽＝文档数</span></div><div id="ca-relations-canvas"></div><div class="cw-divider"></div><h3>实体画像 · 点击类型或具体实体交叉筛选</h3><div id="ca-entity-profile"></div></main><aside id="ca-relations-inspector" class="cw-inspector"></aside></div>
+</section>
+<section id="testing" role="tabpanel" aria-labelledby="tab-testing" hidden>
+<div class="cw-heading"><div><h2>应用案例与评测</h2><p class="cw-note">点击案例进入相应工作台，显式运行并观察真实结果；不预写模型输出。</p></div><button id="ca-tests" class="primary">运行功能与边界测试</button></div><div id="cw-replay-cases" class="cw-cases"></div><p id="ca-test-status" class="cw-status" role="status"></p><div id="cw-test-resources" class="cw-resource-status"></div><div id="ca-test-records" class="cw-test-records">测试记录将在运行后显示。</div>
+</section>
+<footer class="content-footer">09 · 自然语言处理应用工作台 · 分布为当前分析集合的描述，不是新的独立泛化评测</footer>
+</div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{{ url_for('static', path='js/integrated-page.js') }}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/comprehensive.js') }}"></script>{% endblock %}

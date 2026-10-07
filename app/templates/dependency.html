@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', path='css/course-modules.css') }}?v=20261004">{% endblock %}
+{% block content %}
+<div class="cm-page">
+  <header class="page-header cm-page-header">
+    <div><span class="eyebrow">COURSE MODULE · 07</span><h1>依存句法分析</h1><p class="subtitle">从真实模型输出查看句子中的支配关系、解码约束与教学评测</p></div>
+    <span class="cm-badge">本地模型 · 只读推理</span>
+  </header>
+  {% include 'partials/module_tabs.html' %}
+  <div id="cm-resource-status" class="cm-resource" role="status" aria-live="polite">正在读取本地模型资源状态…</div>
+
+  <section id="interactive" role="tabpanel" aria-labelledby="tab-interactive">
+    <section class="panel cm-panel cm-controls cm-input-panel">
+      <div class="cm-section-heading"><div><span class="eyebrow">INTERACTIVE PARSING</span><h2>输入一段中文</h2><p>仅在点击“分析文本”后调用冻结 HMM 分词与本地依存模型。最多 300 字、6 句，每句最多 60 词。</p></div></div>
+      <label class="cm-label" for="cm-input">待分析文本</label>
+      <textarea id="cm-input" maxlength="300" rows="3" placeholder="例如：投资者应保持冷静。市场风险仍然存在。" spellcheck="false"></textarea>
+      <div class="cm-input-footer"><div class="cm-examples" aria-label="输入示例"><span>示例（只填入，不自动分析）</span><button type="button" class="outline small" data-cm-example="投资者应保持冷静。">短句</button><button type="button" class="outline small" data-cm-example="市场上涨，但投资者仍保持谨慎。风险管理很重要。">多句</button></div><div class="cm-actions"><button type="button" id="cm-clear" class="outline">清空</button><button type="button" id="cm-analyze" class="primary">分析文本</button></div></div>
+      <p id="cm-parse-status" class="cm-status" role="status" aria-live="polite">输入内容后开始；页面不会自动执行模型推理。</p>
+    </section>
+
+    <div class="cm-result-toolbar"><label for="cm-sentence-interactive">当前句子<select id="cm-sentence-interactive" data-cm-sentence-select disabled><option>尚无解析结果</option></select></label><span id="cm-run-meta" class="cm-run-meta">等待解析</span><button type="button" class="outline small" data-cm-export disabled>下载当前句 CoNLL-U</button></div>
+    <div class="cm-workspace cm-workbench">
+      <section class="panel cm-panel cm-object-panel"><div class="cm-panel-heading"><span class="cm-step">01</span><div><h2>原文与词项</h2><p>点选词项，同步定位原文、树与检查器。</p></div></div><div id="cm-source" class="cm-source" aria-label="原文词项选择区">等待分析文本。</div><div id="cm-words" class="cm-word-list" aria-label="分词与依存关系"></div></section>
+      <section class="panel cm-panel cm-main cm-tree-panel"><div class="cm-panel-heading"><span class="cm-step">02</span><div><h2>依存树</h2><p>箭头由 head 指向 dependent；ROOT 是句子的唯一根。</p></div></div><div id="cm-tree-mini" class="cm-scroll cm-tree-scroll" aria-label="依存树图"><div class="cm-empty-view"><span class="cm-empty-kicker">模型过程</span><h3>从词项到句子结构</h3><p>分词 → HEAD / 关系 → 约束解码</p><p>先选择示例并分析，再点击词项或依存弧探索。</p></div></div><p id="cm-tree-caption" class="cm-tree-caption">选择词或弧可查看模型关系与原文位置。</p></section>
+      <aside class="panel cm-panel cm-inspector cm-inspector-panel"><div class="cm-panel-heading"><span class="cm-step">03</span><div><h2>词项检查器</h2><p>当前预测来自本地预训练 parser。</p></div></div><div id="cm-inspector" class="cm-inspector-content"><div class="cm-inspector-wait"><strong>等待选择词项</strong><p>解析完成后，这里展示当前词的 HEAD、关系释义与原文位置。</p><small>选择会同步原文与依存树。</small></div></div></aside>
+    </div>
+  </section>
+
+  <section id="tree" role="tabpanel" aria-labelledby="tab-tree" hidden>
+    <section class="intro cm-intro"><span class="eyebrow">DEPENDENCY TREE</span><h2>句子结构与 CoNLL 导出</h2><p>各句分别构树。词跨度、单根、无环与 ROOT 可达性由服务验证；选择依存弧会同步检查器和原文。</p></section>
+    <div class="cm-result-toolbar"><label for="cm-sentence-tree">当前句子<select id="cm-sentence-tree" data-cm-sentence-select disabled><option>尚无解析结果</option></select></label><span class="cm-run-meta">同一份当前解析结果</span><button type="button" class="outline small" data-cm-export disabled>下载当前句 CoNLL-U</button></div>
+    <div class="cm-tree-layout"><section class="panel cm-panel cm-main cm-tree-large-panel"><div id="cm-tree-large" class="cm-scroll cm-tree-scroll">分析后显示依存树。</div><p id="cm-tree-large-caption" class="cm-tree-caption">点击树中词项或箭头查看对应关系。</p></section><aside class="panel cm-panel cm-inspector cm-tree-detail"><h2>原文与所选词</h2><div id="cm-tree-source" class="cm-source">分析后显示当前句原文。</div><div id="cm-tree-inspector" class="cm-inspector-content">选择一个词项或依存弧。</div><h3>句子校验</h3><ul id="cm-tree-checks" class="cm-check-list"></ul><details class="cm-disclosure"><summary>当前句完整 CoNLL-U</summary><pre id="cm-conll">尚无解析结果。</pre></details></aside></div>
+  </section>
+
+  <section id="process" role="tabpanel" aria-labelledby="tab-process" hidden>
+    <section class="intro cm-intro"><span class="eyebrow">MODEL PROCESS</span><h2>双仿射 head 打分与树约束</h2><p>展示模型实际返回的 head 候选 logit。候选排序是局部打分观察；它不替换模型实际解码出的依存树。</p></section>
+    <div class="cm-result-toolbar"><label for="cm-sentence-process">当前句子<select id="cm-sentence-process" data-cm-sentence-select disabled><option>尚无解析结果</option></select></label><span class="cm-run-meta">候选 head 按 biaffine logit 排列</span></div>
+    <div class="cm-workspace cm-process-grid"><section class="panel cm-panel cm-main cm-process-panel"><div class="cm-panel-heading"><span class="cm-step">A</span><div><h2>选择 dependent</h2><p>候选分数使用 parser 返回的真实矩阵值，不转换成概率。</p></div></div><div id="cm-process-words" class="cm-process-words">分析后选择一个词。</div><div id="cm-candidates" class="cm-candidates">真实打分将在分析后显示。</div></section><aside class="panel cm-panel cm-note cm-process-notes"><h2>从打分到一棵树</h2><ol><li><strong>表示与双仿射打分</strong><span>当前 API 提供每个 dependent 对各 head 的真实弧 logit。</span></li><li><strong>全句树约束</strong><span>解码器需要满足单根、无环和连通等约束。</span></li><li><strong>最终 head</strong><span>树解码输出决定最终 head；局部最高分不保证等于最终树中的 head。</span></li><li><strong>关系标签 → 依存树</strong><span>在最终 head 下选择 relation；词、head 和标签共同构成有标签依存树。候选观察不改写预测。</span></li></ol><div id="cm-decoder-note" class="cm-decoder-note">等待真实 decoder 元数据。</div></aside></div>
+  </section>
+
+  <section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden>
+    <section class="intro cm-intro"><span class="eyebrow">TEACHING DIAGNOSTIC</span><h2>Gold-token UAS / LAS</h2><p>小型手写 Gold 句集，仅作教学诊断；在固定 Gold 分词下比较 head 与关系标签，不是 CTB 正式 benchmark，也不代表模型总体准确率。读取评测只在点击按钮后发生。</p></section>
+    <section class="panel cm-panel cm-controls cm-evaluation-controls"><div><h2>人工编写的教学样本</h2><p id="cm-evaluation-protocol">尚未读取评测协议与样本。</p></div><button id="cm-load-evaluation" type="button" class="primary cm-button">读取教学评测</button></section>
+    <div id="cm-evaluation-status" class="cm-status" role="status" aria-live="polite">评测尚未加载。</div>
+    <details class="cm-disclosure"><summary>评测资源与运行环境</summary><pre id="cm-evaluation-provenance">尚未读取评测来源。</pre></details>
+    <div id="cm-evaluation-aggregate" class="cm-metrics" aria-label="教学样本聚合指标">点击按钮读取聚合指标。</div>
+    <div id="cm-evaluation-output" class="cm-evaluation-output"><div class="panel cm-empty">点击“读取教学评测”后查看样本与指标。</div></div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='js/course-dependency.js') }}?v=20261004"></script>{% endblock %}
