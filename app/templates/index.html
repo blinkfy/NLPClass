@@ -23,10 +23,10 @@
 ('/tagging','词性与命名实体','HanLP POS 交互；MSRA-200 NER exact-span 评价。','POS 与 NER 已接入','ready','实'),
 ('/information-extraction','信息抽取','现有 NER 与显式规则抽取实体关系，提供原文证据与 SPO。','课程补充实验已接入','ready','抽'),
 ('/clustering','文本聚类','THUCNews 五类各 120 条，共 600 篇全文。','K-means · 实验工作台','data','聚'),
-('/classification','文本分类','固定 split · 统一 TF-IDF → NB / LinearSVC。','C0 / C1 已完成 · 可解释预测','prediction','类'),
-('/dependency-parsing','依存句法分析','依存关系、依存树与句法分析过程。','已接入','ready','依'),
-('/deep-learning','深度学习与大模型','BiLSTM-CRF 架构、CRF 转移与训练曲线。','BiLSTM-CRF 已接入','partial','深'),
-('/integrated-analysis','综合分析','已接入分词与 NER；后续汇合课程能力。','现有能力可用','partial','综')
+('/classification','文本分类','固定 split · C0～C3：NB / LinearSVC / TextCNN，并含 Stage4～6 扩展分析。','四模型已完成 · 可解释预测与统计分析','ready','类'),
+('/dependency-parsing','依存句法分析','真实依存树、biaffine head/relation 打分、CoNLL-U 与教学评测。','真实模型过程已接入','ready','依'),
+('/deep-learning','深度学习与大模型','BiLSTM-CRF、BERT/Transformer 与本地 Qwen 的真实推理过程。','三类现代模型过程已接入','ready','深'),
+('/integrated-analysis','综合分析','Linked NLP Workspace：文档、语料、跨任务关联与应用评测连续探索。','实验四综合应用已完成','ready','综')
 ] %}
 <article class="panel module-card module-card-{{ state }}">
   <div class="module-card-top"><span class="module-icon" aria-hidden="true">{{ glyph }}</span><span class="module-card-index">{{ '%02d'|format(loop.index) }}</span></div>
