@@ -125,7 +125,7 @@ function render(model, value) {
   row(summary, 'h3', '当前运行摘要');
   row(summary, 'p', `${value.tokens.length} 词 · ${Array.from(value.text).length} 字符 · ${value.elapsed_ms} ms`);
   if (meta.train_size) row(summary, 'p', `课程训练子集 ${meta.train_size} 句 · dev ${meta.dev_size} 句 · seed ${meta.seed}`);
-  row(summary, 'small', '仅交互文本推理；不是 official test benchmark。');
+  row(summary, 'small', '交互文本推理摘要。');
   if (model === 'perceptron') renderUpdate(value.update_example);
   else renderTransitions(value.transitions);
 }

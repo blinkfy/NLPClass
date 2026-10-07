@@ -13,7 +13,7 @@
 <span class="method-arrow" aria-hidden="true">→</span>
 <article class="panel method-card"><span class="method-index">03 · 已接入</span><h3>CRF</h3><div class="model-signature"><small>判别式概率结构</small><strong>P(Y | X)</strong><span>特征 → 全局归一化 → 解码</span></div><p>联合学习字符状态特征与标签转移权重，可查看真实边缘概率和转移参数。</p><a href="/sequence-labeling#crf">查看独立线性链 CRF →</a></article>
 </div>
-<p class="muted overview-footnote">模型原理在此展开；七模型正式 MSR 指标只在<a href="/segmentation#evaluation">中文分词 · 实验评测</a>展示。</p>
+<p class="muted overview-footnote">正式 MSR 分词结果见<a href="/segmentation#evaluation">中文分词 · 实验评测</a>展示。</p>
 </section>
 <section id="hmm" role="tabpanel" aria-labelledby="tab-hmm" hidden>
 <div class="experiment-workbench hmm-workbench">
@@ -27,13 +27,13 @@
 {% set key='perceptron' %}{% set title='平均结构化感知机' %}{% include 'partials/course_sequence_workbench.html' %}
 {% set key='crf' %}{% set title='线性链 CRF' %}{% include 'partials/course_sequence_workbench.html' %}
 <section id="comparison" role="tabpanel" aria-labelledby="tab-comparison" hidden>
-  <section class="intro"><span class="eyebrow">COURSE EXTENSION · MODEL MECHANISMS</span><h2>从生成式统计到条件概率序列建模</h2><p>共同任务是字符 → BMES → 分词。本页比较模型机制与同一句子的真实预测，不建立新的 official test 排行。</p></section>
+  <section class="intro"><span class="eyebrow">COURSE EXTENSION · MODEL MECHANISMS</span><h2>从生成式统计到条件概率序列建模</h2><p>共同任务是字符 → BMES → 分词；本页比较模型机制与同句预测。</p></section>
   <div class="sequence-mechanism-strip">
     <article class="panel mechanism-card"><span class="method-index">01 · 生成式概率</span><h2>HMM-1 Smooth</h2><p>π / A / B</p><div class="mechanism-flow"><span>计数估计与平滑</span><b>→</b><span>Viterbi</span></div><small>建模字符发射与隐状态转移</small></article>
     <article class="panel mechanism-card"><span class="method-index">02 · 判别式线性结构</span><h2>平均结构化感知机</h2><p>状态特征 + 转移特征</p><div class="mechanism-flow"><span>误差驱动更新</span><b>→</b><span>Viterbi</span></div><small>最终使用训练过程的平均权重</small></article>
     <article class="panel mechanism-card"><span class="method-index">03 · 判别式概率结构</span><h2>线性链 CRF</h2><p>状态特征 + 转移特征 · P(Y|X)</p><div class="mechanism-flow"><span>条件似然</span><b>→</b><span>全句最优解码</span></div><small>全局归一化考虑完整标签空间</small></article>
   </div>
-  <section class="panel comparison-live-panel"><div class="section-heading"><div><span class="eyebrow">SAME INPUT · REAL OUTPUT</span><h2>同一句子的三种 BMES 路径</h2><p class="muted">三次独立交互推理；运行耗时仅描述当前请求，不作为模型性能排名。</p></div></div><label for="comparison-input">输入短句</label><input id="comparison-input" maxlength="60" value="商品和服务"><div id="comparison-results" class="comparison-results">切换到此页后加载真实预测。</div></section>
+  <section class="panel comparison-live-panel"><div class="section-heading"><div><span class="eyebrow">SAME INPUT · REAL OUTPUT</span><h2>同一句子的三种 BMES 路径</h2><p class="muted">分别运行三种模型，比较同一句子的 BMES 路径。</p></div></div><label for="comparison-input">输入短句</label><input id="comparison-input" maxlength="60" value="商品和服务"><div id="comparison-results" class="comparison-results">切换到此页后加载真实预测。</div></section>
   <p class="comparison-takeaway">HMM 主要受生成式概率统计假设约束；感知机允许灵活的状态和转移特征；CRF 将同类结构化特征纳入全局归一化的条件概率框架。</p>
   <details class="panel trace-disclosure"><summary>展开训练、特征与解码机制对照</summary><div class="table-wrap"><table class="comparison-table"><thead><tr><th>机制</th><th>HMM-1 Smooth</th><th>平均结构化感知机</th><th>线性链 CRF</th></tr></thead><tbody>
   <tr><th>模型类型</th><td>生成式概率模型</td><td>判别式线性结构模型</td><td>判别式条件概率结构模型</td></tr>

@@ -5,7 +5,7 @@
     <span class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">N</span> NLPLab · 自然语言处理实验平台</span>
     <h1>自然语言处理<span class="mobile-title-break">实验平台</span></h1>
     <p class="home-lead">从字符、词语到结构与语义理解</p>
-    <p class="home-intro">围绕真实语料与可复现结果，观察不同方法的输入、运算过程和输出。实验数据、算法轨迹与正式评价在各任务模块中对应呈现。</p>
+    <p class="home-intro">围绕真实语料与可复现结果，观察不同方法的输入、运算过程和输出。</p>
   </div>
   <div class="home-hero-visual" aria-label="自然语言处理能力：字符、分词、词性、命名实体；文本分类、聚类与信息抽取；句法、关系与语义">
     <div class="hero-layer hero-layer-input"><small>输入与表示</small><div><span>字符</span><i>→</i><span>分词</span><i>→</i><span>词性</span><i>→</i><span>命名实体</span></div></div>
@@ -24,7 +24,7 @@
 ('/information-extraction','信息抽取','现有 NER 与显式规则抽取实体关系，提供原文证据与 SPO。','课程补充实验已接入','ready','抽'),
 ('/clustering','文本聚类','THUCNews 五类各 120 条，共 600 篇全文。','K-means · 实验工作台','data','聚'),
 ('/classification','文本分类','固定 split · 统一 TF-IDF → NB / LinearSVC。','C0 / C1 已完成 · 可解释预测','prediction','类'),
-('/dependency-parsing','依存句法分析','依存关系、依存树与句法分析过程。','待后续实验接入','pending','依'),
+('/dependency-parsing','依存句法分析','依存关系、依存树与句法分析过程。','已接入','ready','依'),
 ('/deep-learning','深度学习与大模型','BiLSTM-CRF 架构、CRF 转移与训练曲线。','BiLSTM-CRF 已接入','partial','深'),
 ('/integrated-analysis','综合分析','已接入分词与 NER；后续汇合课程能力。','现有能力可用','partial','综')
 ] %}
@@ -35,5 +35,5 @@
 </article>
 {% endfor %}
 </div>
-<section class="panel preparation"><h2>数据与结果口径</h2><p>中文分词标准评测来自 SIGHAN MSR；命名实体评测来自 MSRA-200。两类任务的结果分别在对应模块查看。</p><p class="muted">自建语料与人工 Gold 保留为可选工作流。<a href="/annotation/sequence">人工标注工具</a></p></section>
+<section class="panel preparation"><h2>评测数据</h2><p>中文分词评测使用 SIGHAN MSR；命名实体评测使用 MSRA-200。</p><p class="muted">支持自建语料与人工标注。<a href="/annotation/sequence">人工标注工具</a></p></section>
 {% endblock %}

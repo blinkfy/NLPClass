@@ -28,8 +28,8 @@
 </div>
 {% if key=='bilstm' %}<details class="deep-record"><summary>冻结训练记录与模型边界</summary><p>本页不训练、不更新实验一指标。训练曲线只有实际记录的 train loss；缺失的 Validation loss 不补写。</p><div id="deep-history" class="deep-history"></div><a href="/segmentation#evaluation">实验一统一分词评价 →</a></details>{% endif %}
 {% if key=='transformer' %}<p class="cm-note">attention 是当前输入下的权重分布，不是因果归因。MASK Softmax 是词表输出，不是答案正确率。</p>{% endif %}
-{% if key in ['llm','extensions'] %}<p class="cm-note">Qwen2.5-0.5B-Instruct 是小型本地教学模型，用于观察自回归 next-token generation，不代表当前大语言模型能力上限。保留错误事实、不完整输出和格式失败；下一 token 分布不是回答正确率或事实可信度。</p>{% endif %}
-{% if key=='extensions' %}<details class="deep-record"><summary>模型能力与任务协议</summary><div class="cm-scroll"><table><thead><tr><th>模型</th><th>输入 / 输出</th><th>可核验过程</th></tr></thead><tbody><tr><td>BiLSTM-CRF</td><td>字符 → BMES 分词</td><td>emission、转移、Viterbi 与配分函数</td></tr><tr><td>BERT</td><td>双向上下文 → MASK 候选</td><td>QK 缩放、attention、真实 logits</td></tr><tr><td>Qwen</td><td>消息 → 自回归 token</td><td>聊天模板、生成分布、EOS / 预算</td></tr></tbody></table></div><p>任务切换只改变明确展示的提示词；没有另行训练。JSON 格式检查不代表事实正确。边界实验观察模型是否执行了正文中的指令，不承诺安全保证。</p></details>{% endif %}
+{% if key in ['llm','extensions'] %}<p class="cm-note">Qwen2.5-0.5B-Instruct 本地模型用于观察自回归 next-token generation。</p>{% endif %}
+{% if key=='extensions' %}<details class="deep-record"><summary>模型能力与任务协议</summary><div class="cm-scroll"><table><thead><tr><th>模型</th><th>输入 / 输出</th><th>可核验过程</th></tr></thead><tbody><tr><td>BiLSTM-CRF</td><td>字符 → BMES 分词</td><td>emission、转移、Viterbi 与配分函数</td></tr><tr><td>BERT</td><td>双向上下文 → MASK 候选</td><td>QK 缩放、attention、真实 logits</td></tr><tr><td>Qwen</td><td>消息 → 自回归 token</td><td>聊天模板、生成分布、EOS / 预算</td></tr></tbody></table></div><p>任务切换调整提示词；页面展示摘要、结构化输出及不同提示的生成结果。</p></details>{% endif %}
 </section>{% endfor %}
 <footer class="content-footer">独立课程诊断 · Exp1 / Exp2 / Exp3 冻结资产只读 · 无远程 provider</footer>
 </div>

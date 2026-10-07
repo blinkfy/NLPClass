@@ -43,11 +43,11 @@
       <section class="panel"><h3>内部指标</h3><div id="clustering-internal-metrics" class="clustering-metrics"></div></section>
       <section class="panel"><h3>外部对照</h3><div id="clustering-external-metrics" class="clustering-metrics"></div></section>
     </div>
-    <section class="panel"><details><summary>完整表示对照表 · <span id="clustering-comparison-role">K=5 · 5主题参考配置</span></summary><div id="clustering-comparison-table" class="table-wrap"></div></details><p class="clustering-chart-note">silhouette / CH / DB / stability 属于内部结构；ARI / NMI 属于事后外部评价。LSA 改变表示空间，几何指标不能作为绝对跨空间排名；SSE 不纳入主对照表。外部标签未参与表示构建、fit 或参数搜索。</p></section>
+    <section class="panel"><details><summary>完整表示对照表 · <span id="clustering-comparison-role">K=5 · 5主题参考配置</span></summary><div id="clustering-comparison-table" class="table-wrap"></div></details><p class="clustering-chart-note">内部结构指标：silhouette、CH、DB、stability；标签对照指标：ARI、NMI。</p></section>
     <div id="clustering-observation-cards" class="experiment-observations"></div>
     <section class="panel"><details><summary>完整优化观察与结果解读</summary><div id="clustering-optimization"></div><div id="clustering-interpretation"></div></details></section>
     <section class="panel"><div class="section-heading"><div><h3>簇 × 已知类别组成</h3><p class="muted">行是算法得到的簇，列是用于评价的原始类别；颜色越深，文档数越多。</p></div></div><div id="clustering-matrix-chart" class="clustering-chart clustering-matrix" role="img" aria-label="簇与已知类别的文档数量热力图"></div><details><summary>完整组成表</summary><div id="clustering-matrix-table" class="table-wrap"></div></details></section>
-    <section class="panel"><details><summary>按已知类别查看投影 · 仅事后观察</summary><div class="section-heading"><div><h3>按已知类别查看投影</h3><p class="muted">仅用于评价对照；聚类结果与上方组成矩阵来自同一批文档。</p></div></div><div id="clustering-gold-chart" class="clustering-chart clustering-scatter" role="img" aria-label="按已知类别着色的文档二维散点图"></div></details></section>
+    <section class="panel"><details><summary>按已知类别查看投影</summary><div class="section-heading"><div><h3>按已知类别查看投影</h3><p class="muted">聚类结果与组成矩阵来自同一批文档。</p></div></div><div id="clustering-gold-chart" class="clustering-chart clustering-scatter" role="img" aria-label="按已知类别着色的文档二维散点图"></div></details></section>
   </div>
 </section>
 <footer class="content-footer"><span id="clustering-footer-run">等待实验记录</span><span>实验二 · 文本聚类</span></footer>

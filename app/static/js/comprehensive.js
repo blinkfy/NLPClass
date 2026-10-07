@@ -116,9 +116,9 @@ function sourceLink(module){const paths={classification:'/classification',depend
 function renderCases(items){$('cw-replay-cases').innerHTML=items.map(c=>`<button class="cw-case" data-cw-case="${esc(c.id)}"><strong>${esc(c.title)}</strong><small>${esc(c.expected)}</small></button>`).join('');}
 function replayCase(id){const item=cases.find(c=>c.id===id);if(!item)return;if(item.workspace==='single'){$('ca-text').value=item.text;cancelDocument();workspace.setDraft(item.text);navigate('single');message('案例已填入；点击分析真实运行。');}
   else{$('ca-source').value='custom';$('cw-custom-input').open=true;$('ca-documents').value=item.documents.map(d=>d.text).join('\n---\n');$('ca-k').value=item.k;navigate('documents');message('案例已填入；执行临时聚类观察真实状态。');}}
-async function tests(){setButton('ca-tests',true,'测试运行中…');message('正在执行应用功能与边界案例；不是新模型benchmark。',false,'ca-test-status');
+async function tests(){setButton('ca-tests',true,'测试运行中…');message('正在运行应用案例…',false,'ca-test-status');
   try{const data=await request('tests','/system-tests',{});$('ca-test-records').innerHTML=data.records.map(r=>`<div class="cw-test-record ${r.passed?'':'is-failed'}"><strong>${esc(r.name)}<small> · ${esc(r.category)}</small></strong><p>${esc(r.actual)}<br><small>预期：${esc(r.expected)}</small></p><span>${r.passed?'通过':'未通过'} · ${Math.round(r.elapsed_ms||0)}ms</span></div>`).join('');message(`${data.records.filter(r=>r.passed).length}/${data.records.length}通过。${data.notice}`,false,'ca-test-status');}
-  catch(error){fail(error,'ca-test-status');}finally{setButton('ca-tests',false,'运行功能与边界测试');}}
+  catch(error){fail(error,'ca-test-status');}finally{setButton('ca-tests',false,'运行案例测试');}}
 
 documentView=createDocumentView({workspace,host:$('ca-doc-canvas'),inspector:$('ca-doc-inspector'),onAnalyze:analyzeDocument,onDraft:text=>workspace.setDraft(text),onContextAction:contextAction,onEntityFilter:applyEntity,onNavigate:navigate,onSourceLink:sourceLink});
 corpusView=createCorpusView({workspace,scatterHost:$('ca-corpus-canvas'),listHost:$('ca-corpus-list'),inspectorHost:$('ca-corpus-inspector'),statsHost:$('ca-selection-stats'),flowHost:$('ca-relations-canvas'),entityHost:$('ca-entity-profile'),relationInspectorHost:$('ca-relations-inspector'),onOpenDocument:id=>openDocument(id),onAnalyzeSelection:analyzeSelection,onNavigate:navigate});

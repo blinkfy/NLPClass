@@ -24,9 +24,9 @@
 <div class="cw-relations-layout"><main class="cw-primary"><div class="cw-heading"><h3>Cluster → 五类新闻prediction</h3><span>流宽＝文档数</span></div><div id="ca-relations-canvas"></div><div class="cw-divider"></div><h3>实体画像 · 点击类型或具体实体交叉筛选</h3><div id="ca-entity-profile"></div></main><aside id="ca-relations-inspector" class="cw-inspector"></aside></div>
 </section>
 <section id="testing" role="tabpanel" aria-labelledby="tab-testing" hidden>
-<div class="cw-heading"><div><h2>应用案例与评测</h2><p class="cw-note">点击案例进入相应工作台，显式运行并观察真实结果；不预写模型输出。</p></div><button id="ca-tests" class="primary">运行功能与边界测试</button></div><div id="cw-replay-cases" class="cw-cases"></div><p id="ca-test-status" class="cw-status" role="status"></p><div id="cw-test-resources" class="cw-resource-status"></div><div id="ca-test-records" class="cw-test-records">测试记录将在运行后显示。</div>
+<div class="cw-heading"><div><h2>应用案例与评测</h2><p class="cw-note">点击案例进入相应工作台，运行并观察实际结果。</p></div><button id="ca-tests" class="primary">运行案例测试</button></div><div id="cw-replay-cases" class="cw-cases"></div><p id="ca-test-status" class="cw-status" role="status"></p><div id="cw-test-resources" class="cw-resource-status"></div><div id="ca-test-records" class="cw-test-records">测试记录将在运行后显示。</div>
 </section>
-<footer class="content-footer">09 · 自然语言处理应用工作台 · 分布为当前分析集合的描述，不是新的独立泛化评测</footer>
+<footer class="content-footer">09 · 自然语言处理应用工作台</footer>
 </div>
 {% endblock %}
 {% block scripts %}<script type="module" src="{{ url_for('static', path='js/comprehensive.js') }}"></script>{% endblock %}

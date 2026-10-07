@@ -3,7 +3,7 @@
 {% block content %}
 <div class="ie-page">
 <header class="page-header"><div><span class="ie-eyebrow">INFORMATION EXTRACTION</span><h1>信息抽取</h1><p class="subtitle">从一段文本，提取有据可查的实体关系</p></div><span class="ie-course-badge">课程补充实验</span></header>
-<p class="muted benchmark-sources">现有 HanLP NER → 实体类型与显式触发词规则 → SPO。当前没有 Relation Gold，不报告 P/R/F1。</p>
+<p class="muted benchmark-sources">HanLP NER 与显式触发词规则生成实体关系 SPO。</p>
 {% include 'partials/module_tabs.html' %}
 <section id="interactive" role="tabpanel" aria-labelledby="tab-interactive">
   <div class="experiment-workbench ie-workbench">
@@ -25,15 +25,14 @@
     </section>
     <aside class="panel experiment-notes process-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">法</span><div><small>HOW IT WORKS</small><h2>方法说明</h2></div></div>
       <ol class="ie-process"><li><span>01</span><div><strong>识别实体</strong><p>HanLP 标定人物、地点与机构。</p></div></li><li><span>02</span><div><strong>寻找显式触发</strong><p>同一短分句内检查类型与触发词。</p></div></li><li><span>03</span><div><strong>保留原文证据</strong><p>每条 SPO 对应精确文本跨度。</p></div></li></ol>
-      <div class="algorithm-note-card note-strength"><h3>高精度取向</h3><p>实体共现不构成关系。只接受预设类型、同一短分句和显式肯定表达；关系不附加虚构置信度。</p><p>“和 / 、”连接的同类型主语可逐项展开；宾语前只跨过受限的创立修饰语。</p></div>
-      <div class="algorithm-note-card note-limit"><h3>局限</h3><p>依赖 NER 边界；主要覆盖显式关系。不处理复杂指代、跨句推理和未定义关系。</p></div>
+      <div class="algorithm-note-card note-strength"><h3>关系识别</h3><p>结合实体类型、触发词和原文证据抽取关系。</p><p>并列主语可逐项展开；修饰语按规则识别。</p></div>
       <div class="algorithm-note-card note-run"><h3>当前运行</h3><p id="ie-summary">等待当前输入的实体与关系结果。</p></div>
     </aside>
   </div>
 </section>
 <section id="relations" role="tabpanel" aria-labelledby="tab-relations" hidden><div class="ie-detail-grid"><section class="panel"><div class="section-heading"><h2>识别实体</h2><span class="muted">原文 [start,end)</span></div><div id="ie-entities">等待分析。</div></section><section class="panel"><div class="section-heading"><h2>关系与证据</h2></div><div id="ie-relation-details">等待分析。</div></section></div></section>
 <section id="results" role="tabpanel" aria-labelledby="tab-results" hidden><section class="panel"><div class="section-heading"><div><h2>SPO / JSON</h2><p class="muted">从当前真实 NER 与规则结果直接生成；不写入 Gold 或正式 Run。</p></div><button id="ie-copy-json" class="outline" type="button">复制 JSON</button></div><pre id="ie-json" class="ie-json">等待分析。</pre></section></section>
-<section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden><div class="ie-detail-grid"><section class="panel"><h2>方法与规则</h2><p>本课程补充实验采用可解释规则 baseline，不训练新模型。</p><div class="table-wrap"><table><thead><tr><th>主体 → 客体</th><th>关系</th><th>显式触发词</th></tr></thead><tbody><tr><td>PER → ORG</td><td>创立</td><td>创立、创建、创办</td></tr><tr><td>PER → ORG</td><td>任职于</td><td>任职于、就职于、供职于、就业于、加入</td></tr><tr><td>PER → ORG</td><td>毕业于</td><td>毕业于</td></tr><tr><td>PER → ORG</td><td>就读于</td><td>就读于</td></tr><tr><td>PER → LOC</td><td>出生于</td><td>出生于、生于</td></tr><tr><td>ORG → LOC</td><td>位于</td><td>总部位于、总部设在、坐落于、位于</td></tr></tbody></table></div></section><aside class="panel process-notes"><h2>证据与边界</h2><p>每条三元组保留主客体、原文证据及触发词的精确跨度。否定、跨分句、只有实体共现的文本不抽取关系。</p><p>“在杭州创立某公司”可支持人与公司的创立关系；不据此推断公司的位置。</p><p>当前没有 relation Gold，因此本页不提供正式关系准确率或 P/R/F1。</p></aside></div></section>
+<section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden><div class="ie-detail-grid"><section class="panel"><h2>方法与规则</h2><p>本课程补充实验采用可解释规则 baseline，不训练新模型。</p><div class="table-wrap"><table><thead><tr><th>主体 → 客体</th><th>关系</th><th>显式触发词</th></tr></thead><tbody><tr><td>PER → ORG</td><td>创立</td><td>创立、创建、创办</td></tr><tr><td>PER → ORG</td><td>任职于</td><td>任职于、就职于、供职于、就业于、加入</td></tr><tr><td>PER → ORG</td><td>毕业于</td><td>毕业于</td></tr><tr><td>PER → ORG</td><td>就读于</td><td>就读于</td></tr><tr><td>PER → LOC</td><td>出生于</td><td>出生于、生于</td></tr><tr><td>ORG → LOC</td><td>位于</td><td>总部位于、总部设在、坐落于、位于</td></tr></tbody></table></div></section><aside class="panel process-notes"><h2>原文证据</h2><p>每条三元组保留主客体、原文证据及触发词的精确跨度。</p><p>“在杭州创立某公司”可支持人与公司的创立关系。</p></aside></div></section>
 </div>
 {% endblock %}
 {% block scripts %}<script src="{{ url_for('static', path='vendor/echarts.min.js') }}"></script><script type="module" src="{{ url_for('static', path='js/information-extraction-page.js') }}?v=20261002"></script>{% endblock %}

@@ -17,11 +17,11 @@
 </section>
 <section id="process" role="tabpanel" aria-labelledby="tab-process" hidden>{% include 'partials/process.html' %}<aside class="panel process-page-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">法</span><div><small>METHOD NOTES</small><h2 id="process-method-name">算法讲解</h2></div></div><div id="process-method-notes"></div><div class="process-live"><h3>正在查看的步骤</h3><div id="process-live-step">选择候选边或播放 Trace，查看当前位置的真实代价与前驱。</div></div></aside></section>
 <section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden>
-<section class="panel"><h2>七模型 MSR 正式评测</h2><p class="muted">同一 official training / raw test 协议，仅读取保存结果；主表沿用 official scorer。NER 不进入此表。</p><div id="comparison-table" class="table-wrap"></div></section>
-<section class="panel"><h2>课件参考对照</h2><p class="muted">仅作 sanity comparison；词典、平滑及版本可能不同，不据 test 调参。</p><div id="reference-table" class="table-wrap"></div></section>
+<section class="panel"><h2>七模型 MSR 正式评测</h2><p class="muted">SIGHAN MSR 七模型结果，依官方 scorer 计算。</p><div id="comparison-table" class="table-wrap"></div></section>
+<section class="panel"><h2>课件参考对照</h2><p class="muted">课件参考结果；算法版本可能不同。</p><div id="reference-table" class="table-wrap"></div></section>
 </section>
 <section id="errors" role="tabpanel" aria-labelledby="tab-errors" hidden>{% set error_task='CWS' %}{% include 'partials/errors.html' %}</section>
-<footer class="content-footer"><span id="active-run"></span><span>冻结模型与正式结果只读</span></footer>
+<footer class="content-footer"><span id="active-run"></span><span>SIGHAN MSR · 七模型评测</span></footer>
 </div>
 {% endblock %}
 {% block scripts %}<script type="module" src="{{ url_for('static', path='js/segmentation-page.js') }}"></script>{% endblock %}
