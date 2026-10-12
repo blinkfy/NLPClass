@@ -115,7 +115,8 @@ def export_site(destination, *, include_corpus=False, data=True):
             '<aside class="static-edition-note" role="note" style="margin:0 0 16px;'
             'padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa">'
             "<strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；"
-            "分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。"
+            "分词、感知机/CRF、C0–C3、BiLSTM、POS、NER、依存与 BERT 已接入浏览器计算。"
+            "大型模型首次运行按需加载。"
             '<a href="DEPLOYMENT.md">部署与功能说明</a></aside>'
         )
         html = html.replace('<main class="main">', '<main class="main">' + banner)
@@ -152,6 +153,12 @@ def export_site(destination, *, include_corpus=False, data=True):
         from export_browser_neural import export_neural
 
         manifest["neural"] = export_neural(app, destination)
+        from export_browser_sequence import export_sequence
+
+        manifest["sequence"] = export_sequence(app, destination)
+        from export_browser_transformers import export_transformers
+
+        manifest["transformers"] = export_transformers(destination)
         if manifest["neural"].get("textcnn"):
             manifest["issues"] = [
                 item

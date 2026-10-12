@@ -61,7 +61,7 @@
     </nav>
     <div class="sidebar-footer">全课程 · 一个实验平台</div>
   </aside>
-  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、感知机/CRF、C0–C3、BiLSTM、POS、NER、依存与 BERT 已接入浏览器计算。大型模型首次运行按需加载。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
 <header class="page-header classification-header"><div><span class="eyebrow">EXPERIMENT 03 · SUPERVISED LEARNING</span><h1>文本分类</h1><p id="classification-subtitle" class="subtitle">同一套词级 TF-IDF，比较朴素贝叶斯与线性支持向量机。</p></div><div class="classification-controls"><label>实验 Run<select id="classification-run" disabled><option>正在加载…</option></select></label><label>分类器<select id="classification-model" disabled><option value="C0">C0 · MultinomialNB</option><option value="C1">C1 · LinearSVC</option><option value="C2" disabled>C2 · char bigram + χ² + LinearSVC</option><option value="C3" disabled>C3 · TextCNN</option></select></label></div></header>
 <div class="tabs" role="tablist" aria-label="文本分类功能">
 

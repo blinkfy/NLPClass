@@ -15,14 +15,14 @@
     },
     {
       "path": "AUDIT.md",
-      "bytes": 3701,
-      "sha256": "491c1556e71ee22d8d322ec933a5942ebf02ccc881c0bf5bf189b5995de1f02f",
+      "bytes": 4145,
+      "sha256": "4d6efa8b1b6f1abf799c2a55db24b189614a7640cfae9ed9b55b4488c1250696",
       "owned": true
     },
     {
       "path": "DEPLOYMENT.md",
-      "bytes": 4065,
-      "sha256": "28c068a29bec0039b489d164d8cca8361770c6c96b85a934990b6d367a6fbe8b",
+      "bytes": 5130,
+      "sha256": "1eb794059aa52323bac882707789b83c498b25021a73ea865de63a6728f69734",
       "owned": true
     },
     {
@@ -33,20 +33,20 @@
     },
     {
       "path": "annotation/sequence/index.html",
-      "bytes": 6884,
-      "sha256": "38c725a2e3b30cb2e193a6e58653d1879ac9501efd7422d08eb8d2e8e245cd3f",
+      "bytes": 6920,
+      "sha256": "0808a8887ca8e3850109459560b68eb2c9df11487085233080b24f3bcdd36034",
       "owned": true
     },
     {
       "path": "classification/index.html",
-      "bytes": 25829,
-      "sha256": "523dc9766cfecd48cffc31fd1cac087e9060841ae60094bb8d41efe2bfeed69f",
+      "bytes": 25865,
+      "sha256": "d361f7a70112f0985cff6f4d020e303177156d05d57518d35a71a9e2f0cebf37",
       "owned": true
     },
     {
       "path": "clustering/index.html",
-      "bytes": 14569,
-      "sha256": "e421327d1dab494925a2878f9f4ce183e1447946209cca77d8e18ed8cd642b45",
+      "bytes": 14605,
+      "sha256": "aca9cf3e59a928dd79c47077c828c3b155de27aae90a02e4f5b9c41b9636e57b",
       "owned": true
     },
     {
@@ -16425,32 +16425,32 @@
     },
     {
       "path": "deep-learning/index.html",
-      "bytes": 14120,
-      "sha256": "4a5d75444f4172430110848610d2a74a132df2224ef7a6f8f7aaba5bf2694084",
+      "bytes": 14156,
+      "sha256": "cdf0a6ab74f0bf75bc6cab1744cded2957ae8bbd5170c767e2355f9f3d2f6ea6",
       "owned": true
     },
     {
       "path": "dependency-parsing/index.html",
-      "bytes": 12204,
-      "sha256": "089e16c99eae76863727cbca90f333a8a792bbc2c1395246655e20a61021fc8b",
+      "bytes": 12240,
+      "sha256": "18e2e08b3b935ae4f0a37f31543ed293f1cf7a732f5f3acd596bc09212c2bd8a",
       "owned": true
     },
     {
       "path": "index.html",
-      "bytes": 10163,
-      "sha256": "9ce8533ab9beebbc4e88b091565c013d645b864b8ae0a9f71be4273cb27539f2",
+      "bytes": 10199,
+      "sha256": "c210c9d4f78659f294eff4e6b389b3074bffe37aa083cd3d7d18f45aa9e17f0a",
       "owned": true
     },
     {
       "path": "information-extraction/index.html",
-      "bytes": 10089,
-      "sha256": "acb32be649bfce9abeb6f96f8d6c25210d1f8a453e8da4e7a40fec177b84e4ef",
+      "bytes": 10125,
+      "sha256": "650e3721f4b55559c40eb2aced7508f10cf1ecd9622aabb4538607248ecbec19",
       "owned": true
     },
     {
       "path": "integrated-analysis/index.html",
-      "bytes": 10203,
-      "sha256": "1a38aa9f150c892e769162a66127ebd470d89a031c946660c970d36d0232b6c6",
+      "bytes": 10239,
+      "sha256": "d322ca5eadc813e46e194721d3a366ad16fe57e0d1eef2fc813747f234caa068",
       "owned": true
     },
     {
@@ -16652,15 +16652,153 @@
       "owned": true
     },
     {
+      "path": "models/sequence/bigram-counts.u32",
+      "bytes": 3531684,
+      "sha256": "1963da1896c48a7537b51c1e5f95b74fa0b92cc676b33a8815bed558fb09eb8e",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/bigram-offsets.u32",
+      "bytes": 352492,
+      "sha256": "a680539ee3f8d3d72636cf83ab2a5f4134c76e482b111a106970cba30f11ae4d",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/bigram-targets.u32",
+      "bytes": 3531684,
+      "sha256": "a183d13ea8003df763f0e333ece210b809308e1b220cf02742f0a31446e33fca",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/bigram.json",
+      "bytes": 1437690,
+      "sha256": "9698847ebf217b8c8536ff6d93516d4efb0c20b159197d3eecb5635c65eb55ac",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/crf.json",
+      "bytes": 5407905,
+      "sha256": "5c243164c39fadf1d6637a1cd72a99bd8c8d04bcf8f047e09f7e2cf75757a69f",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/hmm2-smooth.json",
+      "bytes": 497512,
+      "sha256": "c3d14e1751bf591638e1a68281f3f372a4af20fef8d7d260326cc620062c97b0",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/perceptron.json",
+      "bytes": 11314640,
+      "sha256": "5d031c4b4655f81d21a39f0ea9d4b6510437ac1cb57ffb65fcda7f1aaf1d8565",
+      "owned": true
+    },
+    {
+      "path": "models/sequence/unicode.json",
+      "bytes": 2585,
+      "sha256": "34cb64288227ea87f4d9d474913cc9d01247efda27f8da132c0fbf4c608dab37",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert-weights-0.bin",
+      "bytes": 85937696,
+      "sha256": "1c506108fb0fd5249eeccb3ab8fbfd1364ec4b4a1912f91b09654eeb141a1fd3",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert-weights-1.bin",
+      "bytes": 84934656,
+      "sha256": "44d6d29baedfd83cd0d11d9e41b4da460acbd92d8d1bb7c6aa0b9daacc856df3",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert-weights-2.bin",
+      "bytes": 84934656,
+      "sha256": "80c6ba76a281dd4cc9a7baef6f63d57044196fe1fd99ce45f1f3647afa165a2a",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert-weights-3.bin",
+      "bytes": 84934656,
+      "sha256": "b115302b1d021baa0d4e198e748a00bd735fa572fc7162e4812e6fa7c78548aa",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert-weights-4.bin",
+      "bytes": 68419584,
+      "sha256": "c6133eb443f19c6ce90761c403aa553f5f53739b0d011f3185f2ebba0db43530",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert.json",
+      "bytes": 152891,
+      "sha256": "e8c208b03572bea72512cc302a2c68dd171c3ac296bc4c421f9e1ea04eb3d7db",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/bert.onnx",
+      "bytes": 350902,
+      "sha256": "c37c85c72e4a690d8be9b988e29c4c74ce27bd6b6ca5cf4a8ec0beba2a0908ac",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/dependency.json",
+      "bytes": 228012,
+      "sha256": "06534ec71fea11dfc46e0929603b3e26688c507b66cb7d9cc0c687e82e8d2f3a",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/dependency.onnx",
+      "bytes": 53486574,
+      "sha256": "5fd9d67457b937e44de8950b4dfa4fc9bea9e46fead204d0adc5224107688424",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/ner-weights-0.bin",
+      "bytes": 89972736,
+      "sha256": "457a5742a4efb8b086d1595aa256ff63f5eef19b68b5b939b352a0066387dc83",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/ner-weights-1.bin",
+      "bytes": 61942272,
+      "sha256": "ed368551cbd05fc09fed1043ff612433a7a5d98a6f60e2e7eedcf5969cee7421",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/ner.json",
+      "bytes": 152629,
+      "sha256": "95291c799b11c558a53177334df4cf712cc607abaefcfc8283da6ee60cc57ec0",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/ner.onnx",
+      "bytes": 447933,
+      "sha256": "2f8dd41ae3be8fa8a1b166e983def1744f38c4ea75e24c8f40072359c804591d",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/pos.json",
+      "bytes": 227859,
+      "sha256": "e21224c3413400d3c520c2ce6e29dbbeea5d69c8d8441bb6958116452af68471",
+      "owned": true
+    },
+    {
+      "path": "models/transformers/pos.onnx",
+      "bytes": 49406868,
+      "sha256": "8a1fe61a5a8d8aee209b367925b638fd0ab61a281bcf244dc96652fb865f92d2",
+      "owned": true
+    },
+    {
       "path": "segmentation/index.html",
-      "bytes": 11061,
-      "sha256": "e72534c276a872ae7093d8f6a2651e76ca4e46b8e9d21ee8720990ed4f547004",
+      "bytes": 11097,
+      "sha256": "68df86f5fe83fdafb15f313eca4ea00352d2c5c791382c353ac9a17b23d9b970",
       "owned": true
     },
     {
       "path": "sequence-labeling/index.html",
-      "bytes": 24653,
-      "sha256": "747d530d37f76a6450f6cd1a850fae6ce680c0335959754c6c729f8f868b1669",
+      "bytes": 24689,
+      "sha256": "a0167afff86cffab4d76ad22d8e51a2811d8c2239e6c83fbf9813b5623d77f78",
       "owned": true
     },
     {
@@ -16671,8 +16809,8 @@
     },
     {
       "path": "static-manifest.json",
-      "bytes": 690448,
-      "sha256": "6498e45cff18f853154e2d3551937a9e74566aea5e937d021f39c1d5df93e48c",
+      "bytes": 671656,
+      "sha256": "909098b8ec555d6d4be202b6094ee112526065063f24c4fd3a22b751343df334",
       "owned": true
     },
     {
@@ -17066,15 +17204,33 @@
       "owned": true
     },
     {
+      "path": "static/js/static-bert.js",
+      "bytes": 3112,
+      "sha256": "4e82703e1f9ede430f60bf0edae21462dba3d33b7398775b094b55c8e749b818",
+      "owned": true
+    },
+    {
       "path": "static/js/static-classification.js",
       "bytes": 7737,
       "sha256": "5cff04ac22313df574cd4489c190d82dccc4e27c8ef291e595b4181a19275f0e",
       "owned": true
     },
     {
+      "path": "static/js/static-comprehensive.js",
+      "bytes": 6911,
+      "sha256": "ee678265fc2fd60018eeb1074ed489ec9869a94ae8fd07d68a864e796762b662",
+      "owned": true
+    },
+    {
       "path": "static/js/static-compute.js",
       "bytes": 9139,
       "sha256": "1ca73fd940cbe9e2ae90a559b2259a3ecb6ee454a48032f83d3e7cecdc9955df",
+      "owned": true
+    },
+    {
+      "path": "static/js/static-dependency.js",
+      "bytes": 6187,
+      "sha256": "6540f31be3d58a9de934d0861feef5a6d7e10665a1b3f6083ad8b4b0a6ff9562",
       "owned": true
     },
     {
@@ -17096,9 +17252,39 @@
       "owned": true
     },
     {
+      "path": "static/js/static-relations.js",
+      "bytes": 4196,
+      "sha256": "1980b2ca9cb900d2b78c13df59f87647545089b00c8388e7a976b723c3aacad5",
+      "owned": true
+    },
+    {
       "path": "static/js/static-runtime.js",
-      "bytes": 12789,
-      "sha256": "3d61cb0b7aa9116e11b4ddcfe693a534db654a62b480774270b01d6c8f3da5c7",
+      "bytes": 15999,
+      "sha256": "ff71bd904046f293fb07cf4777fdd1000c52c84eccb83c05b2731888f2db434a",
+      "owned": true
+    },
+    {
+      "path": "static/js/static-sequence.js",
+      "bytes": 11509,
+      "sha256": "171ede6188d7deb78a048ff662d8d1b94138189ff250d85700034b24d811d64a",
+      "owned": true
+    },
+    {
+      "path": "static/js/static-transformer-worker.js",
+      "bytes": 2619,
+      "sha256": "5dfbbd575db636223e0d4c8f9512a2ea5f4f5d7a790006ca2184c67ed6cf0b32",
+      "owned": true
+    },
+    {
+      "path": "static/js/static-transformers.js",
+      "bytes": 8112,
+      "sha256": "5e6f5781bde170f3ebdd704e2e3b3180d6f7a7d7e5032eb033f05f3dafd17327",
+      "owned": true
+    },
+    {
+      "path": "static/js/static-wordpiece.js",
+      "bytes": 2981,
+      "sha256": "162ea78e5e9f7c24e74ffa2a5e21cbb0e906881c89a7434b63a9b2c5aa6cda10",
       "owned": true
     },
     {
@@ -17120,15 +17306,39 @@
       "owned": true
     },
     {
+      "path": "static/vendor/onnxruntime/LICENSE",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "owned": true
+    },
+    {
+      "path": "static/vendor/onnxruntime/ort-wasm-simd-threaded.mjs",
+      "bytes": 24381,
+      "sha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b",
+      "owned": true
+    },
+    {
+      "path": "static/vendor/onnxruntime/ort-wasm-simd-threaded.wasm",
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2",
+      "owned": true
+    },
+    {
+      "path": "static/vendor/onnxruntime/ort.wasm.min.mjs",
+      "bytes": 50126,
+      "sha256": "219e6a1fc8a9938268d18efca3c91d310bd2f4a59bbd13744df5b2b7fc6cee3b",
+      "owned": true
+    },
+    {
       "path": "static_inference.md",
-      "bytes": 3660,
-      "sha256": "30dfa652a7c6fec2bb5b004ddab805d0b88708858a9bba8b521150b92c8dfd1b",
+      "bytes": 6033,
+      "sha256": "de9a02fad2de516c5e059540f20bfe4f29ab6e62a97992e2db29f6911006915f",
       "owned": false
     },
     {
       "path": "tagging/index.html",
-      "bytes": 13050,
-      "sha256": "66ebe4f88e2851d0d8049524dc250a9ec6b30c3e81625eaebe5ec17e0d07ee33",
+      "bytes": 13086,
+      "sha256": "85bb2554627fded5e9d42790f846e6797dfe2bb95363c98136fcecadbeabd15f",
       "owned": true
     }
   ]

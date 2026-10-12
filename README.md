@@ -478,6 +478,6 @@ toy 的训练/测试不同，结果来自实际训练、预测和计分，始终
 
 ## GitHub Pages 静态版
 
-执行 `.\.venv\python.exe scripts/export_github_pages.py`，增量生成并发布到 `docs/`，无需压缩包或自定义工作流。静态版包含全部课程页面、冻结实验数据，以及浏览器端 HMM / 最长匹配、C0–C3 分类及 BiLSTM-CRF 推理；尚未迁移的神经模型实时推理仍使用本地完整版。
+执行 `.\.venv\python.exe scripts/export_github_pages.py`，增量生成并发布到 `docs/`，无需压缩包或自定义工作流。静态版包含全部课程页面、冻结实验数据，以及浏览器端 HMM / 最长匹配 / Bigram / 二阶HMM、感知机 / CRF、C0–C3、BiLSTM、POS、NER、依存与BERT推理；信息抽取和综合单篇分析也已接入。权重按需加载，完整静态目录约870 MB，BERT首载约410 MB。Qwen生成、临时聚类、批量索引与共享标注仍未移植。
 
 部署说明见 [GitHub Pages 静态版](docs/github_pages.md)，改动审核与功能边界见 [静态部署改动审核](docs/static_export_audit.md)。
