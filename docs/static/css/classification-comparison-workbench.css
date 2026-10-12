@@ -1,0 +1,99 @@
+#classification-comparison-workbench { --ccw-navy:#173b49; --ccw-teal:#168b89; --ccw-border:#dce9e9; color:var(--ccw-navy); }
+#classification-comparison-workbench * { box-sizing:border-box; }
+#classification-comparison-workbench .ccw-shell { display:grid; gap:7px; }
+#classification-comparison-workbench .ccw-heading, #classification-comparison-workbench .ccw-summary { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
+#classification-comparison-workbench .ccw-heading h2 { margin:3px 0 4px; font-size:24px; }
+#classification-comparison-workbench .ccw-heading p, #classification-comparison-workbench .ccw-summary p { margin:0; color:#627a82; line-height:1.6; }
+#classification-comparison-workbench .ccw-readonly, #classification-comparison-workbench .ccw-summary > span { flex:none; border:1px solid #cde2e1; border-radius:99px; padding:7px 12px; font-size:12px; color:#237b7b; background:#eff9f8; }
+#classification-comparison-workbench .ccw-eyebrow { color:#168b89; font-size:11px; font-weight:750; letter-spacing:.12em; }
+#classification-comparison-workbench .ccw-modes { display:flex; flex-wrap:wrap; gap:6px; padding:5px; width:max-content; max-width:100%; border-radius:12px; background:#edf5f5; }
+#classification-comparison-workbench button { font:inherit; cursor:pointer; }
+#classification-comparison-workbench .ccw-modes button { border:0; border-radius:9px; padding:8px 15px; color:#507079; background:transparent; font-weight:650; font-size:13px; }
+#classification-comparison-workbench .ccw-modes button.is-active { color:white; background:#176e76; box-shadow:0 2px 7px #123d4a22; }
+#classification-comparison-workbench [data-comparison-body] { display:grid; gap:7px; }
+#classification-comparison-workbench .ccw-summary { align-items:center; margin:1px 0; }
+#classification-comparison-workbench .ccw-summary h3 { margin:2px 0; font-size:20px; }
+#classification-comparison-workbench .ccw-summary p { font-size:12px; }
+#classification-comparison-workbench .ccw-kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+#classification-comparison-workbench .ccw-metric { display:grid; align-content:start; gap:4px; min-width:0; padding:17px 18px; border:1px solid var(--ccw-border); border-radius:12px; background:#fff; }
+#classification-comparison-workbench .ccw-metric span { color:#66808a; font-size:12px; }
+#classification-comparison-workbench .ccw-metric strong { color:#183e4b; font-size:25px; font-variant-numeric:tabular-nums; line-height:1.2; }
+#classification-comparison-workbench .ccw-metric small { color:#6e858c; font-size:11px; }
+#classification-comparison-workbench .ccw-card { min-width:0; padding:17px 18px; border:1px solid var(--ccw-border); border-radius:12px; background:#fff; box-shadow:0 2px 12px #0f45500a; }
+#classification-comparison-workbench .ccw-card-head { margin-bottom:8px; }
+#classification-comparison-workbench .ccw-card h3 { margin:2px 0 0; font-size:16px; }
+#classification-comparison-workbench .ccw-chart { width:100%; height:285px; }
+#classification-comparison-workbench .ccw-chart-small { height:270px; }
+#classification-comparison-workbench .ccw-chart-tall { height:365px; }
+#classification-comparison-workbench .ccw-chart-heat { height:340px; }
+#classification-comparison-workbench .ccw-chart-forest { height:280px; }
+#classification-comparison-workbench .ccw-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+#classification-comparison-workbench .ccw-workspace { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(330px,.95fr); align-items:start; gap:12px; }
+#classification-comparison-workbench .ccw-workspace > .ccw-card { min-width:0; }
+#classification-comparison-workbench .ccw-workspace > .ccw-card:first-child .ccw-chart { height:310px; }
+#classification-comparison-workbench .ccw-workspace > .ccw-card:nth-child(2) { overflow:visible; }
+#classification-comparison-workbench .ccw-disclosure { border-top:1px solid #e5eeee; margin-top:8px; }
+#classification-comparison-workbench .ccw-disclosure > summary { cursor:pointer; padding:11px 0 3px; color:#246f76; font-size:12px; font-weight:700; }
+#classification-comparison-workbench .ccw-disclosure > .ccw-card { border:0; border-radius:0; box-shadow:none; padding:10px 0 0; }
+#classification-comparison-workbench .ccw-disclosure > .ccw-card .ccw-card-head { margin-bottom:8px; }
+#classification-comparison-workbench .ccw-disclosure > .ccw-card .ccw-card-head h3 { font-size:13px; }
+#classification-comparison-workbench .ccw-disclosure .ccw-chart { height:235px; }
+#classification-comparison-workbench .ccw-models { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:9px; }
+#classification-comparison-workbench .ccw-models button { display:inline-flex; align-items:center; gap:7px; padding:6px 10px; border:1px solid #d5e6e6; border-radius:8px; background:#fff; color:#527078; font-size:12px; font-weight:700; }
+#classification-comparison-workbench .ccw-models button.is-active { background:#e7f5f3; border-color:#7bc5bd; color:#126b70; }
+#classification-comparison-workbench .ccw-models i { display:inline-block; width:8px; height:8px; border-radius:50%; }
+#classification-comparison-workbench .ccw-toggles { margin:0; }
+#classification-comparison-workbench .ccw-inspector { display:grid; }
+#classification-comparison-workbench .ccw-inspector-row { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:6px 0; border-bottom:1px solid #edf2f2; font-size:12px; }
+#classification-comparison-workbench .ccw-inspector-row span { color:#68818a; }
+#classification-comparison-workbench .ccw-inspector-row strong { text-align:right; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+#classification-comparison-workbench .ccw-kpis-inner { grid-template-columns:repeat(2,minmax(0,1fr)); }
+#classification-comparison-workbench .ccw-kpis-inner .ccw-metric { background:#f8fbfb; padding:13px; }
+#classification-comparison-workbench .ccw-kpis-inner .ccw-metric strong { font-size:19px; }
+#classification-comparison-workbench .ccw-note { margin:0; color:#6c8289; font-size:12px; line-height:1.65; }
+#classification-comparison-workbench .ccw-empty, #classification-comparison-workbench .ccw-error { padding:26px; border:1px dashed #cbdede; border-radius:12px; background:#f8fbfb; color:#6a8188; }
+#classification-comparison-workbench .ccw-error { border-color:#e4bdb8; background:#fff7f5; color:#9e433d; }
+#classification-comparison-workbench .ccw-prevalence { display:grid; gap:3px; min-width:530px; }
+#classification-comparison-workbench .ccw-heat-wrap { overflow-x:auto; }
+#classification-comparison-workbench .ccw-prevalence-head, #classification-comparison-workbench .ccw-prevalence-row { display:grid; grid-template-columns:1.5fr repeat(3,1fr); align-items:center; gap:4px; }
+#classification-comparison-workbench .ccw-prevalence-head { color:#607983; font-size:12px; font-weight:700; }
+#classification-comparison-workbench .ccw-prevalence-row { font-size:12px; }
+#classification-comparison-workbench .ccw-prevalence-row strong { font-weight:600; }
+#classification-comparison-workbench .ccw-prevalence-row > *, #classification-comparison-workbench .ccw-prevalence-head > * { padding:8px 10px; }
+#classification-comparison-workbench .ccw-heat-cell { background:rgba(22,139,137,var(--heat)); border-radius:4px; text-align:center; font-variant-numeric:tabular-nums; }
+#classification-comparison-workbench .ccw-ci-list { display:grid; gap:7px; }
+#classification-comparison-workbench .ccw-ci-row { display:grid; grid-template-columns:33px 1fr 1fr; align-items:start; gap:9px; padding:9px 0; border-bottom:1px solid #edf2f2; font-size:12px; font-variant-numeric:tabular-nums; }
+#classification-comparison-workbench .ccw-ci-row small { display:block; margin-top:4px; color:#71858c; font-size:11px; }
+#classification-comparison-workbench .wb-inspector-heading { margin-bottom:10px; padding-bottom:9px; border-bottom:1px solid #e8efef; }
+#classification-comparison-workbench .wb-object-title { margin:2px 0!important; font-size:19px!important; line-height:1.25; }
+#classification-comparison-workbench .wb-inspector-heading p { margin:0; color:#6d848b; font-size:12px; }
+#classification-comparison-workbench .wb-key-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:10px; }
+#classification-comparison-workbench .wb-key-metrics .ccw-metric { padding:10px 11px; background:#f3f9f9; }
+#classification-comparison-workbench .wb-key-metrics .ccw-metric strong { font-size:20px; }
+#classification-comparison-workbench .wb-formal-snapshot { display:grid; grid-template-columns:1fr; gap:11px; margin-top:8px; }
+#classification-comparison-workbench .wb-formal-snapshot h4, #classification-comparison-workbench .wb-diagnostics h4 { margin:0 0 6px; color:#274e59; font-size:13px; }
+#classification-comparison-workbench .wb-formal-snapshot h4 small { color:#7c8f95; font-size:11px; font-weight:400; }
+#classification-comparison-workbench .wb-class-row { display:grid; grid-template-columns:36px minmax(0,1fr) 52px; gap:6px; align-items:center; margin:4px 0; font-size:12px; }
+#classification-comparison-workbench .wb-class-row i { height:6px; border-radius:6px; background:#eaf2f2; overflow:hidden; }
+#classification-comparison-workbench .wb-class-row b { display:block; height:100%; border-radius:6px; }
+#classification-comparison-workbench .wb-class-row strong { font-size:11px; font-weight:600; text-align:right; font-variant-numeric:tabular-nums; }
+#classification-comparison-workbench .wb-matrix { display:grid; grid-template-columns:22px repeat(5,minmax(0,1fr)); gap:2px; align-items:stretch; text-align:center; font-size:11px; }
+#classification-comparison-workbench .wb-matrix > * { display:grid; place-items:center; min-height:22px; border-radius:2px; font-weight:500; }
+#classification-comparison-workbench .wb-matrix strong { font-variant-numeric:tabular-nums; color:#143b47; }
+#classification-comparison-workbench .wb-diagnostics { margin-top:9px; padding-top:9px; border-top:1px solid #e8efef; }
+#classification-comparison-workbench .wb-diagnostics .ccw-inspector-row { padding:4px 0; }
+#classification-comparison-workbench .wb-explanation { margin:8px 0 2px; color:#6d838a; font-size:12px; line-height:1.45; }
+#classification-comparison-workbench .ccw-workspace > .ccw-card:nth-child(2) .ccw-kpis-inner .ccw-metric { padding:9px; }
+#classification-comparison-workbench .ccw-workspace > .ccw-card:nth-child(2) .ccw-kpis-inner .ccw-metric strong { font-size:16px; }
+@media (min-width:1000px) {
+  #classification-comparison-workbench .ccw-heading > div { display:grid; grid-template-columns:max-content minmax(0,1fr); column-gap:20px; align-items:end; }
+  #classification-comparison-workbench .ccw-heading .ccw-eyebrow { grid-column:1 / -1; }
+  #classification-comparison-workbench .ccw-heading h2 { margin:0; font-size:22px; white-space:nowrap; }
+  #classification-comparison-workbench .ccw-heading p { margin-bottom:2px; line-height:1.35; }
+  #classification-comparison-workbench .ccw-summary > div { display:flex; align-items:baseline; flex-wrap:wrap; column-gap:10px; row-gap:2px; }
+  #classification-comparison-workbench .ccw-summary h3 { margin:0; font-size:18px; white-space:nowrap; }
+  #classification-comparison-workbench .ccw-summary p { line-height:1.35; }
+}
+@media (max-width:900px) { #classification-comparison-workbench .ccw-two, #classification-comparison-workbench .ccw-workspace { grid-template-columns:1fr; } #classification-comparison-workbench .ccw-workspace > .ccw-card:nth-child(2) { max-height:none; } }
+@media (max-width:640px) { #classification-comparison-workbench .ccw-heading, #classification-comparison-workbench .ccw-summary { display:block; } #classification-comparison-workbench .ccw-readonly, #classification-comparison-workbench .ccw-summary > span { display:inline-block; margin-top:8px; } #classification-comparison-workbench .ccw-modes { width:100%; } #classification-comparison-workbench .ccw-modes button { flex:1 1 42%; padding:8px 7px; } #classification-comparison-workbench .ccw-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } #classification-comparison-workbench .ccw-card { padding:13px; } #classification-comparison-workbench .ccw-metric strong { font-size:19px; } #classification-comparison-workbench .ccw-workspace > .ccw-card:first-child .ccw-chart { height:275px; } #classification-comparison-workbench .ccw-ci-row { grid-template-columns:27px 1fr; } #classification-comparison-workbench .ccw-ci-row span:last-child { grid-column:2; } }
+@media (max-width:420px) { #classification-comparison-workbench .wb-class-row { grid-template-columns:40px minmax(0,1fr) 55px; } }

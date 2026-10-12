@@ -1,0 +1,1 @@
+{"MSRA-NER":{"status":"ready","count":200,"category_counts":null,"split_counts":{}},"THUCNews":{"status":"ready","count":600,"category_counts":{"finance":120,"education":120,"science":120,"sports":120,"entertainment":120},"split_counts":{"train":420,"val":90,"test":90}}}

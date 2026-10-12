@@ -1,0 +1,23 @@
+#classification-stage6-panel .classification-table th,
+#classification-stage6-panel .classification-table td { white-space:nowrap; }
+#classification-stage6-panel details { margin-top:16px; }
+#classification-stage6-panel summary { cursor:pointer; font-weight:600; }
+#classification-stage6-panel pre { max-height:360px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; }
+#classification-stage6-panel ul { padding-left:22px; color:var(--muted); line-height:1.7; }
+.classification-stage6-chart { width:100%; max-width:900px; margin:20px auto 8px; overflow-x:auto; }
+.classification-stage6-chart svg { display:block; width:100%; min-width:0; height:auto; fill:#596c7e; font-size:12px; }
+.classification-stage6-chart .stage6-zero { stroke:#8b9ba7; stroke-width:1.2; stroke-dasharray:4 4; }
+.classification-stage6-chart .stage6-interval,
+.classification-stage6-chart .stage6-cap { stroke:#287fb3; stroke-width:2; }
+.classification-stage6-chart .stage6-point { fill:#287fb3; stroke:white; stroke-width:1.5; }
+body[data-stage6-analysis="true"] #comparison > :not(#classification-stage6-panel),
+body[data-stage6-analysis="true"] #errors { display:none !important; }
+body[data-stage6-analysis="true"] #data,
+body[data-stage6-analysis="true"] #prediction { display:none !important; }
+body[data-stage6-analysis="true"] .tabs button:disabled { opacity:.45; cursor:default; }
+body[data-stage6-analysis="true"] #classification-run,
+body[data-stage6-analysis="true"] #classification-model { opacity:.7; }
+@media(max-width:650px) {
+  #classification-stage6-panel .section-heading { display:block; }
+  #classification-stage6-panel .section-heading > span { display:block; margin-top:8px; }
+}

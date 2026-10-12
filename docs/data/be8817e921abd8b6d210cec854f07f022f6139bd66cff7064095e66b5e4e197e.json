@@ -1,0 +1,1 @@
+{"selected":{"learning_rate":0.001,"seed":42,"max_len":768,"best_epochs_at_selected_lr":[10,12,12],"final_epochs":12,"derivation":"median of three best epochs; not best seed"},"opened_splits":["train","val"],"frozen_before_test_open":true,"frozen_at":"2026-10-01T15:39:27.551080+00:00","selection_sha256":"c3064b659b655a131031f6da733e3e6343e982ed40ab0d3dcaf2e8df74432720"}

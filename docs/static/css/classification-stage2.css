@@ -1,0 +1,7 @@
+.classification-paired { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding:16px 0; }
+.classification-paired div { display:grid; gap:4px; }
+.classification-paired strong { font-size:28px; color:var(--accent); }
+.classification-paired span { color:var(--muted); }
+#classification-stage2-config { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; }
+#classification-stage2-source { overflow-wrap:anywhere; }
+@media(max-width:768px) { .classification-paired { grid-template-columns:repeat(2,1fr); } }

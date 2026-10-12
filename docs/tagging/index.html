@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<base href="../">
+<script>window.NLPLAB_PAGE="/tagging";</script>
+<script src="static/js/static-runtime.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>词性与命名实体 · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="stylesheet" href="static/css/lab.css">
+  <link rel="stylesheet" href="static/css/language-workbenches.css?v=20261003">
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="./">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      
+      
+      <a href="./" class="nav-link " >
+        <span class="nav-number" aria-hidden="true"></span>首页
+      </a>
+      
+      <a href="segmentation/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">01</span>中文分词
+      </a>
+      
+      <a href="sequence-labeling/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">02</span>序列标注
+      </a>
+      
+      <a href="tagging/" class="nav-link active" aria-current="page">
+        <span class="nav-number" aria-hidden="true">03</span>词性与命名实体
+      </a>
+      
+      <a href="information-extraction/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">04</span>信息抽取
+      </a>
+      
+      <a href="clustering/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">05</span>文本聚类
+      </a>
+      
+      <a href="classification/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">06</span>文本分类
+      </a>
+      
+      <a href="dependency-parsing/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">07</span>依存句法分析
+      </a>
+      
+      <a href="deep-learning/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">08</span>深度学习与大模型
+      </a>
+      
+      <a href="integrated-analysis/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">09</span>综合分析
+      </a>
+      
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+<div class="language-page tagging-page">
+<header class="page-header"><div><h1>词性与命名实体</h1><p class="subtitle">词类与 PER / LOC / ORG 实体识别</p></div><div class="header-controls"><label for="run-select">NER / 课程样本 Run</label><select id="run-select"><option value="">正在读取…</option></select></div></header>
+<p class="muted benchmark-sources">NER 评测使用 MSRA-200。</p>
+<div class="tabs" role="tablist" aria-label="词性与命名实体功能">
+
+<button id="tab-pos" role="tab" aria-selected="true" aria-controls="pos" tabindex="0" data-tab="pos">词性标注</button>
+
+<button id="tab-ner" role="tab" aria-selected="false" aria-controls="ner" tabindex="-1" data-tab="ner">命名实体识别</button>
+
+<button id="tab-evaluation" role="tab" aria-selected="false" aria-controls="evaluation" tabindex="-1" data-tab="evaluation">实体评测</button>
+
+<button id="tab-errors" role="tab" aria-selected="false" aria-controls="errors" tabindex="-1" data-tab="errors">错误分析</button>
+
+</div>
+<div id="page-message" role="status" class="notice" hidden></div>
+<section id="pos" role="tabpanel" aria-labelledby="tab-pos">
+<div class="experiment-workbench pos-workbench">
+  <section class="panel experiment-controls control-panel"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">词</span><div><small>COURSE EXTENSION · POS</small><h2>输入文本</h2></div></div><p class="muted">先由 HMM-1 Smooth 分词，再由 HanLP CTB9 标注词性。</p><label for="pos-input">待标注中文文本</label><textarea id="pos-input" maxlength="500">中国石油大学（华东）欢迎你。</textarea><button id="pos-analyze" class="primary" type="button">开始词性标注 →</button><p id="pos-status" class="muted" aria-live="polite">正在检查 POS 模型资源…</p><div class="control-context"><h3>上下文观察</h3><p>同一个词在不同上下文中可能有不同词性。点击短句后用当前模型重新分析“研究”。</p><div class="pos-examples"><button type="button" data-pos-example="这项研究很重要。">这项研究很重要。</button><button type="button" data-pos-example="我们研究这个问题。">我们研究这个问题。</button></div></div><div class="control-context"><h3>原文跨度</h3><p>结果中的 [start,end) 使用 Unicode code point；空白字符保持在原文中，但不作为词性词项。</p></div></section>
+  <section class="panel experiment-stage pos-stage"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">类</span><div><small>TAGGED TEXT</small><h2>词语与原始 POS 标签</h2></div></div><p class="muted">不同颜色仅辅助区分粗词类；每个词下方始终保留 HanLP 返回的原始 CTB 标签。</p><h3 class="result-section-label"><span class="stage-number">01</span> 原文词类高亮</h3><div id="pos-original" class="pos-original">等待标注。</div><h3 class="result-section-label"><span class="stage-number">02</span> 词语 · 原始 CTB 标签</h3><div id="pos-result" class="pos-result">等待标注。</div><div id="pos-selected" class="pos-selected" aria-live="polite">点击词语，查看原始标签与精确跨度。</div><div class="section-heading"><h3><span class="stage-number">03</span> 当前文本的词性构成</h3></div><div id="pos-counts" class="pos-counts"></div><div class="lexical-pipeline" aria-label="词性处理流水线"><span><small>01</small> 原始字符</span><b>→</b><span><small>02</small> HMM 分词</span><b>→</b><span><small>03</small> CTB9 词性</span></div></section>
+  <aside class="panel experiment-notes process-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">注</span><div><small>HOW IT WORKS</small><h2>词性实验说明</h2></div></div><div class="pos-legend"><span data-category="noun">名词</span><span data-category="verb">动词</span><span data-category="adjective">形容词</span><span data-category="pronoun">代词</span><span data-category="adverb">副词</span><span data-category="other">其它</span></div><div class="algorithm-note-card note-idea"><h3>处理流程</h3><p>原文 → 冻结 HMM 分词 → HanLP 预训练 POS → 原始 CTB 标签与位置。</p></div><div class="algorithm-note-card"><h3>上下文与词性</h3><p>POS 判断依赖当前词所在的句子。“研究”可以作名词或动词；上方示例每次都调用真实模型。</p></div><div class="algorithm-note-card"><h3>标签解释</h3><div id="pos-explanations">运行后列出当前文本中出现的标签。</div></div><div class="algorithm-note-card note-run"><h3>当前运行</h3><p id="pos-summary">展示当前文本的词性标签与构成。</p></div></aside>
+</div>
+<section class="panel pos-detail-panel"><details class="trace-disclosure"><summary>展开全部词语、词性与原文跨度</summary><div id="pos-table" class="table-wrap"></div></details></section>
+</section>
+<section id="ner" role="tabpanel" aria-labelledby="tab-ner" hidden>
+<div class="experiment-workbench ner-workbench">
+  <section class="panel experiment-controls control-panel"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">入</span><div><small>INPUT / RECOGNITION</small><h2>输入文本</h2></div></div><p class="muted">使用已有 HanLP MSRA NER；输入变化后自动识别。</p><form id="analysis-form"><label for="input-text">待识别文本</label><textarea id="input-text" required maxlength="5000">中国石油大学（华东）欢迎你。 😊自然语言处理课程</textarea><div class="form-controls"><label><input type="checkbox" id="task-ner" checked> 命名实体识别</label><button id="analyze-button" class="primary" type="submit">开始识别 →</button></div></form><div class="control-context"><h3>文本跨度</h3><p id="ner-input-stats">等待识别。</p><div class="span-ruler"><span>0</span><span>[start,end)</span><span>Unicode code point</span></div></div><p class="workbench-source">正式 NER 数据：MSRA NER test personal subset</p></section>
+  <section class="panel experiment-stage ner-stage"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">实</span><div><small>ENTITY VIEW</small><h2>原文中的实体</h2></div></div><p class="muted">点击原文高亮或实体条目，查看类型与 Unicode code point [start,end)。</p><p id="model-info" class="muted result-model-info"></p><div id="original-text" class="result-empty">等待分析。</div><div id="entity-detail" class="entity-detail" aria-live="polite">选择原文中的实体，查看精确跨度。</div><div class="section-heading entity-list-heading"><h3>识别结果与精确跨度</h3><div class="legend"><span class="per">PER</span><span class="loc">LOC</span><span class="org">ORG</span></div></div><div class="entity-table-heading"><span>实体文本</span><span>类型</span><span>[start,end)</span></div><div id="ner-result" class="result-empty">等待分析。</div><div class="entity-span-visual"><h3>实体在原文中的位置</h3><div id="entity-span-track">等待识别。</div></div></section>
+  <aside class="panel experiment-notes process-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">标</span><div><small>ANNOTATION NOTES</small><h2>实体标注说明</h2></div></div><div class="algorithm-note-card note-idea"><h3>标签体系</h3><p>PER 人名 · LOC 地名 · ORG 机构名。</p></div><div class="algorithm-note-card note-strength"><h3>精确边界</h3><p>实体类型、起点和终点全部一致才计为正确；[start,end) 不含终点。</p></div><div class="algorithm-note-card note-run"><h3>当前运行</h3><p id="ner-run-note">从当前选择的 NER / 课程样本 Run 读取评价。</p></div><div class="algorithm-note-card"><h3>识别结果</h3><p>对照原文高亮与实体列表查看识别结果。</p></div><div class="ner-live-summary"><h3>当前识别摘要</h3><div id="ner-current-summary">输入文本后显示当前句子的 PER / LOC / ORG 数量。</div></div></aside>
+</div>
+<section class="panel ner-metrics-panel"><div class="section-heading"><div><span class="eyebrow">EXACT-SPAN EVALUATION</span><h2>MSRA-200 · 实体识别指标</h2><p class="muted">从现有正式 Run 只读加载；完整支持数与评价表见“实体评测”。</p></div><a href="tagging/#evaluation">查看完整指标 →</a></div><div id="ner-metric-cards" class="metric-strip">正在读取正式结果…</div></section>
+<section class="panel ner-preview-panel"><div class="section-heading"><div><h2>错误案例预览</h2><p class="muted">从当前正式 Run 的已保存错误案例读取。</p></div><a href="tagging/#errors">查看完整错误分析 →</a></div><div id="ner-error-preview" class="ner-preview-list">正在读取案例…</div></section>
+</section>
+<section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden><section class="panel"><h2>MSRA-200 · 精确实体跨度评价</h2><p class="muted">PER、LOC、ORG 与 Overall 的 P/R/F1；仅读取正式 Run。</p><div id="ner-metrics"></div></section></section>
+<section id="errors" role="tabpanel" aria-labelledby="tab-errors" hidden><div class="error-toolbar"><h2>NER 冻结错误案例</h2><div class="header-controls"><label for="error-category">错误类别</label><select id="error-category"><option value="">全部类别</option><option>OOV</option><option>Proper noun</option><option>Ambiguity</option><option>Number/date</option><option>English mixed</option><option>Other</option></select></div></div>
+<div id="error-list"></div>
+<div class="pagination"><button id="errors-prev" class="outline">上一页</button><span id="errors-page"></span><button id="errors-next" class="outline">下一页</button></div></section>
+<footer class="content-footer"><span id="active-run"></span><span>NER 与 CWS 指标分别展示</span></footer>
+</div>
+</main>
+  <script type="module" src="static/js/layout.js"></script>
+  <script type="module" src="static/js/tagging-page.js"></script><script type="module" src="static/js/pos-page.js?v=20261003"></script>
+</body>
+</html>

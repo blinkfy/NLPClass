@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<base href="../">
+<script>window.NLPLAB_PAGE="/segmentation";</script>
+<script src="static/js/static-runtime.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中文分词 · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="stylesheet" href="static/css/lab.css">
+  <link rel="stylesheet" href="static/css/language-workbenches.css?v=20261003"><script defer src="static/vendor/echarts.min.js"></script>
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="./">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      
+      
+      <a href="./" class="nav-link " >
+        <span class="nav-number" aria-hidden="true"></span>首页
+      </a>
+      
+      <a href="segmentation/" class="nav-link active" aria-current="page">
+        <span class="nav-number" aria-hidden="true">01</span>中文分词
+      </a>
+      
+      <a href="sequence-labeling/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">02</span>序列标注
+      </a>
+      
+      <a href="tagging/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">03</span>词性与命名实体
+      </a>
+      
+      <a href="information-extraction/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">04</span>信息抽取
+      </a>
+      
+      <a href="clustering/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">05</span>文本聚类
+      </a>
+      
+      <a href="classification/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">06</span>文本分类
+      </a>
+      
+      <a href="dependency-parsing/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">07</span>依存句法分析
+      </a>
+      
+      <a href="deep-learning/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">08</span>深度学习与大模型
+      </a>
+      
+      <a href="integrated-analysis/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">09</span>综合分析
+      </a>
+      
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+<div class="language-page segmentation-page">
+<header class="page-header"><div><h1>中文分词</h1><p class="subtitle">分词任务、求解过程与统一标准评测</p></div><div class="header-controls"><label for="segmentation-model">分词模型</label>
+<select id="segmentation-model">
+<option value="hmm1-smooth">HMM-1 Smooth（默认）</option><option value="longest">Longest Matching</option><option value="bigram">Bigram</option><option value="hmm2-smooth">HMM-2 Smooth</option><option value="bilstm-crf">BiLSTM-CRF</option>
+</select></div></header>
+<p class="muted benchmark-sources">CWS benchmark：SIGHAN MSR · 七模型正式评测。NER 评价位于<a href="tagging/#ner">词性与命名实体</a>。</p>
+<div class="tabs" role="tablist" aria-label="中文分词功能">
+
+<button id="tab-interactive" role="tab" aria-selected="true" aria-controls="interactive" tabindex="0" data-tab="interactive">交互分析</button>
+
+<button id="tab-process" role="tab" aria-selected="false" aria-controls="process" tabindex="-1" data-tab="process">算法过程</button>
+
+<button id="tab-evaluation" role="tab" aria-selected="false" aria-controls="evaluation" tabindex="-1" data-tab="evaluation">实验评测</button>
+
+<button id="tab-errors" role="tab" aria-selected="false" aria-controls="errors" tabindex="-1" data-tab="errors">错误分析</button>
+
+</div>
+<div id="page-message" role="status" class="notice" hidden></div>
+<section id="interactive" role="tabpanel" aria-labelledby="tab-interactive">
+<div class="experiment-workbench segmentation-workbench">
+  <section class="panel experiment-controls control-panel"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">入</span><div><small>INPUT / CONTROLS</small><h2>输入与模型</h2></div></div><p class="muted">输入中文短文本，模型切换或输入变化后自动分析。</p><form id="analysis-form"><label for="input-text">输入文本</label><textarea id="input-text" required maxlength="5000">中国石油大学（华东）欢迎你。</textarea><div id="workbench-model-slot"></div><div class="form-controls"><label><input type="checkbox" id="task-segmentation" checked> 中文分词</label><button id="analyze-button" class="primary" type="submit">开始分析 →</button></div></form><div class="control-context"><h3>当前输入的字符序列</h3><div id="input-codepoints" class="input-codepoints">等待输入。</div><p class="muted">按 Unicode code point 展示；模型始终处理完整原文。</p></div><div class="workbench-source">正式 CWS 数据：SIGHAN MSR</div></section>
+  <section class="panel experiment-stage result-stage"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">果</span><div><small>RESULT / MECHANISM</small><h2>核心结果与可视化</h2></div></div><p id="model-info" class="muted result-model-info"></p><div id="result-summary" class="metadata-strip result-facts"></div><div class="stage-block primary-output"><h3><span class="stage-number">01</span> 分词结果</h3><div id="tokens-result" class="result-empty">运行后显示分词结果。</div></div><div class="stage-block bmes-output"><h3 id="bmes-title">字符与 BMES</h3><div id="bmes-result" class="result-empty">运行后显示 BMES。</div></div><section class="stage-block compact-process"><div class="section-heading"><div><h3><span class="stage-number">03</span> 当前方法的求解过程</h3><p class="muted">下方展示当前输入的真实算法 Trace 摘要。</p></div></div><div id="compact-trace" class="compact-trace">输入文本后展示求解过程。</div></section><div class="original-line"><strong>输入原文</strong><div id="original-text" class="result-empty">等待分析。</div></div></section>
+  <aside class="panel experiment-notes process-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">法</span><div><small>METHOD NOTES</small><h2>当前算法说明</h2></div></div><div class="method-identity"><span id="method-emblem" class="method-emblem" aria-hidden="true">H¹</span><div><small>当前方法</small><strong id="method-name">HMM-1 Smooth</strong></div></div><div class="algorithm-note-card note-idea"><h3>核心思想</h3><p id="method-idea"></p></div><div class="algorithm-note-card note-strength"><h3>优点</h3><p id="method-strength"></p></div><div class="algorithm-note-card note-limit"><h3>局限</h3><p id="method-limit"></p></div><div class="formula-panel"><h3>求解形式</h3><p id="method-formula"></p></div><div class="algorithm-note-card note-run"><h3>当前运行摘要</h3><p id="method-run">输入文本后显示当前句子的结果。</p></div><div id="method-benchmark" class="method-benchmark">正式指标读取中…</div></aside>
+</div>
+<section class="panel method-strip-panel"><div class="section-heading"><div><h2>五种交互方法 · MSR 正式结果</h2><p class="muted">只读摘要；完整七模型比较见“实验评测”。点击方法切换当前交互模型。</p></div></div><div id="method-strip" class="method-strip">正在读取正式结果…</div></section>
+<details id="interactive-trace-disclosure" class="panel trace-disclosure"><summary>展开完整算法 Trace 与模型参数</summary><div id="interactive-process-slot"></div><div id="interactive-deep-slot"></div></details>
+<p class="muted">详细 HMM 参数见<a href="sequence-labeling/#hmm">序列标注 / HMM</a>；神经模型结构见<a href="deep-learning/#bilstm">BiLSTM-CRF</a>。</p>
+</section>
+<section id="process" role="tabpanel" aria-labelledby="tab-process" hidden><section class="panel algorithm-panel"><div class="section-heading"><div><h2 id="algorithm-title">当前模型 · 算法过程</h2><p class="muted">仅对 ≤30 Unicode code point 输入展示完整过程，长文本仍完整分词。</p></div><div class="header-controls"><button id="trace-button" class="outline">刷新算法过程</button><button id="process-export" class="outline" hidden>导出过程 PNG</button></div></div><div id="algorithm-trace">请先输入并分析一段短文本。</div></section>
+<details class="panel model-information trace-disclosure"><summary>展开模型信息与参数</summary><div id="model-details"></div></details><aside class="panel process-page-notes"><div class="panel-title"><span class="panel-symbol" aria-hidden="true">法</span><div><small>METHOD NOTES</small><h2 id="process-method-name">算法讲解</h2></div></div><div id="process-method-notes"></div><div class="process-live"><h3>正在查看的步骤</h3><div id="process-live-step">选择候选边或播放 Trace，查看当前位置的真实代价与前驱。</div></div></aside></section>
+<section id="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden>
+<section class="panel"><h2>七模型 MSR 正式评测</h2><p class="muted">SIGHAN MSR 七模型结果，依官方 scorer 计算。</p><div id="comparison-table" class="table-wrap"></div></section>
+<section class="panel"><h2>课件参考对照</h2><p class="muted">课件参考结果；算法版本可能不同。</p><div id="reference-table" class="table-wrap"></div></section>
+</section>
+<section id="errors" role="tabpanel" aria-labelledby="tab-errors" hidden><div class="error-toolbar"><h2>CWS 冻结错误案例</h2><div class="header-controls"><label for="error-category">错误类别</label><select id="error-category"><option value="">全部类别</option><option>OOV</option><option>Proper noun</option><option>Ambiguity</option><option>Number/date</option><option>English mixed</option><option>Other</option></select></div></div>
+<div id="error-list"></div>
+<div class="pagination"><button id="errors-prev" class="outline">上一页</button><span id="errors-page"></span><button id="errors-next" class="outline">下一页</button></div></section>
+<footer class="content-footer"><span id="active-run"></span><span>SIGHAN MSR · 七模型评测</span></footer>
+</div>
+</main>
+  <script type="module" src="static/js/layout.js"></script>
+  <script type="module" src="static/js/segmentation-page.js"></script>
+</body>
+</html>

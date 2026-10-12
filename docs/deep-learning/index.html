@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<base href="../">
+<script>window.NLPLAB_PAGE="/deep-learning";</script>
+<script src="static/js/static-runtime.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>深度学习与大模型 · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="stylesheet" href="static/css/lab.css">
+  <link rel="stylesheet" href="static/css/course-modules.css"><link rel="stylesheet" href="static/css/course-deep.css"><script defer src="static/vendor/echarts.min.js"></script>
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="./">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      
+      
+      <a href="./" class="nav-link " >
+        <span class="nav-number" aria-hidden="true"></span>首页
+      </a>
+      
+      <a href="segmentation/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">01</span>中文分词
+      </a>
+      
+      <a href="sequence-labeling/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">02</span>序列标注
+      </a>
+      
+      <a href="tagging/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">03</span>词性与命名实体
+      </a>
+      
+      <a href="information-extraction/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">04</span>信息抽取
+      </a>
+      
+      <a href="clustering/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">05</span>文本聚类
+      </a>
+      
+      <a href="classification/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">06</span>文本分类
+      </a>
+      
+      <a href="dependency-parsing/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">07</span>依存句法分析
+      </a>
+      
+      <a href="deep-learning/" class="nav-link active" aria-current="page">
+        <span class="nav-number" aria-hidden="true">08</span>深度学习与大模型
+      </a>
+      
+      <a href="integrated-analysis/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">09</span>综合分析
+      </a>
+      
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+<div class="cm-page deep-page">
+<header class="page-header cm-page-header"><div><span class="eyebrow">COURSE MODULE · 08</span><h1>深度学习与大模型</h1><p class="subtitle">真实张量与解码过程 · 冻结 BiLSTM、双向 BERT、本地生成模型</p></div><span class="cm-badge">本地 CPU · 只读推理</span></header>
+<div class="tabs" role="tablist" aria-label="深度学习与大模型功能">
+
+<button id="tab-bilstm" role="tab" aria-selected="true" aria-controls="bilstm" tabindex="0" data-tab="bilstm">BiLSTM-CRF</button>
+
+<button id="tab-transformer" role="tab" aria-selected="false" aria-controls="transformer" tabindex="-1" data-tab="transformer">Transformer</button>
+
+<button id="tab-llm" role="tab" aria-selected="false" aria-controls="llm" tabindex="-1" data-tab="llm">大语言模型</button>
+
+<button id="tab-extensions" role="tab" aria-selected="false" aria-controls="extensions" tabindex="-1" data-tab="extensions">扩展应用</button>
+
+</div>
+<div id="page-message" role="status" class="notice" hidden></div>
+<p id="deep-resources" class="cm-resource" role="status">正在检查本地资源…</p>
+
+<section id="bilstm" role="tabpanel" aria-labelledby="tab-bilstm" >
+
+<div class="deep-workflow" aria-label="当前模型处理路径"><span class="deep-workflow-label">处理路径</span><ol><li><span>1</span>字符</li><li><span>2</span>Embedding</li><li><span>3</span>BiLSTM</li><li><span>4</span>BMES emission</li><li><span>5</span>CRF 路径</li></ol></div>
+<div class="cm-workspace deep-workspace">
+<section class="cm-panel cm-controls"><span class="deep-panel-label">01 · 输入与控制</span><h2>BiLSTM-CRF</h2><p class="cm-note">字符上下文 → BMES emission → CRF 路径；沿用实验一冻结模型。</p>
+<form data-deep-form="bilstm"><label for="deep-input-bilstm">输入文本 <small>最多 30 字</small></label><textarea id="deep-input-bilstm" name="text" rows="5" maxlength="30" required>中国人民生活幸福</textarea>
+
+<button type="submit" class="cm-button primary">运行并查看过程</button></form>
+<p data-deep-status="bilstm" class="cm-status" role="status">尚未运行；点击按钮进行单篇诊断。</p><div data-deep-controls="bilstm"></div></section>
+<section class="cm-panel cm-main"><span class="deep-panel-label">02 · 真实模型过程</span><div data-deep-main="bilstm" class="cm-empty">运行后在此探索真实模型输出。切换 token、位置或 head 会同步更新相关视图。</div></section>
+<aside class="cm-panel cm-inspector" aria-label="当前对象"><span class="deep-panel-label">03 · 对象细节</span><div data-deep-inspector="bilstm"><h2>当前对象</h2><p class="cm-note">选择 token 或解码位置后查看实际数值与来源。</p></div></aside>
+</div>
+<details class="deep-record"><summary>冻结训练记录与模型边界</summary><p>本页不训练、不更新实验一指标。训练曲线只有实际记录的 train loss；缺失的 Validation loss 不补写。</p><div id="deep-history" class="deep-history"></div><a href="segmentation/#evaluation">实验一统一分词评价 →</a></details>
+
+
+
+</section>
+<section id="transformer" role="tabpanel" aria-labelledby="tab-transformer" hidden>
+
+<div class="deep-workflow" aria-label="当前模型处理路径"><span class="deep-workflow-label">处理路径</span><ol><li><span>1</span>WordPiece</li><li><span>2</span>Q / K / V</li><li><span>3</span>双向 Attention</li><li><span>4</span>MASK 候选</li></ol></div>
+<div class="cm-workspace deep-workspace">
+<section class="cm-panel cm-controls"><span class="deep-panel-label">01 · 输入与控制</span><h2>Transformer · BERT</h2><p class="cm-note">WordPiece → Q/K/V → 双向 attention → MASK 候选。不是生成式聊天模型。</p>
+<form data-deep-form="transformer"><label for="deep-input-transformer">输入文本 <small>最多 120 字</small></label><textarea id="deep-input-transformer" name="text" rows="5" maxlength="120" required>中国的首都是[MASK]京。</textarea>
+<p class="cm-note">使用 <code>[MASK]</code> 探索补全。最多 64 个 WordPiece，超限拒绝、不自动截断。</p>
+<button type="submit" class="cm-button primary">运行并查看过程</button></form>
+<p data-deep-status="transformer" class="cm-status" role="status">尚未运行；点击按钮进行单篇诊断。</p><div data-deep-controls="transformer"></div></section>
+<section class="cm-panel cm-main"><span class="deep-panel-label">02 · 真实模型过程</span><div data-deep-main="transformer" class="cm-empty">运行后在此探索真实模型输出。切换 token、位置或 head 会同步更新相关视图。</div></section>
+<aside class="cm-panel cm-inspector" aria-label="当前对象"><span class="deep-panel-label">03 · 对象细节</span><div data-deep-inspector="transformer"><h2>当前对象</h2><p class="cm-note">选择 token 或解码位置后查看实际数值与来源。</p></div></aside>
+</div>
+
+<p class="cm-note">attention 是当前输入下的权重分布，不是因果归因。MASK Softmax 是词表输出，不是答案正确率。</p>
+
+
+</section>
+<section id="llm" role="tabpanel" aria-labelledby="tab-llm" hidden>
+
+<div class="deep-workflow" aria-label="当前模型处理路径"><span class="deep-workflow-label">处理路径</span><ol><li><span>1</span>消息模板</li><li><span>2</span>Token IDs</li><li><span>3</span>自回归生成</li><li><span>4</span>Token 分布</li></ol></div>
+<div class="cm-workspace deep-workspace">
+<section class="cm-panel cm-controls"><span class="deep-panel-label">01 · 输入与控制</span><h2>大语言模型 · Qwen</h2><p class="cm-note">聊天模板 → token IDs → 实时流式解码。显示真实输出，不自动改写。</p>
+<form data-deep-form="llm"><label for="deep-input-llm">输入文本 <small>最多 500 字</small></label><textarea id="deep-input-llm" name="text" rows="5" maxlength="500" required>请用一句话解释什么是机器学习。</textarea>
+
+
+
+<p class="cm-note">输入最多 500 字；含系统消息和聊天模板后的总长度最多 512 token，超限拒绝、不截断。</p><label>生成预算<select name="max_new_tokens"><option>16</option><option selected>32</option><option>48</option><option>64</option></select></label><label class="deep-checkbox"><input type="checkbox" name="sampling">固定 seed=42 采样 <small>默认 greedy</small></label>
+<button type="submit" class="cm-button primary">运行并查看过程</button><button type="button" class="outline" data-llm-stop hidden>停止生成</button></form>
+<p data-deep-status="llm" class="cm-status" role="status">尚未运行；点击按钮进行单篇诊断。</p><div data-deep-controls="llm"></div></section>
+<section class="cm-panel cm-main"><span class="deep-panel-label">02 · 真实模型过程</span><div data-deep-main="llm" class="cm-empty">运行后在此探索真实模型输出。切换 token、位置或 head 会同步更新相关视图。</div></section>
+<aside class="cm-panel cm-inspector" aria-label="当前对象"><span class="deep-panel-label">03 · 对象细节</span><div data-deep-inspector="llm"><h2>当前对象</h2><p class="cm-note">选择 token 或解码位置后查看实际数值与来源。</p></div></aside>
+</div>
+
+
+<p class="cm-note">Qwen2.5-0.5B-Instruct 本地模型用于观察自回归 next-token generation。</p>
+
+</section>
+<section id="extensions" role="tabpanel" aria-labelledby="tab-extensions" hidden>
+
+<div class="deep-workflow" aria-label="当前模型处理路径"><span class="deep-workflow-label">处理路径</span><ol><li><span>1</span>原始文本</li><li><span>2</span>任务提示</li><li><span>3</span>本地生成</li><li><span>4</span>输出观察</li></ol></div>
+<div class="cm-workspace deep-workspace">
+<section class="cm-panel cm-controls"><span class="deep-panel-label">01 · 输入与控制</span><h2>扩展应用</h2><p class="cm-note">同一本地生成模型：摘要、结构化抽取与提示词边界诊断。</p>
+<form data-deep-form="extensions"><label for="deep-input-extensions">输入文本 <small>最多 500 字</small></label><textarea id="deep-input-extensions" name="text" rows="5" maxlength="500" required>记者张明在北京报道：城市图书馆周六开放新的阅览室。</textarea>
+
+
+<label>任务<select name="task"><option value="summary">中文摘要</option><option value="extract">结构化抽取 / JSON</option><option value="boundary">提示词边界实验</option></select></label><button type="button" class="outline" data-boundary-example>填入当前任务示例</button>
+<p class="cm-note">输入最多 500 字；含系统消息和聊天模板后的总长度最多 512 token，超限拒绝、不截断。</p><label>生成预算<select name="max_new_tokens"><option>16</option><option selected>32</option><option>48</option><option>64</option></select></label><label class="deep-checkbox"><input type="checkbox" name="sampling">固定 seed=42 采样 <small>默认 greedy</small></label>
+<button type="submit" class="cm-button primary">运行并查看过程</button><button type="button" class="outline" data-boundary-compare>基础 / 边界提示 A/B</button><p class="cm-note">将同一文本分别交给基础摘要提示与现有边界提示，各请求一次；不自动重试。</p></form>
+<p data-deep-status="extensions" class="cm-status" role="status">尚未运行；点击按钮进行单篇诊断。</p><div data-deep-controls="extensions"></div></section>
+<section class="cm-panel cm-main"><span class="deep-panel-label">02 · 真实模型过程</span><div data-deep-main="extensions" class="cm-empty">运行后在此探索真实模型输出。切换 token、位置或 head 会同步更新相关视图。</div></section>
+<aside class="cm-panel cm-inspector" aria-label="当前对象"><span class="deep-panel-label">03 · 对象细节</span><div data-deep-inspector="extensions"><h2>当前对象</h2><p class="cm-note">选择 token 或解码位置后查看实际数值与来源。</p></div></aside>
+</div>
+
+
+<p class="cm-note">Qwen2.5-0.5B-Instruct 本地模型用于观察自回归 next-token generation。</p>
+<details class="deep-record"><summary>模型能力与任务协议</summary><div class="cm-scroll"><table><thead><tr><th>模型</th><th>输入 / 输出</th><th>可核验过程</th></tr></thead><tbody><tr><td>BiLSTM-CRF</td><td>字符 → BMES 分词</td><td>emission、转移、Viterbi 与配分函数</td></tr><tr><td>BERT</td><td>双向上下文 → MASK 候选</td><td>QK 缩放、attention、真实 logits</td></tr><tr><td>Qwen</td><td>消息 → 自回归 token</td><td>聊天模板、生成分布、EOS / 预算</td></tr></tbody></table></div><p>任务切换调整提示词；页面展示摘要、结构化输出及不同提示的生成结果。</p></details>
+</section>
+<footer class="content-footer">独立课程诊断 · Exp1 / Exp2 / Exp3 冻结资产只读 · 无远程 provider</footer>
+</div>
+</main>
+  <script type="module" src="static/js/layout.js"></script>
+  <script type="module" src="static/js/course-deep.js"></script>
+</body>
+</html>

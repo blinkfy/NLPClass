@@ -475,3 +475,9 @@ toy 的训练/测试不同，结果来自实际训练、预测和计分，始终
 冻结收尾验证使用 `pytest --verify-only`，在训练/正式 benchmark/scorer 调用前跳过相关历史测试；无需重训 toy 模型。
 
 最终收尾验收：全项目 `pytest --verify-only` 109 passed / 35 skipped，训练与正式 benchmark/scorer 在调用前阻止；Ruff check、format（87 文件）、两个环境 pip check 和 Chromium 1440/390 验收通过。原有 264 与拓展 90 冻结文件保持 unchanged。
+
+## GitHub Pages 静态版
+
+执行 `.\.venv\python.exe scripts/export_github_pages.py`，增量生成并发布到 `docs/`，无需压缩包或自定义工作流。静态版包含全部课程页面、冻结实验数据，以及浏览器端 HMM / 最长匹配、C0–C3 分类及 BiLSTM-CRF 推理；尚未迁移的神经模型实时推理仍使用本地完整版。
+
+部署说明见 [GitHub Pages 静态版](docs/github_pages.md)，改动审核与功能边界见 [静态部署改动审核](docs/static_export_audit.md)。

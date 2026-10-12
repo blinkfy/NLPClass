@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<base href="../../">
+<script>window.NLPLAB_PAGE="/annotation/sequence";</script>
+<script src="static/js/static-runtime.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>人工 Sequence Gold · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="stylesheet" href="static/css/lab.css">
+  <link rel="stylesheet" href="static/css/annotation.css">
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="./">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      
+      
+      <a href="./" class="nav-link " >
+        <span class="nav-number" aria-hidden="true"></span>首页
+      </a>
+      
+      <a href="segmentation/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">01</span>中文分词
+      </a>
+      
+      <a href="sequence-labeling/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">02</span>序列标注
+      </a>
+      
+      <a href="tagging/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">03</span>词性与命名实体
+      </a>
+      
+      <a href="information-extraction/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">04</span>信息抽取
+      </a>
+      
+      <a href="clustering/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">05</span>文本聚类
+      </a>
+      
+      <a href="classification/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">06</span>文本分类
+      </a>
+      
+      <a href="dependency-parsing/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">07</span>依存句法分析
+      </a>
+      
+      <a href="deep-learning/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">08</span>深度学习与大模型
+      </a>
+      
+      <a href="integrated-analysis/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">09</span>综合分析
+      </a>
+      
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+<header class="page-header"><div><h1>人工 Sequence Gold</h1><p class="subtitle">原文可追溯 · Unicode 字符边界 · 人工确认后导出</p></div></header>
+<div id="annotation-error" class="notice" role="alert" hidden></div>
+<p id="annotation-progress" aria-live="polite">正在读取候选队列…</p>
+<div class="annotation-layout">
+  <section class="panel annotation-queue"><h2>候选队列</h2>
+    <label for="filter-label">主题</label><select id="filter-label"><option value="">全部主题</option></select>
+    <label for="filter-source">体裁</label><select id="filter-source"><option value="">全部体裁</option></select>
+    <label for="filter-status">状态</label><select id="filter-status"><option value="">全部状态</option><option>pending</option><option>in_progress</option><option>done</option><option>reviewed</option></select>
+    <p id="queue-count" class="muted"></p><div id="annotation-queue"></div>
+  </section>
+  <div id="annotation-editor" hidden>
+    <section class="panel"><div class="annotation-actions"><button id="previous-sample" class="outline">上一条</button><button id="next-sample" class="outline">下一条</button><span id="save-state" role="status"></span><button id="retry-save" class="outline">保存 / 重试</button></div>
+      <h2 id="sample-heading"></h2><p id="sample-metadata" class="muted"></p><a id="source-link" target="_blank" rel="noopener noreferrer"></a>
+      <p id="original-text" class="annotation-original"></p>
+      <h3>分词边界</h3><p class="muted">点击字符间的竖线切换边界。空白也属于原文；下标均为 code point。无边界时请人工确认整体为一词。</p>
+      <div id="cws-characters" class="annotation-characters" aria-label="分词字符边界"></div>
+      <button id="confirm-cws" class="outline">确认当前分词</button>
+      <p><strong>Gold tokens：</strong><span id="gold-tokens">未标注</span></p><p><strong>派生 BMES：</strong><span id="gold-bmes">未标注</span></p>
+    </section>
+    <section class="panel"><h2>命名实体</h2><p class="muted">点击起点和终点字符，或拖选连续字符；范围为 [start,end)，不允许重叠。</p>
+      <div id="ner-characters" class="annotation-characters" aria-label="实体字符选择"></div>
+      <div class="entity-controls"><label>起点 <input id="entity-start" type="number" min="0"></label><label>终点（排他） <input id="entity-end" type="number" min="1"></label>
+        <label>类型 <select id="entity-type"><option>PER</option><option>LOC</option><option>ORG</option></select></label><button id="save-entity">添加实体</button><button id="cancel-entity" class="outline">取消选择</button></div>
+      <p id="entity-selection" class="muted"></p><p id="ner-confirmation"></p><div id="entity-list"></div><button id="no-entities" class="outline">人工确认无实体（清空列表）</button>
+    </section>
+    <section class="panel"><h2>记录与复核</h2><label for="annotation-notes">样本备注（不会修改全局规范）</label><textarea id="annotation-notes" rows="3"></textarea>
+      <div class="annotation-actions"><button id="resume-annotation" class="outline">继续编辑</button><button id="mark-done">标记 done</button></div>
+      <label class="review-check"><input id="review-confirm" type="checkbox">我已完成第二遍复核，确认分词、实体与来源正确</label>
+      <button id="mark-reviewed">确认 reviewed</button><p id="review-count" class="muted"></p>
+    </section>
+    <details id="reference-suggestions" class="panel"><summary>参考建议，非 Gold（默认隐藏）</summary><p>建议只读展示，不会写入分词或实体 Gold。模型 unavailable 不影响人工标注。</p><pre id="suggestion-content">展开后加载参考建议。</pre></details>
+  </div>
+</div>
+</main>
+  <script type="module" src="static/js/layout.js"></script>
+  <script type="module" src="static/js/annotation.js"></script>
+</body>
+</html>

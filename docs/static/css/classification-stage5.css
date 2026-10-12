@@ -1,0 +1,26 @@
+#classification-stage5-panel .section-heading,
+#classification-stage5-errors .section-heading { align-items:flex-start; gap:18px; }
+#classification-stage5-panel .classification-table th,
+#classification-stage5-panel .classification-table td { white-space:nowrap; }
+#classification-stage5-panel pre,
+#classification-stage5-errors pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; }
+.classification-stage5-filters { display:flex; flex-wrap:wrap; gap:10px 16px; }
+.classification-stage5-filters label { display:grid; gap:5px; font-size:13px; color:var(--muted); }
+.classification-stage5-flip { border-top:1px solid #e0e8ea; padding:16px 0; }
+.classification-stage5-flip summary { cursor:pointer; font-weight:600; line-height:1.8; overflow-wrap:anywhere; }
+.classification-stage5-flip p { line-height:1.9; white-space:pre-wrap; }
+.classification-stage5-flip li { line-height:1.8; overflow-wrap:anywhere; }
+body[data-stage5-analysis="true"] #comparison > :not(#classification-stage5-panel),
+body[data-stage5-analysis="true"] #errors > :not(#classification-stage5-errors) { display:none !important; }
+body[data-stage5-analysis="true"] #data,
+body[data-stage5-analysis="true"] #prediction { display:none !important; }
+body[data-stage5-analysis="true"] .tabs button:disabled { opacity:.45; cursor:default; }
+body[data-stage5-analysis="true"] #classification-run,
+body[data-stage5-analysis="true"] #classification-model { opacity:.7; }
+@media(max-width:650px) {
+  #classification-stage5-panel .section-heading,
+  #classification-stage5-errors .section-heading { display:block; }
+  .classification-stage5-filters { margin-top:12px; }
+  .classification-stage5-filters label,
+  .classification-stage5-filters select { width:100%; }
+}

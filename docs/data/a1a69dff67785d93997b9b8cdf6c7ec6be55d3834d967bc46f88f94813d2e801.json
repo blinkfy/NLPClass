@@ -1,0 +1,1 @@
+{"replicates":20000,"seed":606,"method":"class-stratified paired percentile","confidence":0.95,"quantiles":[0.025,0.975],"percentile_method":"linear","per_class_draws":18,"replacement":true,"bit_generator":"PCG64","shared_indices":"one index matrix reused for all four models and three pairs"}

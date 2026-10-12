@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<base href="./">
+<script>window.NLPLAB_PAGE="/";</script>
+<script src="static/js/static-runtime.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>首页 · NLPLab</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+  <link rel="stylesheet" href="static/css/lab.css">
+  
+</head>
+<body>
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="关闭导航" hidden></button>
+  <aside class="sidebar" id="site-sidebar">
+    <a class="brand" href="./">NLPLab<span>自然语言处理实验室</span></a>
+    <nav aria-label="主导航">
+      
+      
+      <a href="./" class="nav-link active" aria-current="page">
+        <span class="nav-number" aria-hidden="true"></span>首页
+      </a>
+      
+      <a href="segmentation/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">01</span>中文分词
+      </a>
+      
+      <a href="sequence-labeling/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">02</span>序列标注
+      </a>
+      
+      <a href="tagging/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">03</span>词性与命名实体
+      </a>
+      
+      <a href="information-extraction/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">04</span>信息抽取
+      </a>
+      
+      <a href="clustering/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">05</span>文本聚类
+      </a>
+      
+      <a href="classification/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">06</span>文本分类
+      </a>
+      
+      <a href="dependency-parsing/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">07</span>依存句法分析
+      </a>
+      
+      <a href="deep-learning/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">08</span>深度学习与大模型
+      </a>
+      
+      <a href="integrated-analysis/" class="nav-link " >
+        <span class="nav-number" aria-hidden="true">09</span>综合分析
+      </a>
+      
+    </nav>
+    <div class="sidebar-footer">全课程 · 一个实验平台</div>
+  </aside>
+  <main class="main"><aside class="static-edition-note" role="note" style="margin:0 0 16px;padding:12px 16px;border:1px solid #bfd9d9;border-radius:10px;background:#f2fafa"><strong>GitHub Pages 静态版</strong> · 冻结实验数据与图表可直接浏览；分词、C0–C3 分类及 BiLSTM-CRF 在浏览器运算。其余模型保留说明与实验记录。<a href="DEPLOYMENT.md">部署与功能说明</a></aside><div class="module-topbar"><button id="drawer-toggle" class="outline" aria-controls="site-sidebar" aria-expanded="false">☰ 导航</button></div>
+<header class="home-hero">
+  <div class="home-hero-copy">
+    <span class="eyebrow"><span class="eyebrow-mark" aria-hidden="true">N</span> NLPLab · 自然语言处理实验平台</span>
+    <h1>自然语言处理<span class="mobile-title-break">实验平台</span></h1>
+    <p class="home-lead">从字符、词语到结构与语义理解</p>
+    <p class="home-intro">围绕真实语料与可复现结果，观察不同方法的输入、运算过程和输出。</p>
+  </div>
+  <div class="home-hero-visual" aria-label="自然语言处理能力：字符、分词、词性、命名实体；文本分类、聚类与信息抽取；句法、关系与语义">
+    <div class="hero-layer hero-layer-input"><small>输入与表示</small><div><span>字符</span><i>→</i><span>分词</span><i>→</i><span>词性</span><i>→</i><span>命名实体</span></div></div>
+    <div class="hero-layer hero-layer-structure"><small>文本分析</small><div><span>文本</span><i>→</i><span>分类</span><i>→</i><span>聚类</span><i>→</i><span>信息抽取</span></div></div>
+    <div class="hero-layer hero-layer-meaning"><small>结构与语义</small><div><span>句法</span><i>→</i><span>关系</span><i>→</i><span>语义</span></div></div>
+    <div class="hero-connection" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></div>
+  </div>
+</header>
+<div class="knowledge-line" aria-label="课程能力：字符、词、标签、实体、文本、句法、语义"><span>字符</span><b aria-hidden="true">→</b><span>词</span><b aria-hidden="true">→</b><span>标签</span><b aria-hidden="true">→</b><span>实体</span><b aria-hidden="true">→</b><span>文本</span><b aria-hidden="true">→</b><span>句法</span><b aria-hidden="true">→</b><span>语义</span></div>
+<section class="home-section-heading"><div><span class="eyebrow">COURSE WORKBENCH</span><h2>课程能力模块</h2><p class="muted">进入任务模块完成分析与评价，在模型模块查看原理与过程。</p></div><span class="home-section-count">09 个模块</span></section>
+<div class="module-cards">
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">词</span><span class="module-card-index">01</span></div>
+  <h2><a href="segmentation/">中文分词</a></h2><p>五模型交互、算法过程与七模型 MSR 统一评测。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">标准评测已接入</span><a class="module-card-link" href="segmentation/" aria-label="进入中文分词">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">序</span><span class="module-card-index">02</span></div>
+  <h2><a href="sequence-labeling/">序列标注</a></h2><p>HMM、平均结构化感知机与独立线性链 CRF 的 BMES 过程。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">三种序列方法已接入</span><a class="module-card-link" href="sequence-labeling/" aria-label="进入序列标注">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">实</span><span class="module-card-index">03</span></div>
+  <h2><a href="tagging/">词性与命名实体</a></h2><p>HanLP POS 交互；MSRA-200 NER exact-span 评价。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">POS 与 NER 已接入</span><a class="module-card-link" href="tagging/" aria-label="进入词性与命名实体">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">抽</span><span class="module-card-index">04</span></div>
+  <h2><a href="information-extraction/">信息抽取</a></h2><p>现有 NER 与显式规则抽取实体关系，提供原文证据与 SPO。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">课程补充实验已接入</span><a class="module-card-link" href="information-extraction/" aria-label="进入信息抽取">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-data">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">聚</span><span class="module-card-index">05</span></div>
+  <h2><a href="clustering/">文本聚类</a></h2><p>THUCNews 五类各 120 条，共 600 篇全文。</p>
+  <div class="module-card-bottom"><span class="status-chip status-data">K-means · 实验工作台</span><a class="module-card-link" href="clustering/" aria-label="进入文本聚类">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">类</span><span class="module-card-index">06</span></div>
+  <h2><a href="classification/">文本分类</a></h2><p>固定 split · C0～C3：NB / LinearSVC / TextCNN，并含 Stage4～6 扩展分析。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">四模型已完成 · 可解释预测与统计分析</span><a class="module-card-link" href="classification/" aria-label="进入文本分类">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">依</span><span class="module-card-index">07</span></div>
+  <h2><a href="dependency-parsing/">依存句法分析</a></h2><p>真实依存树、biaffine head/relation 打分、CoNLL-U 与教学评测。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">真实模型过程已接入</span><a class="module-card-link" href="dependency-parsing/" aria-label="进入依存句法分析">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">深</span><span class="module-card-index">08</span></div>
+  <h2><a href="deep-learning/">深度学习与大模型</a></h2><p>BiLSTM-CRF、BERT/Transformer 与本地 Qwen 的真实推理过程。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">三类现代模型过程已接入</span><a class="module-card-link" href="deep-learning/" aria-label="进入深度学习与大模型">↗</a></div>
+</article>
+
+<article class="panel module-card module-card-ready">
+  <div class="module-card-top"><span class="module-icon" aria-hidden="true">综</span><span class="module-card-index">09</span></div>
+  <h2><a href="integrated-analysis/">综合分析</a></h2><p>Linked NLP Workspace：文档、语料、跨任务关联与应用评测连续探索。</p>
+  <div class="module-card-bottom"><span class="status-chip status-ready">实验四综合应用已完成</span><a class="module-card-link" href="integrated-analysis/" aria-label="进入综合分析">↗</a></div>
+</article>
+
+</div>
+<section class="panel preparation"><h2>评测数据</h2><p>中文分词评测使用 SIGHAN MSR；命名实体评测使用 MSRA-200。</p><p class="muted">支持自建语料与人工标注。<a href="annotation/sequence/">人工标注工具</a></p></section>
+</main>
+  <script type="module" src="static/js/layout.js"></script>
+  
+</body>
+</html>
